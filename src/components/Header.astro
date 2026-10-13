@@ -1,0 +1,45 @@
+<header class="site-header">
+  <div class="site-header__inner">
+    <div class="site-header__left">
+      <!-- Bouton menu (orange). Son action n'est pas encore définie. -->
+      <button class="menu-button" type="button" aria-label="Ouvrir le menu">
+        <span class="menu-button__bar"></span>
+        <span class="menu-button__bar"></span>
+        <span class="menu-button__bar"></span>
+      </button>
+      <a class="brand" href="/">
+        <span class="brand__name">Info VAE</span>
+        <span class="brand__tagline">- c'est plus simple qu'il n'y paraît !</span>
+      </a>
+    </div>
+
+    <!-- Recherche : champ d'affichage uniquement pour l'instant (pas encore fonctionnelle) -->
+    <form class="search" role="search" onsubmit="return false">
+      <input class="search__input" type="search" name="q" placeholder="Rechercher..." aria-label="Rechercher sur le site" />
+      <svg class="search__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="11" cy="11" r="8"></circle>
+        <path d="m21 21-4.3-4.3"></path>
+      </svg>
+    </form>
+
+    <div class="site-header__actions">
+      <!-- Actions à définir : « Ressources » et « Contact » pointent vers « # » pour l'instant -->
+      <button class="header-action" type="button">
+        <span class="header-action__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </span>
+        <span>Ressources</span>
+      </button>
+      <a class="header-action" href="#">
+        <span class="header-action__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+          </svg>
+        </span>
+        <span>Contact</span>
+      </a>
+    </div>
+  </div>
+</header>

@@ -1,0 +1,48 @@
+/* ==========================================================================
+   Section héro : dégradé horizontal vert-bleu → bleu, hauteur 272 px.
+   Décomposition mesurée : 48 px de marge haute + titre 40 px + 16 px
+   + texte 2 lignes de 28 px + 24 px + boutons 40 px + 48 px de marge basse.
+   ========================================================================== */
+
+.hero {
+  padding-block: 48px;
+  background: var(--hero-gradient);
+  color: var(--color-white);
+}
+
+.hero__title {
+  margin: 0 0 16px;
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 40px;
+}
+
+.hero__text {
+  max-width: 768px;
+  margin: 0 0 24px;
+  font-size: 18px;
+  line-height: 28px;
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+/* --- Adaptation mobile --- */
+@media (max-width: 640px) {
+  .hero {
+    padding-block: 32px;
+  }
+
+  .hero__title {
+    font-size: 28px;
+    line-height: 36px;
+  }
+
+  .hero__text {
+    font-size: 16px;
+    line-height: 24px;
+  }
+}

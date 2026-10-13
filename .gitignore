@@ -1,0 +1,20 @@
+# Dépendances et fichiers générés
+node_modules/
+dist/
+.astro/
+
+# Secrets : ne jamais versionner (clés API, identifiants Google, etc.)
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+credentials*.json
+service-account*.json
+
+# Fichiers système / éditeur
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+npm-debug.log*

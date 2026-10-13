@@ -1,0 +1,164 @@
+/* ==========================================================================
+   En-tête : [bouton menu + logo]   [recherche]   [Ressources + Contact]
+   Référence : hauteur 76 px + 1 px de bordure, marges latérales de 16 px,
+   trois blocs répartis avec `justify-content: space-between`.
+   ========================================================================== */
+
+.site-header {
+  background: var(--color-white);
+  border-bottom: 1px solid var(--color-border-header);
+}
+
+.site-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 76px;
+  padding-inline: var(--page-gutter);
+}
+
+/* --- Bloc de gauche : bouton menu + nom du site --- */
+.site-header__left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: none;
+}
+
+.menu-button {
+  display: grid;
+  place-content: center;
+  gap: 4px;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border: 0;
+  border-radius: 8px;
+  background: var(--color-accent);
+  cursor: pointer;
+}
+
+/* Les trois barres blanches du bouton menu */
+.menu-button__bar {
+  display: block;
+  width: 26px;
+  height: 2.5px;
+  border-radius: 2px;
+  background: var(--color-white);
+}
+
+.brand {
+  display: flex;
+  flex-direction: column;
+  color: inherit;
+  text-decoration: none;
+}
+
+.brand__name {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 28px;
+  color: var(--color-text-strong);
+}
+
+.brand__tagline {
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--color-text-muted);
+}
+
+/* --- Bloc central : recherche (448 px de large maximum) --- */
+.search {
+  position: relative;
+  flex: 0 1 448px;
+  min-width: 0;
+}
+
+.search__input {
+  display: block;
+  width: 100%;
+  height: 40px;
+  padding: 0 44px 0 12px;
+  border: 1px solid var(--color-border-input);
+  border-radius: 6px;
+  background: var(--color-white);
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--color-text-strong);
+}
+
+.search__input::placeholder {
+  color: var(--color-placeholder);
+  opacity: 1;
+}
+
+.search__icon {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  width: 20px;
+  height: 20px;
+  transform: translateY(-50%);
+  color: var(--color-text-muted);
+  pointer-events: none;
+}
+
+/* --- Bloc de droite : boutons « Ressources » et « Contact » --- */
+.site-header__actions {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  flex: none;
+}
+
+.header-action {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-family: inherit;
+  font-size: 11px;
+  line-height: 16px;
+  color: var(--color-text-icon);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.header-action__icon {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: var(--color-icon-bg);
+}
+
+.header-action__icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* --- Adaptation tablette / mobile --- */
+@media (max-width: 720px) {
+  .site-header__inner {
+    flex-wrap: wrap;
+    padding-block: 12px;
+  }
+
+  /* La recherche passe sur sa propre ligne, sous le logo et les boutons */
+  .search {
+    order: 3;
+    flex: 1 1 100%;
+  }
+}
+
+@media (max-width: 520px) {
+  /* Le slogan est masqué sur très petit écran pour éviter de déborder */
+  .brand__tagline {
+    display: none;
+  }
+}

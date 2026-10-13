@@ -1,0 +1,35 @@
+/* ==========================================================================
+   Barre de navigation : bandeau vert-bleu de 44 px, liens blancs de 14 px
+   espacés de 24 px, alignés à gauche avec 16 px de marge.
+   ========================================================================== */
+
+.main-nav {
+  background: var(--color-primary);
+}
+
+.main-nav__list {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  min-height: var(--nav-height);
+  margin: 0;
+  padding: 0 var(--page-gutter);
+  list-style: none;
+  /* Sur petit écran, les liens défilent horizontalement au lieu de passer à la ligne.
+     (Cet `overflow` ne concerne que la barre de nav, pas la carte sticky.) */
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.main-nav__link {
+  display: block;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--color-white);
+  text-decoration: none;
+}
+
+/* Survol : non visible sur la capture, soulignement discret par défaut (à ajuster) */
+.main-nav__link:hover {
+  text-decoration: underline;
+}

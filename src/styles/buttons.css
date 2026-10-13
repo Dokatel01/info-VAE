@@ -1,0 +1,30 @@
+/* Boutons réutilisables sur tout le site.
+   Mesures relevées sur la référence : hauteur 40 px, marges latérales 24 px,
+   coins arrondis 6 px, texte 16 px en demi-gras. */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 24px;
+  border: 0;
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Bouton blanc, texte vert-bleu (ex. « Découvrir la VAE ») */
+.btn--light {
+  background: var(--color-white);
+  color: var(--color-primary);
+}
+
+/* Bouton orange, texte blanc (ex. « Suis-je éligible ? ») */
+.btn--accent {
+  background: var(--color-accent);
+  color: var(--color-white);
+}

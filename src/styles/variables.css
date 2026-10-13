@@ -1,0 +1,51 @@
+/* ==========================================================================
+   Variables globales Info VAE
+   Pour changer une couleur ou une taille du site, modifiez-la ICI.
+   Les valeurs ont été relevées pixel par pixel sur la capture de référence
+   (desktop, 1366 px de large).
+   ========================================================================== */
+
+:root {
+  /* --- Couleurs principales --- */
+  --color-primary: #046a7a;        /* vert-bleu : barre de navigation, boutons, pied de page */
+  --color-accent: #ff8c00;         /* orange : bouton menu, bouton « Suis-je éligible ? » */
+  --color-blue: #2563eb;           /* bleu de fin du dégradé du héro */
+  --color-white: #ffffff;
+
+  /* --- Couleurs de texte --- */
+  --color-text-strong: #333333;    /* titre « Info VAE » */
+  --color-text-muted: #6b7280;     /* slogan, icône de recherche */
+  --color-text-icon: #374151;      /* icônes et libellés « Ressources » / « Contact » */
+  --color-placeholder: #64748b;    /* texte « Rechercher... » */
+
+  /* --- Fonds et bordures --- */
+  --color-icon-bg: #e0f2f7;        /* fond bleu clair des boutons-icônes */
+  --color-border-header: #e2e8f0;  /* trait sous l'en-tête */
+  --color-border-input: #d1d5db;   /* bordure du champ de recherche */
+
+  /* --- Dégradé du héro (horizontal : gauche → droite) --- */
+  --hero-gradient: linear-gradient(to right, var(--color-primary), var(--color-blue));
+
+  /* --- Typographie ---
+     La référence s'affiche en « Segoe UI » sur Windows, c'est-à-dire la police
+     système. On utilise donc la pile de polices système : chaque ordinateur
+     affiche sa propre police, sans rien télécharger. */
+  --font-sans: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+
+  /* --- Mise en page --- */
+  --container-width: 1120px;       /* largeur du contenu centré (héro, sections) */
+  --page-gutter: 16px;             /* marge latérale minimale */
+
+  /* --- Hauteurs (utiles pour le comportement sticky de la carte conseillers) --- */
+  --header-height: 77px;           /* 76 px + 1 px de bordure */
+  --nav-height: 44px;
+
+  /* --- Décalage « sticky » de la carte conseillers ---
+     On NE SAIT PAS encore si l'en-tête et la barre de navigation restent fixés
+     au défilement sur le site de référence (une capture fixe ne le montre pas).
+     Par défaut, la carte se cale donc près du haut de la fenêtre.
+     Si l'en-tête + la nav sont un jour rendus fixes, remplacer par :
+       calc(var(--header-height) + var(--nav-height) + var(--sticky-gap))   */
+  --sticky-gap: 24px;
+  --sticky-offset: var(--sticky-gap);
+}

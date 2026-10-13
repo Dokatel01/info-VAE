@@ -1,0 +1,44 @@
+/* ==========================================================================
+   Styles de base
+   IMPORTANT (sticky) : ne jamais mettre `overflow: hidden | auto | scroll`
+   sur <html>, <body>, <main> ou un conteneur de section : cela désactiverait
+   le `position: sticky` de la carte conseillers.
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--color-text-strong);
+  background: var(--color-white);
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* Conteneur centré : 1120 px de large sur grand écran, 16 px de marge sur petit écran */
+.container {
+  width: min(100% - 2 * var(--page-gutter), var(--container-width));
+  margin-inline: auto;
+}
+
+/* Contour visible au clavier (accessibilité) */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}

@@ -1,0 +1,30 @@
+---
+// Gabarit commun à toutes les pages : en-tête, navigation, puis le contenu de la page.
+import '../styles/variables.css';
+import '../styles/base.css';
+import '../styles/buttons.css';
+import '../styles/header.css';
+import '../styles/nav.css';
+import '../styles/hero.css';
+import Header from '../components/Header.astro';
+import NavBar from '../components/NavBar.astro';
+
+const { title, description } = Astro.props;
+---
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+  </head>
+  <body>
+    <Header />
+    <NavBar />
+    <main>
+      <slot />
+    </main>
+  </body>
+</html>
