@@ -1,0 +1,51 @@
+---
+// Pied de page : 3 colonnes (présentation, liens rapides, contact).
+import '../styles/footer.css';
+import Icon from './Icon.astro';
+
+const year = new Date().getFullYear();
+
+// À CONNECTER PLUS TARD : seule l'adresse « Combien coûte la VAE » est connue ; les autres sont à définir.
+const quickLinks = [
+  { label: "Qu'est-ce que la VAE", href: '#' },
+  { label: 'Combien coûte la VAE', href: '/combien-coute-la-vae' },
+  { label: 'Réussir sa VAE', href: '#' },
+  { label: 'Aides financières', href: '#' },
+  { label: 'FAQ', href: '#' },
+];
+---
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <div class="site-footer__col">
+      <h2 class="site-footer__heading">Info VAE</h2>
+      <p class="site-footer__text">
+        Plateforme d'information sur la Validation des Acquis de l'Expérience. Nous vous accompagnons dans toutes vos démarches.
+      </p>
+      <p class="site-footer__text site-footer__copyright">&copy;&nbsp; {year} Info VAE - Tous droits réservés</p>
+    </div>
+
+    <nav class="site-footer__col" aria-label="Liens rapides">
+      <h2 class="site-footer__heading">Liens rapides</h2>
+      <ul class="site-footer__list">
+        {quickLinks.map((link) => (
+          <li><a class="site-footer__link" href={link.href}>{link.label}</a></li>
+        ))}
+      </ul>
+    </nav>
+
+    <div class="site-footer__col">
+      <h2 class="site-footer__heading">Contact</h2>
+      <ul class="site-footer__list">
+        <li class="site-footer__contact-row">
+          <Icon name="phone" size={16} />
+          <a class="site-footer__link" href="tel:0891033018">0 891 033 018</a>
+        </li>
+        <li>Du lundi au vendredi de 8h à 18h</li>
+        <li class="site-footer__contact-row">
+          <Icon name="mail" size={16} />
+          <a class="site-footer__link" href="mailto:contact@info-vae.fr">contact@info-vae.fr</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,196 @@
+/* ==========================================================================
+   Section « Info-VAE » + formulaire d'inscription
+   Référence (1366 px) : fond vert-bleu (dans la continuité du bandeau d'appel),
+   marge verticale 64 px, 2 colonnes égales avec 40 px d'espace, colonnes centrées
+   verticalement. Carte du formulaire : 540 px de large, marge intérieure 32 px.
+   ========================================================================== */
+
+.info-session {
+  padding-block: 64px;
+  background: var(--color-primary);
+  color: var(--color-white);
+}
+
+.info-session__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: center;
+}
+
+/* --- Colonne de gauche --- */
+.info-session__thumb {
+  display: block;
+  width: 96px;
+  height: 54px;
+  margin-bottom: 16px;
+  border-radius: 4px;
+}
+
+.info-session__title {
+  margin: 0 0 24px;
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 45px;
+}
+
+.info-session__text {
+  margin: 0 0 8px;
+  font-size: 20px;
+  line-height: 28px;
+}
+
+.info-session__text strong {
+  font-weight: 700;
+}
+
+/* Les deux carrés d'icônes (visio et calendrier) : 80 × 80 px, fond blanc à 10 % */
+.info-session__icons {
+  display: flex;
+  gap: 16px;
+  margin: 24px 0; /* la marge du bas fait partie de la mise en page de la référence */
+}
+
+.info-session__icon {
+  display: grid;
+  place-items: center;
+  width: 80px;
+  height: 80px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* --- Colonne de droite : carte du formulaire --- */
+.info-session__form-wrap {
+  position: relative;
+}
+
+.info-session__form {
+  position: relative; /* la carte passe au-dessus du cercle jaune */
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 32px;
+  border-radius: 8px;
+  background: var(--color-white);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+}
+
+.info-session__input {
+  display: block;
+  width: 100%;
+  height: 40px;
+  padding: 0 12px;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  background: var(--color-white);
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--color-text-strong);
+}
+
+.info-session__input::placeholder {
+  color: var(--color-placeholder);
+  opacity: 1;
+}
+
+.info-session__submit {
+  width: 100%;
+  height: 56px;
+  border: 0;
+  border-radius: 6px;
+  background: var(--color-yellow);
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 600;
+  color: #f8fafc;
+  cursor: pointer;
+}
+
+.info-session__submit:hover {
+  filter: brightness(0.95);
+}
+
+.info-session__status {
+  margin: 0;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--color-text-secondary);
+}
+
+/* Étiquettes des champs : invisibles à l'écran (la référence n'affiche que des
+   textes d'exemple dans les champs), mais lues par les lecteurs d'écran. */
+.info-session__label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* --- Cercles décoratifs (placés par rapport à la carte) --- */
+.info-session__circle {
+  position: absolute;
+  border-radius: 50%;
+}
+
+.info-session__circle--cream {
+  top: -96px;
+  right: 0;
+  width: 64px;
+  height: 64px;
+  background: var(--color-cream);
+}
+
+.info-session__circle--yellow {
+  right: 40px;
+  bottom: -64px;
+  width: 96px;
+  height: 96px;
+  background: var(--color-yellow);
+}
+
+/* --- Tablette et mobile : une seule colonne --- */
+@media (max-width: 900px) {
+  .info-session__grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .info-session__title {
+    font-size: 30px;
+    line-height: 38px;
+  }
+
+  .info-session__icons {
+    margin-bottom: 0;
+  }
+
+  /* Cercles réduits pour ne pas déborder sur le texte au-dessus */
+  .info-session__form-wrap {
+    margin-bottom: 40px;
+  }
+
+  .info-session__circle--cream {
+    top: -56px; /* entièrement au-dessus de la carte, comme sur ordinateur */
+    width: 48px;
+    height: 48px;
+  }
+
+  .info-session__circle--yellow {
+    bottom: -40px;
+    width: 72px;
+    height: 72px;
+  }
+}
+
+@media (max-width: 520px) {
+  .info-session__form {
+    padding: 20px;
+  }
+}

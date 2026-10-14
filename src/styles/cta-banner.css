@@ -1,0 +1,29 @@
+/* Bandeau d'appel à l'action : fond vert-bleu, contenu centré.
+   Référence : marge verticale 48 px, titre 24 px, texte 18/28 px sur 672 px max,
+   bouton blanc de 48 px de haut. */
+
+.cta-banner {
+  padding-block: 48px;
+  background: var(--color-primary);
+  color: var(--color-white);
+  text-align: center;
+}
+
+.cta-banner__title {
+  margin: 0 0 16px;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 32px;
+}
+
+.cta-banner__text {
+  max-width: 672px;
+  margin: 0 auto 24px;
+  font-size: 18px;
+  line-height: 28px;
+}
+
+/* Variante plus haute du bouton blanc (48 px au lieu de 40 px) */
+.cta-banner__button {
+  padding-block: 12px;
+}

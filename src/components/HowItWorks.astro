@@ -1,0 +1,29 @@
+---
+// Section « Comment fonctionne la VAE ? » : texte à gauche, carte conseillers STICKY à droite.
+import '../styles/how-it-works.css';
+import AdvisorCard from './AdvisorCard.astro';
+---
+<section class="how-it-works">
+  <div class="container how-it-works__grid">
+    <div class="how-it-works__content">
+      <h2 class="how-it-works__title">Comment fonctionne la VAE ?</h2>
+      <p class="how-it-works__text">
+        La Validation des Acquis de l'Expérience (VAE) est un dispositif permettant de transformer une expérience professionnelle en un diplôme, un titre ou une certification reconnue. Mais avant de se lancer, il est important de comprendre les étapes, les coûts, et les différentes démarches à suivre.
+      </p>
+      <blockquote class="how-it-works__quote">
+        "Il est essentiel d'explorer les coûts du processus de VAE, y compris les frais obligatoires et les coûts optionnels. Combien faut-il prévoir pour une VAE ? Quels sont les frais d'inscription et de certification ? L'accompagnement est-il nécessaire ?"
+      </blockquote>
+      <p class="how-it-works__text">
+        Pour réussir sa VAE, un accompagnement professionnel est fortement recommandé par le ministère. Travaillez avec un expert pour optimiser vos chances de succès et préparez-vous efficacement au passage devant le jury.
+      </p>
+    </div>
+
+    <!-- Colonne de droite : elle occupe toute la hauteur de la ligne de la grille,
+         et la carte « glisse » à l'intérieur grâce à position: sticky. -->
+    <div class="how-it-works__aside">
+      <div class="how-it-works__sticky">
+        <AdvisorCard />
+      </div>
+    </div>
+  </div>
+</section>

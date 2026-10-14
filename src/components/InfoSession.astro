@@ -1,0 +1,58 @@
+---
+// Section « Info-VAE : La VAE, c'est plus simple qu'il n'y paraît ! » + formulaire d'inscription.
+// Réutilisable : cette même section apparaît en bas de la page d'article sur la référence.
+import '../styles/info-session.css';
+import Icon from './Icon.astro';
+---
+<section class="info-session">
+  <div class="container info-session__grid">
+    <div class="info-session__content">
+      <!-- Vignette PROVISOIRE (96 × 54 px) : à remplacer par l'image définitive -->
+      <img class="info-session__thumb" src="/images/session-vignette.svg" alt="" width="96" height="54" />
+      <h2 class="info-session__title">Info-VAE : La VAE, c'est plus simple qu'il n'y paraît !</h2>
+      <p class="info-session__text">Session d'information <strong>gratuite</strong> sur la VAE</p>
+      <p class="info-session__text">En visio ce mercredi à 19h</p>
+      <div class="info-session__icons" aria-hidden="true">
+        <span class="info-session__icon"><Icon name="webcam" size={44} /></span>
+        <span class="info-session__icon"><Icon name="calendar" size={44} /></span>
+      </div>
+    </div>
+
+    <div class="info-session__form-wrap">
+      <!-- Deux cercles décoratifs : l'un en haut à droite de la carte, l'autre qui chevauche son coin inférieur -->
+      <span class="info-session__circle info-session__circle--cream" aria-hidden="true"></span>
+      <span class="info-session__circle info-session__circle--yellow" aria-hidden="true"></span>
+
+      <!-- À CONNECTER PLUS TARD : ce formulaire n'envoie encore rien (voir le script plus bas).
+           Il faudra le relier à un service d'inscription (newsletter / session d'information). -->
+      <form class="info-session__form" id="signup-form" novalidate>
+        <label class="info-session__label" for="signup-firstname">Prénom</label>
+        <input class="info-session__input" id="signup-firstname" name="firstname" type="text" placeholder="Prénom" autocomplete="given-name" required />
+        <label class="info-session__label" for="signup-lastname">Nom</label>
+        <input class="info-session__input" id="signup-lastname" name="lastname" type="text" placeholder="Nom" autocomplete="family-name" required />
+        <label class="info-session__label" for="signup-email">Email</label>
+        <input class="info-session__input" id="signup-email" name="email" type="email" placeholder="Email" autocomplete="email" required />
+        <button class="info-session__submit" type="submit">S'inscrire</button>
+        <p class="info-session__status" id="signup-status" role="status" hidden></p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Comportement PROVISOIRE du formulaire : contrôle des champs, mais aucun envoi.
+  const form = document.getElementById('signup-form');
+  const status = document.getElementById('signup-status');
+
+  if (form && status) {
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      if (!form.checkValidity()) {
+        form.reportValidity(); // affiche les messages natifs du navigateur
+        return;
+      }
+      status.hidden = false;
+      status.textContent = "Formulaire non connecté pour le moment : aucune donnée n'a été envoyée.";
+    });
+  }
+</script>

@@ -1,0 +1,16 @@
+---
+// Section « Articles en vedette » : 3 cartes alimentées par src/data/featuredArticles.js
+import '../styles/featured-articles.css';
+import ArticleCard from './ArticleCard.astro';
+import { featuredArticles } from '../data/featuredArticles.js';
+---
+<section class="featured-articles">
+  <div class="container">
+    <h2 class="featured-articles__title">Articles en vedette</h2>
+    <div class="featured-articles__grid">
+      {featuredArticles.map((article) => (
+        <ArticleCard {...article} />
+      ))}
+    </div>
+  </div>
+</section>

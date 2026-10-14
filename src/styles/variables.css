@@ -23,6 +23,16 @@
   --color-border-header: #e2e8f0;  /* trait sous l'en-tête */
   --color-border-input: #d1d5db;   /* bordure du champ de recherche */
 
+  /* --- Couleurs ajoutées à l'étape 2 (relevées sur la capture de référence) --- */
+  --color-text-body: #374151;      /* paragraphes de texte */
+  --color-text-secondary: #4b5563; /* descriptions des cartes, horaires */
+  --color-text-dark: #1f2937;      /* citation, numéro de téléphone */
+  --color-purple: #7e22ce;         /* titre de la carte conseillers */
+  --color-yellow: #eab308;         /* bouton « S'inscrire », cercle décoratif */
+  --color-cream: #fefce8;          /* cercle décoratif crème */
+  --color-bg-soft: #f9fafb;        /* fond gris très clair des sections */
+  --color-border: #e2e8f0;         /* bordures des cartes et des champs */
+
   /* --- Dégradé du héro (horizontal : gauche → droite) --- */
   --hero-gradient: linear-gradient(to right, var(--color-primary), var(--color-blue));
 

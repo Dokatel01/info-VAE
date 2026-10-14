@@ -1,0 +1,69 @@
+/* ==========================================================================
+   Pied de page : fond vert-bleu, texte blanc 14/20 px.
+   Référence (1366 px) : marge verticale 32 px, contenu de 1150 px de large
+   (donc un peu plus large que le contenu principal de 1120 px), 3 colonnes
+   avec 32 px d'espace, titres 18 px.
+   ========================================================================== */
+
+.site-footer {
+  padding-block: 32px;
+  background: var(--color-primary);
+  color: var(--color-white);
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.site-footer__inner {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 32px;
+  width: min(100% - 2 * var(--page-gutter), 1150px);
+  margin-inline: auto;
+}
+
+.site-footer__heading {
+  margin: 0 0 16px;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 28px;
+}
+
+.site-footer__text {
+  margin: 0;
+}
+
+.site-footer__copyright {
+  margin-top: 16px;
+}
+
+/* Listes : un élément toutes les 28 px (20 px de ligne + 8 px d'espace) */
+.site-footer__list {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.site-footer__contact-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.site-footer__link {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Survol : non visible sur la capture, soulignement discret par défaut */
+.site-footer__link:hover {
+  text-decoration: underline;
+}
+
+/* Mobile : colonnes empilées */
+@media (max-width: 720px) {
+  .site-footer__inner {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

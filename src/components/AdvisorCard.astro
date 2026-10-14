@@ -1,0 +1,30 @@
+---
+// Carte « Nos conseillers répondent à vos questions ».
+// Composant réutilisable : page d'accueil (colonne de droite) et pages d'articles (colonne latérale).
+//
+// Le comportement « sticky » n'est PAS dans ce composant : il est géré par la section qui
+// l'utilise (voir how-it-works.css), car il dépend du conteneur parent. Cette carte reste
+// donc utilisable partout, avec ou sans sticky.
+import '../styles/advisor-card.css';
+import Icon from './Icon.astro';
+
+const {
+  title = 'Nos conseillers répondent à vos questions',
+  phone = '0 891 033 018',
+  phoneHref = 'tel:0891033018',
+  priceNote = 'Service 0,80 € / min + prix appel',
+  hours = 'du lundi au vendredi de 8h à 18h',
+} = Astro.props;
+---
+<aside class="advisor-card" aria-label="Contact des conseillers">
+  <h2 class="advisor-card__title">{title}</h2>
+  <div class="advisor-card__phone-row">
+    <span class="advisor-card__phone-icon"><Icon name="phone" size={16} /></span>
+    <a class="advisor-card__phone" href={phoneHref}>{phone}</a>
+    <span class="advisor-card__badge">{priceNote}</span>
+  </div>
+  <p class="advisor-card__hours">
+    <Icon name="clock" size={16} />
+    <span>{hours}</span>
+  </p>
+</aside>

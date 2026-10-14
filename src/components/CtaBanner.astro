@@ -1,0 +1,16 @@
+---
+// Bandeau d'appel à l'action : « Prêt à vous lancer dans votre projet de VAE ? »
+import '../styles/cta-banner.css';
+
+// À CONNECTER PLUS TARD : adresse de la page de contact (« # » pour l'instant).
+const { href = '#' } = Astro.props;
+---
+<section class="cta-banner">
+  <div class="container">
+    <h2 class="cta-banner__title">Prêt à vous lancer dans votre projet de VAE ?</h2>
+    <p class="cta-banner__text">
+      Nous vous accompagnons à chaque étape, de l'évaluation de votre éligibilité jusqu'à l'obtention de votre diplôme.
+    </p>
+    <a class="btn btn--light cta-banner__button" href={href}>Contactez-nous</a>
+  </div>
+</section>

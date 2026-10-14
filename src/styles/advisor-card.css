@@ -1,0 +1,68 @@
+/* ==========================================================================
+   Carte conseillers (362 px de large sur la référence, 190 px de haut)
+   Bordure 1 px, rayon 8 px, marge intérieure 16 px, ombre très légère.
+   ========================================================================== */
+
+.advisor-card {
+  padding: 16px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background: var(--color-white);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+}
+
+.advisor-card__title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 28px;
+  color: var(--color-purple);
+}
+
+/* Ligne : icône téléphone | numéro | badge orange */
+.advisor-card__phone-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.advisor-card__phone-icon {
+  flex: none;
+  display: grid;
+  color: var(--color-primary);
+}
+
+.advisor-card__phone {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 28px;
+  color: var(--color-text-dark);
+  text-decoration: none;
+}
+
+.advisor-card__badge {
+  margin-left: auto;
+  padding: 4px 8px;
+  border-radius: 4px;
+  background: var(--color-accent);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 16px;
+  color: var(--color-white);
+}
+
+.advisor-card__hours {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 12px 0 0;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--color-text-secondary);
+}
+
+.advisor-card__hours .icon {
+  flex: none;
+  color: var(--color-primary);
+}

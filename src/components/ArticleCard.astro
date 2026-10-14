@@ -1,0 +1,33 @@
+---
+// Carte d'article (page d'accueil : « Articles en vedette »).
+// Réutilisable : on lui passe un titre, un extrait, des tags, une image et un lien.
+import '../styles/article-card.css';
+
+const {
+  title,
+  excerpt,
+  tags = [],
+  // Image provisoire par défaut si l'article n'a pas d'image
+  image = '/images/article-default.jpg',
+  imageAlt = '',
+  href = '#',
+} = Astro.props;
+---
+<article class="article-card">
+  <img class="article-card__image" src={image} alt={imageAlt} width="712" height="384" loading="lazy" />
+  <div class="article-card__body">
+    <h3 class="article-card__title">{title}</h3>
+    <p class="article-card__excerpt">{excerpt}</p>
+    {tags.length > 0 && (
+      <ul class="article-card__tags">
+        {tags.map((tag) => (
+          <li class="article-card__tag">{tag}</li>
+        ))}
+      </ul>
+    )}
+    <div class="article-card__actions">
+      <a class="article-card__button article-card__button--solid" href={href}>Voir plus</a>
+      <a class="article-card__button article-card__button--outline" href={href}>Plus d'infos</a>
+    </div>
+  </div>
+</article>

@@ -1,0 +1,71 @@
+/* ==========================================================================
+   Section « Comment fonctionne la VAE ? »
+   Mesures de la référence (1366 px) : marge haute et basse 48 px, grille à
+   2 colonnes (2fr / 1fr) avec 32 px d'espace, titre 24 px, textes 16/24 px.
+   ========================================================================== */
+
+.how-it-works {
+  padding-block: 48px;
+  background: var(--color-white);
+}
+
+.how-it-works__grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 32px;
+  /* `stretch` (valeur par défaut, laissée explicite) : la colonne de droite occupe toute la
+     hauteur de la ligne. C'est elle qui sert de « piste » à la carte sticky. */
+  align-items: stretch;
+}
+
+.how-it-works__title {
+  margin: 0 0 16px;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 32px;
+  color: var(--color-text-strong);
+}
+
+.how-it-works__text {
+  margin: 0 0 16px;
+  color: var(--color-text-body);
+}
+
+.how-it-works__text:last-child {
+  margin-bottom: 0;
+}
+
+.how-it-works__quote {
+  margin: 0 0 16px;
+  padding: 16px;
+  border-radius: 6px;
+  background: var(--color-icon-bg);
+  font-style: italic;
+  color: var(--color-text-dark);
+}
+
+/* --------------------------------------------------------------------------
+   CARTE STICKY
+   - `position: sticky` + `top` : la carte reste visible pendant le défilement…
+   - …mais uniquement DANS son parent (.how-it-works__aside), qui se termine avec la
+     section. Elle ne peut donc jamais recouvrir les sections suivantes.
+   - `top` vient de la variable --sticky-offset (voir variables.css).
+   - Aucun `overflow` sur les ancêtres (section, main, body, html) : il bloquerait le sticky.
+   -------------------------------------------------------------------------- */
+.how-it-works__sticky {
+  position: sticky;
+  top: var(--sticky-offset);
+}
+
+/* Tablette et mobile : une seule colonne, la carte repasse en position normale
+   (une carte collée en haut d'un petit écran masquerait le texte). */
+@media (max-width: 900px) {
+  .how-it-works__grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .how-it-works__sticky {
+    position: static;
+  }
+}

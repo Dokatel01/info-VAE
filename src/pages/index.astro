@@ -1,11 +1,19 @@
 ---
-// Page d'accueil. Étape 1 : en-tête, navigation et héro uniquement.
+// Page d'accueil : en-tête + navigation (dans le gabarit), puis les sections dans l'ordre de la référence.
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/Hero.astro';
+import HowItWorks from '../components/HowItWorks.astro';
+import FeaturedArticles from '../components/FeaturedArticles.astro';
+import CtaBanner from '../components/CtaBanner.astro';
+import InfoSession from '../components/InfoSession.astro';
 ---
 <BaseLayout
   title="Info VAE - Validation des Acquis de l'Expérience"
   description="Plateforme d'information sur la Validation des Acquis de l'Expérience."
 >
   <Hero />
+  <HowItWorks />
+  <FeaturedArticles />
+  <CtaBanner />
+  <InfoSession />
 </BaseLayout>
