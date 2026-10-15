@@ -1,0 +1,37 @@
+---
+// Page de résultats de recherche : /recherche?q=...
+// Les résultats sont calculés dans le navigateur (src/scripts/search-page.js + src/lib/search.js)
+// à partir de /search-index.json, généré à la construction du site.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import '../styles/category-list.css';
+import '../styles/search-page.css';
+---
+<BaseLayout title="Recherche | Info VAE" description="Rechercher un article sur la VAE.">
+  <div class="container search-page">
+    <h1 class="search-page__title">Recherche</h1>
+
+    <form class="search-page__form" id="search-page-form" role="search" action="/recherche" method="get">
+      <label class="search-page__label" for="search-page-input">Rechercher un article</label>
+      <div class="search-page__row">
+        <input class="search-page__input" id="search-page-input" type="search" name="q" placeholder="Titre, catégorie, mot du texte…" autocomplete="off" />
+        <button class="search-page__submit" type="submit">Rechercher</button>
+      </div>
+    </form>
+
+    <p class="search-page__summary" id="search-summary" role="status" aria-live="polite"></p>
+
+    <div class="search-page__empty" id="search-empty" hidden>
+      <h2 class="search-page__empty-title">Aucun article trouvé pour « <span data-query></span> »</h2>
+      <p>Vérifiez l'orthographe, essayez un mot plus court ou une catégorie (par exemple « CPF » ou « Budget »).</p>
+      <p><a class="search-page__home" href="/">Retour à l'accueil</a></p>
+    </div>
+
+    <div class="search-page__results" id="search-results"></div>
+
+    <noscript><p>La recherche a besoin de JavaScript pour s'afficher.</p></noscript>
+  </div>
+</BaseLayout>
+
+<script>
+  import '../scripts/search-page.js';
+</script>

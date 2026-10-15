@@ -1,127 +1,113 @@
-# Info VAE : site Astro (étape 2 : page d'accueil complète)
+# Info VAE : site Astro (étape 3 : pages d'articles, recherche, catégories)
 
-Cette version contient **toute la page d'accueil** : en-tête, navigation, héro, « Comment fonctionne
-la VAE ? » (avec la carte conseillers sticky), « Articles en vedette », appel à l'action, section
-d'information avec formulaire, et pied de page.
-Les pages d'articles et l'intégration Google Docs / Google Sheets ne sont **pas** encore développées.
+Cette version ajoute, **sans toucher à la page d'accueil** (elle est identique pixel pour pixel) :
 
-## Mettre à jour votre dossier et lancer le site
+- un **modèle de page d'article** réutilisable (une page par article, adresse `/<slug>`) ;
+- la **recherche fonctionnelle** du champ de l'en-tête (page `/recherche`) ;
+- une **couche de données** unique pour les articles et leurs **catégories** (plusieurs par article).
 
-1. **Remplacez** votre ancien dossier `info-vae` par celui de l'archive `info-vae.zip` (décompressée).
-2. Ouvrez un terminal **dans le dossier `info-vae`**.
-3. **Installez les dépendances** (nécessaire seulement la première fois, ou si `package.json` change) :
-   ```
-   npm install
-   ```
-   Cette étape n'ajoute aucune dépendance par rapport à l'étape 1 : si vous l'avez déjà faite, vous
-   pouvez passer directement à la suivante.
-4. **Lancez le site** :
-   ```
-   npm run dev
-   ```
-5. Ouvrez <http://localhost:4321>. Arrêt du serveur : `Ctrl + C`.
+Le Google Sheets et les Google Docs ne sont **pas connectés** et l'automatisation de publication n'existe pas encore.
 
-Pour vérifier que le site se construit : `npm run build` (crée un dossier `dist/`).
+## Lancer le site
 
-## Organisation des fichiers
+1. Remplacez votre ancien dossier `info-vae` par celui de l'archive (décompressée).
+2. Ouvrez un terminal **dans le dossier `info-vae`**, puis : `npm install` (aucune nouvelle dépendance).
+3. `npm run dev`, puis ouvrez <http://localhost:4321>. Arrêt : `Ctrl + C`.
+
+Autres commandes : `npm run build` (crée `dist/`), `npm test` (15 contrôles automatiques : données, catégories, recherche).
+
+## Les articles et les catégories (le point central)
+
+**Tout vient d'un seul fichier : `src/data/articles.js`.** Les cartes de l'accueil, la page d'article,
+le sommaire, les articles liés, l'index et les résultats de recherche lisent tous ce fichier : les catégories
+ne peuvent donc pas différer d'un endroit à l'autre.
+
+- `categories` est une **liste** : un article peut en avoir plusieurs, écrites **exactement** comme dans la source.
+- Rien n'est créé, déduit, corrigé ou remplacé automatiquement. La 1re catégorie sert au fil d'Ariane.
+- Les champs de chaque article (slug, title, cardTitle, categories, excerpt, summary, updatedAt, author, image, related, content)
+  sont décrits en commentaire en tête du fichier : ce sont eux que la future automatisation devra remplir depuis le Google Sheets
+  « Suivi article site info VAE » (champs encore à confirmer avec les vraies colonnes).
+- Le contenu est une suite de **blocs** (`p`, `h2`, `h3`, `ul`, `hr`, `conclusion`) : format provisoire en attendant la conversion des Google Docs.
+  Les `h2` alimentent automatiquement le « Plan article ».
+
+**Ajouter un article** : ajouter un objet dans `articles.js` (adresse unique, jamais `recherche`), lancer `npm test`.
+La page `/<slug>`, la recherche et les articles liés se mettent à jour d'eux-mêmes. Pour l'afficher sur l'accueil,
+ajouter son slug dans `src/data/featuredArticles.js`.
+
+**Données provisoires** : l'article « Combien coûte une VAE ? » reprend le texte de la capture de référence.
+Les deux autres (`provisional: true`) ont un **texte d'attente** « [Contenu provisoire] » : à remplacer.
+Leurs adresses (`/qui-peut-faire-une-vae`, `/aides-financieres-vae`) sont **provisoires** ; celle de `/combien-coute-la-vae` est connue.
+
+## La recherche
+
+- Le champ de l'en-tête (Entrée ou loupe) ouvre `/recherche?q=...` ; la page a aussi son propre champ.
+- Elle cherche **tous les mots saisis** dans le titre, les catégories, le résumé et le contenu ; accents et majuscules ignorés ;
+  un début de mot suffit (« financ »). L'ordre : titre, puis catégories, puis résumé, puis contenu.
+- Si le mot n'est que dans le texte, un **extrait** est affiché. Aucun résultat : un message avec des suggestions.
+- Aucun service externe : l'index `/search-index.json` est généré à la construction du site, la recherche tourne dans le navigateur
+  (`src/lib/search.js`, `src/scripts/search-page.js`). Le texte saisi n'est jamais injecté comme HTML.
+
+## Organisation des fichiers (nouveautés de cette étape)
 
 ```
 src/
-  layouts/BaseLayout.astro     Gabarit : en-tête + nav + contenu + pied de page
-  pages/index.astro            Page d'accueil (assemble les sections dans l'ordre)
-  data/featuredArticles.js     Les 3 articles en vedette (titres, extraits, tags, images, liens)
-  components/
-    Header, NavBar, Hero       (étape 1, inchangés)
-    HowItWorks                 Section « Comment fonctionne la VAE ? »
-    AdvisorCard                Carte conseillers (réutilisable : accueil + futures pages d'articles)
-    FeaturedArticles           Section « Articles en vedette »
-    ArticleCard                Une carte d'article (réutilisable)
-    CtaBanner                  « Prêt à vous lancer dans votre projet de VAE ? »
-    InfoSession                Section « Info-VAE » + formulaire (réutilisable)
-    Footer                     Pied de page
-    Icon                       Icônes SVG (phone, clock, mail, webcam, calendar)
-  styles/
-    variables.css              TOUTES les couleurs, polices et tailles clés
-    + un fichier CSS par composant (noms de classes préfixés : pas de conflit entre sections)
-public/
-  favicon.svg                  Icône d'onglet PROVISOIRE
-  images/                      Images PROVISOIRES (voir ci-dessous)
+  data/articles.js               SOURCE UNIQUE des articles et catégories (provisoire)
+  data/featuredArticles.js       Cartes de l'accueil, construites depuis articles.js
+  lib/text.js                    Utilitaires (échappement, gras, ancres, dates)
+  lib/search.js                  Moteur de recherche (testé)
+  scripts/search-page.js         Affichage des résultats dans le navigateur
+  pages/[slug].astro             Modèle de page d'article (une page par article)
+  pages/recherche.astro          Page de résultats
+  pages/search-index.json.js     Index de recherche généré au build
+  components/                    Breadcrumb, ArticleSummary, ArticleContent, ArticleToc,
+                                 CategoryList (catégories, partagé), RelatedArticles
+  styles/                        un fichier CSS par composant (+ article-page.css, search-page.css)
+tests/                           data.test.mjs, search.test.mjs (lancés par `npm test`)
 ```
+
+Étapes précédentes (en-tête, nav, héro, accueil, carte conseillers sticky, formulaire, pied de page) : inchangées.
+Les images restent **provisoires** (`public/images/`, voir ci-dessous).
 
 ## Remplacer les images provisoires
 
-Toutes les images sont dans `public/images/`. Les illustrations actuelles sont **générées et
-provisoires** (aucune photo) :
+Toutes les images sont dans `public/images/` (illustrations générées, pas des photos). Mettez votre fichier avec **le même nom**,
+ou changez `image` dans `articles.js` (712 × 384 px conseillé ; recadrage automatique).
+`article-eligibilite-diplomes.jpg`, `article-aides-financieres.jpg`, `article-cout-vae.jpg`, `article-default.jpg`, `session-vignette.svg`.
 
-| Fichier | Où il apparaît | Taille conseillée |
-|---|---|---|
-| `article-eligibilite-diplomes.jpg` | Carte « Qui peut faire une VAE… » | 712 × 384 px |
-| `article-aides-financieres.jpg` | Carte « Les aides financières… » | 712 × 384 px |
-| `article-cout-vae.jpg` | Carte « Combien coûte une VAE ? » | 712 × 384 px |
-| `article-default.jpg` | Image utilisée si un article n'a pas d'image | 712 × 384 px |
-| `session-vignette.svg` | Petite vignette de la section d'inscription | 192 × 108 px (affichée à 96 × 54) |
+## La carte conseillers « sticky » (accueil)
 
-**Pour remplacer une image** : mettez votre fichier dans `public/images/` avec **le même nom**
-(ou changez le chemin `image` dans `src/data/featuredArticles.js`). La mise en page ne change pas :
-les images sont recadrées automatiquement dans un cadre de 192 px de haut.
+Inchangée : `HowItWorks.astro` / `how-it-works.css` (`position: sticky`, `top: var(--sticky-offset)`). Ne jamais mettre `overflow`
+(hidden, auto, scroll) sur `html`, `body`, `main` ou les conteneurs de cette section. Sur la page d'article, la carte conseillers
+de la colonne latérale n'est **pas** sticky (décision à confirmer).
 
-## La carte conseillers « sticky »
+## Ce qui a été vérifié (vrai Astro 5.18, vrai Chromium)
 
-- Elle est dans `HowItWorks.astro` / `how-it-works.css` (`position: sticky`, `top: var(--sticky-offset)`).
-- Elle reste visible pendant le défilement de la section, puis **s'arrête à la fin de la colonne** :
-  elle ne recouvre jamais la section suivante.
-- Le décalage du haut est `--sticky-offset` dans `variables.css` (24 px aujourd'hui, car on ne sait pas
-  si l'en-tête reste fixe sur la référence). Si l'en-tête devient fixe un jour, la ligne de remplacement
-  est indiquée en commentaire dans ce fichier.
-- Sous **900 px**, la carte repasse en position normale (sinon elle masquerait le texte).
-- Attention : le texte à gauche n'est que 138 px plus haut que la carte, donc l'effet dure peu
-  (environ 115 px de défilement). C'est inhérent à la mise en page de la référence.
-- Règle à respecter : ne jamais mettre `overflow` (hidden, auto, scroll) sur `html`, `body`, `main`
-  ou les conteneurs de cette section : cela désactiverait le sticky.
+- `npm install` et `npm run build` : OK, 5 pages générées sans erreur ni avertissement.
+- `npm test` : 15 contrôles OK (champs obligatoires, adresses uniques et propres, catégories sans doublon, cartes d'accueil = catégories des articles,
+  sommaire, recherche par titre / catégorie / résumé / contenu, accents, début de mot, plusieurs mots, aucun résultat).
+- Navigateur : les 3 cartes (2 boutons chacune) ouvrent la bonne page ; la nav « Combien coûte la VAE? » aussi ; fil d'Ariane, sommaire (3 ancres),
+  « Lire l'article complet », articles liés ; recherche par Entrée et par loupe ; catégories identiques sur la carte, la page, le résumé et le résultat ;
+  aucun résultat, requête vide, requête contenant du HTML ; aucune erreur dans la console.
+- Accueil : captures identiques pixel pour pixel avant/après à 1366, 768 et 390 px ; carte sticky toujours collée à 24 px.
+- Aucun débordement horizontal de 1920 à 360 px (accueil, article, recherche).
+- Page d'article à 1366 px : positions et largeurs de la référence (résumé 896 px, article 725 px, colonne latérale 363 px, carte conseillers 363 × 190 px).
 
-## Ce qui a été vérifié (dans l'environnement de développement de Claude)
+## Ce qui n'a PAS été vérifié
 
-Les fichiers `.astro` du projet ont été exécutés par un script de contrôle (hors archive) qui
-reproduit le fonctionnement d'Astro, puis la page a été chargée dans un vrai Chromium :
+- **La police** : le site utilise la police système (Segoe UI sur Windows comme la référence). Mon environnement n'a pas Segoe UI :
+  les retours à la ligne, donc les **hauteurs** (page de ~4150 px ici contre 3880 px sur la référence), peuvent différer chez vous.
+- **`npm run dev` sur votre machine** (le build et le rendu ont été testés ici sur le site construit).
+- Survol, clic au clavier, lecteurs d'écran : non testés ; effets de survol choisis par défaut.
+- Les icônes de catégorie (étiquette, document) sont redessinées d'après la capture.
 
-- **Mise en page à 1366 px** : hauteur totale de la page identique à la référence (2447 px) ; toutes
-  les sections (héro, section 2, articles, appel à l'action, inscription, pied de page) aux mêmes
-  positions et dimensions ; cartes d'articles (357 × 414 px), carte conseillers (362 × 190 px),
-  formulaire (540 × 288 px).
-- **Couleurs** : 18 points de contrôle (fonds, bordures, boutons, cercles) identiques à la référence.
-- **Sticky, avec défilement réel** : la carte se colle à 24 px du haut, s'arrête au bas de sa colonne,
-  ne recouvre pas la section suivante (testé à 1366 × 768, 1366 × 900 et 1024 × 768) ; repasse en
-  position normale sous 900 px ; aucun ancêtre n'a de propriété qui bloque le sticky.
-- **Responsive** : aucun débordement horizontal de 1920 px à 360 px (11 largeurs testées).
-- **Formulaire** : champs obligatoires et e-mail contrôlés ; aucun envoi réseau ; message clair.
-- **Technique** : aucune erreur dans la console ; aucune image cassée ; 455 déclarations CSS toutes
-  valides ; syntaxe du script du formulaire valide.
-- **Étape 1 intacte** : l'en-tête, la navigation et le héro sont identiques pixel pour pixel.
+## Incohérences de la référence (non tranchées, rien n'a été inventé)
 
-## Ce qui n'a PAS été vérifié (à tester de votre côté)
-
-- **`npm install`, `npm run dev` et `npm run build` n'ont pas pu être exécutés** : l'accès au registre
-  npm est bloqué dans l'environnement de développement. Le script de contrôle n'est pas Astro :
-  si une erreur s'affiche dans votre terminal, copiez-la-moi.
-- **La police** : le site utilise la police système (Segoe UI sur Windows, comme la référence).
-  Mon contrôle a utilisé une police de remplacement : les retours à la ligne des textes peuvent donc
-  différer légèrement de ce que vous verrez. Chez vous, sur Windows, ils devraient correspondre à la
-  référence ; sur Mac, la police diffère de la référence (normal).
-- **Le défilement dans votre navigateur** : le sticky est testé, mais regardez-le chez vous
-  (faites défiler lentement à partir du haut de la section « Comment fonctionne la VAE ? »).
-- **Les photos de la référence** : non reproduites (voir « images provisoires »).
-- **Survol, clic, clavier** : non visibles sur une capture, donc choisis par défaut (légère
-  transparence sur les boutons des cartes, soulignement des liens du pied de page).
-- **Icônes** : redessinées d'après la capture (visio, calendrier, téléphone, horloge, courrier) ;
-  proches mais pas forcément identiques.
+- **Catégories** : la page de référence montre « Tarifs, Coûts » (en-tête de l'article) et « Coûts, Budget, Financement » (résumé), alors que la
+  carte d'accueil de cet article dit « Coûts, Budget ». Ici, une seule liste par article, reprise de la carte : `['Coûts', 'Budget']`.
+- **Fil d'Ariane** : la référence affiche « Tarifs » ; ici c'est la 1re catégorie (« Coûts »), puisque « Tarifs » n'est pas dans les catégories de l'article.
+- **Titres** : le titre de la page (« Tarif accompagnement… ») diffère de celui de la carte (« Combien coûte une VAE ? ») : les deux sont conservés.
+- **Articles liés** : la référence montre 3 cartes qui sont en réalité des sections de l'article ; ici, on affiche les autres articles existants (2).
 
 ## À connecter plus tard
 
-- **Formulaire d'inscription** : il contrôle les champs mais n'envoie rien. Il affiche « Formulaire non
-  connecté pour le moment : aucune donnée n'a été envoyée. » Il faudra le relier à un service
-  d'inscription.
-- **Liens** : tous les boutons et liens pointent vers « # », sauf « Combien coûte la VAE » (page
-  `/combien-coute-la-vae`, qui n'existe pas encore), le téléphone (`tel:`) et l'e-mail (`mailto:`).
-  « Voir plus » et « Plus d'infos » pointent vers la même adresse en attendant les pages d'articles.
-- **Bouton menu orange, « Ressources », « Contact », recherche** : sans action pour l'instant.
-- **Titre d'onglet, favicon, texte « ... » du 2e article** : provisoires à confirmer.
+Formulaire d'inscription (n'envoie rien), Google Sheets / Google Docs, bouton menu orange, « Ressources », « Contact », autres liens de nav (`#`).

@@ -1,0 +1,29 @@
+---
+// Carte de résumé en haut de la page d'article : filet bleu-vert, 1re catégorie, titre, catégories, résumé, date.
+import '../styles/article-summary.css';
+import CategoryList from './CategoryList.astro';
+import { formatDate } from '../lib/text.js';
+const { article, anchor = '#article' } = Astro.props;
+---
+<section class="article-summary" aria-label="Résumé de l'article">
+  <div class="article-summary__body">
+    <p class="article-summary__kicker">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect x="4" y="2" width="16" height="20" rx="2"></rect><path d="M9 7h6M9 12h6M9 17h3"></path>
+      </svg>
+      {article.categories[0]}
+    </p>
+    <h2 class="article-summary__title">{article.title}</h2>
+    <CategoryList categories={article.categories} variant="tags" />
+    <p class="article-summary__text">{article.summary}</p>
+  </div>
+  <div class="article-summary__footer">
+    <span class="article-summary__date">
+      <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect x="3" y="4" width="18" height="18" rx="2"></rect><path d="M16 2v4M8 2v4M3 10h18"></path>
+      </svg>
+      Mis à jour le {formatDate(article.updatedAt)}
+    </span>
+    <a class="article-summary__link" href={anchor}>Lire l'article complet →</a>
+  </div>
+</section>

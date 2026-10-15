@@ -1,0 +1,24 @@
+---
+// Corps de l'article : catégories, titre, date, puis les blocs de contenu (voir src/data/articles.js).
+import '../styles/article-content.css';
+import CategoryList from './CategoryList.astro';
+import { formatDate, inlineToHtml } from '../lib/text.js';
+import { slugifyHeading } from '../data/articles.js';
+const { article } = Astro.props;
+---
+<article class="article" id="article">
+  <CategoryList categories={article.categories} variant="chips" />
+  <h1 class="article__title">{article.title}</h1>
+  <p class="article__meta">Actualisé le {formatDate(article.updatedAt)} • {article.author}</p>
+
+  <div class="article__content">
+    {article.content.map((block) => {
+      if (block.type === 'h2') return <h2 id={slugifyHeading(block.text)}>{block.text}</h2>;
+      if (block.type === 'h3') return <h3>{block.text}</h3>;
+      if (block.type === 'ul') return <ul>{block.items.map((item) => <li set:html={inlineToHtml(item)} />)}</ul>;
+      if (block.type === 'hr') return <hr />;
+      if (block.type === 'conclusion') return <p class="article__conclusion" set:html={inlineToHtml(block.text)} />;
+      return <p set:html={inlineToHtml(block.text)} />;
+    })}
+  </div>
+</article>

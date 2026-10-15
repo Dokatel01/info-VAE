@@ -1,0 +1,36 @@
+---
+// Modèle de page d'article : UNE page par article de src/data/articles.js, à l'adresse /<slug>.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import ArticleSummary from '../components/ArticleSummary.astro';
+import ArticleContent from '../components/ArticleContent.astro';
+import AdvisorCard from '../components/AdvisorCard.astro';
+import ArticleToc from '../components/ArticleToc.astro';
+import RelatedArticles from '../components/RelatedArticles.astro';
+import InfoSession from '../components/InfoSession.astro';
+import '../styles/article-page.css';
+import { articles, getToc, getRelated } from '../data/articles.js';
+
+export function getStaticPaths() {
+  return articles.map((article) => ({ params: { slug: article.slug }, props: { article } }));
+}
+
+const { article } = Astro.props;
+const toc = getToc(article);
+const related = getRelated(article);
+---
+<BaseLayout title={`${article.title} | Info VAE`} description={article.summary}>
+  <Breadcrumb category={article.categories[0]} current={article.breadcrumbTitle ?? article.title} />
+  <div class="container article-page">
+    <ArticleSummary article={article} />
+    <div class="article-page__grid">
+      <ArticleContent article={article} />
+      <aside class="article-page__side">
+        <AdvisorCard />
+        <ArticleToc items={toc} />
+      </aside>
+    </div>
+  </div>
+  <RelatedArticles articles={related} />
+  <InfoSession />
+</BaseLayout>

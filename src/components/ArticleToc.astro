@@ -1,0 +1,15 @@
+---
+// « Plan article » : un lien par titre de niveau 2 (h2) de l'article.
+import '../styles/article-toc.css';
+const { items = [] } = Astro.props;
+---
+{items.length > 0 && (
+  <nav class="article-toc" aria-label="Plan de l'article">
+    <h2 class="article-toc__title">Plan article</h2>
+    <ul class="article-toc__list">
+      {items.map((item) => (
+        <li><a class="article-toc__link" href={`#${item.id}`}>{item.text}</a></li>
+      ))}
+    </ul>
+  </nav>
+)}

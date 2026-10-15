@@ -1,0 +1,41 @@
+/* Fil d'Ariane : 14 px, gris ; marge de 16 px sur les côtés (hors conteneur de 1120 px sur la référence). */
+
+.breadcrumb {
+  padding: 12px var(--page-gutter);
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--color-text-muted);
+}
+
+.breadcrumb__list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.breadcrumb__item {
+  display: inline-flex;
+  align-items: center;
+}
+
+.breadcrumb__link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.breadcrumb__link:hover {
+  text-decoration: underline;
+}
+
+.breadcrumb__sep {
+  margin-inline: 10px;
+  flex: none;
+}
+
+.breadcrumb__current {
+  color: var(--color-text-strong);
+}

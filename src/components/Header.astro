@@ -13,13 +13,16 @@
       </a>
     </div>
 
-    <!-- Recherche : champ d'affichage uniquement pour l'instant (pas encore fonctionnelle) -->
-    <form class="search" role="search" onsubmit="return false">
-      <input class="search__input" type="search" name="q" placeholder="Rechercher..." aria-label="Rechercher sur le site" />
-      <svg class="search__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <circle cx="11" cy="11" r="8"></circle>
-        <path d="m21 21-4.3-4.3"></path>
-      </svg>
+    <!-- Recherche : envoie vers la page /recherche?q=... (résultats calculés dans le navigateur
+         à partir de /search-index.json). Marche aussi en appuyant sur Entrée. -->
+    <form class="search" role="search" action="/recherche" method="get">
+      <input class="search__input" type="search" name="q" placeholder="Rechercher..." aria-label="Rechercher sur le site" autocomplete="off" />
+      <button class="search__button" type="submit" aria-label="Lancer la recherche">
+        <svg class="search__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="11" cy="11" r="8"></circle>
+          <path d="m21 21-4.3-4.3"></path>
+        </svg>
+      </button>
     </form>
 
     <div class="site-header__actions">

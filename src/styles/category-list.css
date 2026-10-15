@@ -1,0 +1,47 @@
+/* Catégories : pastilles arrondies. Mesures relevées sur la référence (1366 px). */
+
+.category-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.category-list__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border-radius: 999px;
+  font-weight: 500;
+}
+
+/* En-tête de l'article : 1re catégorie bleu clair, les suivantes grises */
+.category-list--chips .category-list__item {
+  padding: 4px 12px;
+  background: #e5e7eb;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  color: var(--color-text-body);
+}
+
+.category-list--chips .category-list__item:first-child {
+  background: var(--color-icon-bg);
+  color: var(--color-primary);
+}
+
+/* Carte de résumé : pastilles bleu clair avec icône */
+.category-list--tags .category-list__item {
+  padding: 2px 10px;
+  background: var(--color-icon-bg);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 20px;
+  color: var(--color-primary);
+}
+
+.category-list__icon {
+  flex: none;
+}

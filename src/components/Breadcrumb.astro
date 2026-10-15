@@ -1,0 +1,22 @@
+---
+// Fil d'Ariane : Accueil > <1re catégorie> > <titre court de l'article>
+// Le maillon du milieu est la 1re catégorie de l'article. Pas encore de page de catégorie : ce n'est pas un lien.
+import '../styles/breadcrumb.css';
+const { category, current } = Astro.props;
+const chevron = 'M9 18l6-6-6-6';
+---
+<nav class="breadcrumb" aria-label="Fil d'Ariane">
+  <ol class="breadcrumb__list">
+    <li class="breadcrumb__item"><a class="breadcrumb__link" href="/">Accueil</a></li>
+    {category && (
+      <li class="breadcrumb__item">
+        <svg class="breadcrumb__sep" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d={chevron}></path></svg>
+        <span class="breadcrumb__category">{category}</span>
+      </li>
+    )}
+    <li class="breadcrumb__item">
+      <svg class="breadcrumb__sep" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d={chevron}></path></svg>
+      <span class="breadcrumb__current" aria-current="page">{current}</span>
+    </li>
+  </ol>
+</nav>

@@ -1,0 +1,25 @@
+---
+// « Articles connexes » : 3 cartes au maximum (photo, titre, résumé, « Lire la suite »).
+import '../styles/related-articles.css';
+import { articleUrl } from '../data/articles.js';
+const { articles = [] } = Astro.props;
+---
+{articles.length > 0 && (
+  <section class="related">
+    <div class="container">
+      <h2 class="related__title">Articles connexes</h2>
+      <div class="related__grid">
+        {articles.map((article) => (
+          <a class="related-card" href={articleUrl(article)}>
+            <img class="related-card__image" src={article.image} alt={article.imageAlt ?? ''} width="712" height="320" loading="lazy" />
+            <div class="related-card__body">
+              <h3 class="related-card__title">{article.cardTitle ?? article.title}</h3>
+              <p class="related-card__excerpt">{article.excerpt}</p>
+              <span class="related-card__more">Lire la suite</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+)}

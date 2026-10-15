@@ -93,15 +93,25 @@
   opacity: 1;
 }
 
-.search__icon {
+/* Bouton « loupe » : posé exactement à la place de l'ancienne icône (20 × 20 px, à 10 px du bord droit) */
+.search__button {
   position: absolute;
   top: 50%;
   right: 10px;
+  display: block;
   width: 20px;
   height: 20px;
+  padding: 0;
+  border: 0;
+  background: none;
   transform: translateY(-50%);
   color: var(--color-text-muted);
-  pointer-events: none;
+  cursor: pointer;
+}
+
+.search__icon {
+  width: 20px;
+  height: 20px;
 }
 
 /* --- Bloc de droite : boutons « Ressources » et « Contact » --- */

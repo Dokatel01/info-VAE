@@ -1,0 +1,29 @@
+/* Mise en page de la page d'article : résumé (896 px max) puis grille article / colonne latérale. */
+
+.article-page {
+  padding-top: 24px;
+}
+
+.article-page__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  gap: 32px;
+  align-items: start;
+}
+
+.article-page__side {
+  display: grid;
+  gap: 24px;
+}
+
+/* Tablette / mobile : une seule colonne ; la colonne latérale passe sous l'article */
+@media (max-width: 900px) {
+  .article-page__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .article__title {
+    font-size: 26px;
+    line-height: 32px;
+  }
+}
