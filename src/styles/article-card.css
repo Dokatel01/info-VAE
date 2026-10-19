@@ -7,6 +7,7 @@
    ========================================================================== */
 
 .article-card {
+  position: relative; /* point d'ancrage du lien étendu à toute la carte */
   display: flex;
   flex-direction: column;
   overflow: hidden; /* arrondit les coins de l'image (cette carte n'est pas dans une zone sticky) */
@@ -61,7 +62,32 @@
   color: var(--color-primary);
 }
 
-/* Boutons « Voir plus » (plein) et « Plus d'infos » (contour) */
+/* Lien du titre étendu à toute la carte (carte entièrement cliquable) */
+.article-card__link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.article-card__link::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+}
+
+.article-card__link:focus-visible {
+  outline: none;
+}
+
+.article-card:has(.article-card__link:focus-visible) {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.article-card:hover .article-card__title {
+  color: var(--color-primary);
+}
+
+/* Bouton « Voir plus » (plein) : repère visuel, la carte entière est le lien */
 .article-card__actions {
   display: flex;
   flex-wrap: wrap;
@@ -79,7 +105,6 @@
   font-size: 14px;
   font-weight: 500;
   line-height: 20px;
-  text-decoration: none;
 }
 
 .article-card__button--solid {
@@ -87,12 +112,6 @@
   color: var(--color-white);
 }
 
-.article-card__button--outline {
-  background: transparent;
-  color: var(--color-primary);
-}
-
-/* Survol : non visible sur la capture, effet discret choisi par défaut */
-.article-card__button:hover {
+.article-card:hover .article-card__button {
   opacity: 0.85;
 }

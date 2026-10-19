@@ -95,7 +95,7 @@ test('catégories multiples du Sheet → liste, texte inchangé', () => {
 });
 
 test('articles du Sheet : uniquement des catégories officielles, titres sans espace superflu', () => {
-  assert.equal(sheetArticles.length, 5);
+  assert.equal(sheetArticles.length, 7);
   for (const a of sheetArticles) {
     for (const c of a.categories) assert.ok(officialCategories.includes(c), `${a.slug} : catégorie non officielle « ${c} »`);
     assert.equal(a.title, a.title.trim());
@@ -112,6 +112,8 @@ test('articles du Sheet : catégories attendues ligne par ligne (relevé du 19/1
     10: ['Financement', 'Tarif'],
     11: ['Aide soignant'],
     12: ['Etapes VAE'],
+    13: ['Etapes VAE'],
+    14: ['Auxiliaire Puériculture'],
   });
 });
 

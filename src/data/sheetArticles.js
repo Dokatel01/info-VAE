@@ -11,8 +11,8 @@
 //   - summary / excerpt = premier paragraphe du Doc (repris mot pour mot)
 //   - image             = image par défaut (à remplacer)
 //
-// Articles NON intégrés car le Doc source est incomplet (fin de texte coupée), voir le bilan :
-//   ligne 13 « Peut-on faire une VAE à distance », ligne 14 « Une assistante maternelle… ».
+// Lignes 13 et 14 : la lecture directe des Docs coupait la dernière phrase ; l'export texte complet
+// des Docs a confirmé qu'ils sont complets (fin : « …un accompagnement adapté. » / « …décrocher le DEAP. »).
 // ============================================================================
 
 const AUTHOR = 'La Rédaction de Info-VAE';
@@ -538,6 +538,208 @@ export const sheetArticles = [
       {
         type: 'conclusion',
         text: 'En prenant le temps de bien choisir votre organisme accompagnateur VAE, vous mettrez toutes les chances de votre côté pour réussir votre validation et obtenir votre diplôme sereinement.',
+      },
+    ],
+  },
+
+  // --------------------------------------------------------------------------
+  // Ligne 13 — Etapes VAE
+  // --------------------------------------------------------------------------
+  {
+    slug: 'peut-on-faire-une-vae-a-distance',
+    title: 'Peut-on faire une VAE à distance',
+    breadcrumbTitle: 'Peut-on faire une VAE à distance',
+    categories: ['Etapes VAE'],
+    excerpt:
+      'La Validation des Acquis de l’Expérience (VAE) est une démarche qui peut parfois sembler complexe, mais bonne nouvelle : il est tout à fait possible de la réaliser à distance. Avec les outils numériques et les dispositifs d’accompagnement en ligne, les candidats peuvent aujourd’hui mener leur projet sans se déplacer. Cependant, certaines étapes nécessitent une organisation rigoureuse.',
+    summary:
+      'La Validation des Acquis de l’Expérience (VAE) est une démarche qui peut parfois sembler complexe, mais bonne nouvelle : il est tout à fait possible de la réaliser à distance. Avec les outils numériques et les dispositifs d’accompagnement en ligne, les candidats peuvent aujourd’hui mener leur projet sans se déplacer. Cependant, certaines étapes nécessitent une organisation rigoureuse.',
+    updatedAt: DATE_INTEGRATION,
+    author: AUTHOR,
+    image: DEFAULT_IMAGE,
+    imageAlt: '',
+    provisional: false,
+    source: { sheetRow: 13, docId: '130A2L1_bKHIwBjRo7AF4cXmpoBc5c7tFLqoRv93cxrU', sheetStatus: 'à intégrer' },
+    content: [
+      {
+        type: 'p',
+        text: 'La Validation des Acquis de l’Expérience (VAE) est une démarche qui peut parfois sembler complexe, mais bonne nouvelle : il est tout à fait possible de la réaliser à distance. Avec les outils numériques et les dispositifs d’accompagnement en ligne, les candidats peuvent aujourd’hui mener leur projet sans se déplacer. Cependant, certaines étapes nécessitent une organisation rigoureuse.',
+      },
+      { type: 'hr' },
+      { type: 'h2', text: '1. Les étapes de la VAE réalisables à distance' },
+      { type: 'p', text: 'La majorité du processus de VAE peut être menée en ligne, notamment :' },
+      {
+        type: 'ul',
+        items: [
+          '**Le choix du diplôme** : Les sites officiels comme France Compétences ou les organismes certificateurs permettent d’accéder à la liste des diplômes accessibles via la VAE et de vérifier leur adéquation avec votre parcours.',
+          '**Le dépôt du dossier de recevabilité (Livret 1)** : La plupart des organismes certificateurs acceptent aujourd’hui l’envoi du dossier par mail ou via une plateforme dédiée.',
+          '**La rédaction du dossier de validation (Livret 2)** : Le livret 2, qui détaille vos expériences et compétences, peut être rédigé de manière totalement autonome depuis chez vous. Il est même possible d’être accompagné à distance via des séances en visioconférence.',
+          '**L’accompagnement VAE** : De nombreux organismes proposent un suivi en ligne avec des rendez-vous en visio, des échanges par mail et l’accès à des ressources numériques pour vous aider à structurer votre dossier.',
+        ],
+      },
+      { type: 'hr' },
+      { type: 'h2', text: '2. L’entretien avec le jury : en présentiel ou en visio ?' },
+      {
+        type: 'p',
+        text: 'L’une des seules étapes qui nécessite un déplacement est le passage devant le jury. En principe, cet entretien se déroule en présentiel dans un centre d’examen ou une institution publique.',
+      },
+      { type: 'hr' },
+      { type: 'h2', text: '3. Les avantages de la VAE à distance' },
+      {
+        type: 'ul',
+        items: [
+          '**Flexibilité** : Vous avancez à votre rythme, selon vos disponibilités.',
+          '**Économie de temps et de transport** : Pas besoin de vous déplacer pour suivre un accompagnement ou déposer votre dossier.',
+          '**Accès à des ressources en ligne** : Guides, webinaires, tutoriels… De nombreux outils sont disponibles pour vous aider à bien rédiger votre livret 2.',
+          '**Accompagnement à distance** : Un suivi personnalisé est possible via des échanges en visio, par téléphone ou par mail.',
+        ],
+      },
+      { type: 'hr' },
+      { type: 'h2', text: '4. Les limites de la VAE à distance' },
+      {
+        type: 'ul',
+        items: [
+          '**Manque d’encadrement en autonomie** : L’isolement peut être un frein pour certaines personnes qui ont besoin d’un cadre structurant.',
+          '**Difficulté d’accès à certains diplômes** : Certains diplômes exigent des évaluations pratiques ou un passage devant un jury en présentiel.',
+          '**Qualité variable des accompagnements en ligne** : Tous les organismes ne proposent pas un suivi aussi efficace à distance qu’en présentiel.',
+        ],
+      },
+      { type: 'hr' },
+      { type: 'h2', text: '5. Comment bien réussir sa VAE à distance ?' },
+      {
+        type: 'ul',
+        items: [
+          '**Vérifier si le diplôme visé peut être obtenu entièrement à distance** (y compris le jury).',
+          '**Choisir un bon organisme d’accompagnement** proposant des outils numériques adaptés.',
+          '**Organiser son travail** en planifiant la rédaction du livret 2 et les échanges avec son accompagnateur.',
+          '**Se préparer à l’oral** avec des simulations en visioconférence.',
+        ],
+      },
+      {
+        type: 'conclusion',
+        text: 'Oui, il est tout à fait possible de réaliser une VAE à distance, notamment pour la partie administrative et l’accompagnement. Toutefois, certaines étapes comme le passage devant le jury peuvent encore nécessiter un déplacement, selon le diplôme visé. Pour maximiser vos chances de réussite, il est essentiel de bien vous informer auprès de l’organisme certificateur et de vous entourer d’un accompagnement adapté.',
+      },
+    ],
+  },
+
+  // --------------------------------------------------------------------------
+  // Ligne 14 — Auxiliaire Puériculture
+  // --------------------------------------------------------------------------
+  {
+    slug: 'une-assistante-maternelle-peut-elle-devenir-auxiliaire-de-puericulture-par-la-vae',
+    title: 'Une assistante maternelle peut-elle devenir auxiliaire de puériculture par la VAE',
+    breadcrumbTitle: 'Assistante maternelle et auxiliaire de puériculture par la VAE',
+    categories: ['Auxiliaire Puériculture'],
+    excerpt:
+      'Oui, une assistante maternelle peut tout à fait devenir auxiliaire de puériculture grâce à la Validation des Acquis de l’Expérience (VAE). Son expérience auprès des jeunes enfants constitue un atout majeur pour prétendre à l’obtention du Diplôme d’État d’Auxiliaire de Puériculture (DEAP). Cependant, certaines conditions et étapes sont à respecter.',
+    summary:
+      'Oui, une assistante maternelle peut tout à fait devenir auxiliaire de puériculture grâce à la Validation des Acquis de l’Expérience (VAE). Son expérience auprès des jeunes enfants constitue un atout majeur pour prétendre à l’obtention du Diplôme d’État d’Auxiliaire de Puériculture (DEAP). Cependant, certaines conditions et étapes sont à respecter.',
+    updatedAt: DATE_INTEGRATION,
+    author: AUTHOR,
+    image: DEFAULT_IMAGE,
+    imageAlt: '',
+    provisional: false,
+    source: { sheetRow: 14, docId: '1XI_Vo5qQbd-lg0o1OlvEw1ZbefCV8YnFiB1zvEOfw7I', sheetStatus: 'à intégrer' },
+    content: [
+      {
+        type: 'p',
+        text: 'Oui, une assistante maternelle peut tout à fait devenir auxiliaire de puériculture grâce à la **Validation des Acquis de l’Expérience (VAE)**. Son expérience auprès des jeunes enfants constitue un atout majeur pour prétendre à l’obtention du **Diplôme d’État d’Auxiliaire de Puériculture (DEAP)**. Cependant, certaines conditions et étapes sont à respecter.',
+      },
+      { type: 'hr' },
+      { type: 'h2', text: '1. Pourquoi une assistante maternelle peut envisager la VAE pour le DEAP ?' },
+      {
+        type: 'p',
+        text: 'Le métier d’auxiliaire de puériculture demande des compétences proches de celles d’une assistante maternelle :',
+      },
+      {
+        type: 'ul',
+        items: [
+          'Accompagner les jeunes enfants dans leur développement et leur éveil',
+          'Assurer les soins d’hygiène et de confort',
+          'Préparer et donner les repas',
+          'Veiller à la sécurité et au bien-être des enfants',
+        ],
+      },
+      {
+        type: 'p',
+        text: 'Si vous êtes assistante maternelle depuis au moins **un an à temps plein (soit environ 1607 heures d’expérience)** et que vous avez acquis ces compétences, vous pouvez demander la VAE pour obtenir le **DEAP sans passer par la formation classique**.',
+      },
+      { type: 'hr' },
+      { type: 'h2', text: '2. Quelles sont les conditions pour faire une VAE vers le DEAP ?' },
+      {
+        type: 'ul',
+        items: [
+          '**Avoir exercé au moins un an en tant qu’assistante maternelle**',
+          '**Prouver que votre expérience couvre les compétences du diplôme**',
+          '**Être capable de formaliser son parcours dans un dossier écrit (Livret 2)**',
+        ],
+      },
+      {
+        type: 'p',
+        text: 'L’expérience doit être significative et en lien avec les 10 compétences du référentiel du DEAP, notamment l’accueil des enfants, l’hygiène, la sécurité et l’accompagnement au développement.',
+      },
+      { type: 'hr' },
+      { type: 'h2', text: '3. Les étapes pour obtenir le DEAP par la VAE' },
+      { type: 'h3', text: '1. Vérifier son éligibilité' },
+      { type: 'p', text: 'Vous devez justifier d’au moins **1 an d’expérience en lien avec la petite enfance**.' },
+      { type: 'h3', text: '2. Déposer un dossier de recevabilité (Livret 1)' },
+      {
+        type: 'p',
+        text: 'Ce dossier permet à l’organisme certificateur (ex : la DREETS de votre région) de vérifier que vous remplissez bien les critères pour engager la VAE.',
+      },
+      { type: 'h3', text: '3. Rédiger le dossier de validation (Livret 2)' },
+      {
+        type: 'p',
+        text: 'Il s’agit de **décrire en détail** vos missions, les situations vécues et les compétences acquises. Cette étape peut être accompagnée par un organisme spécialisé.',
+      },
+      { type: 'h3', text: '4. Passer devant un jury' },
+      {
+        type: 'p',
+        text: 'Vous devez défendre votre dossier face à un jury d’évaluateurs. Cette étape est essentielle pour montrer que vous avez bien acquis les compétences du métier.',
+      },
+      { type: 'h3', text: '5. Obtenir une validation totale ou partielle' },
+      {
+        type: 'ul',
+        items: [
+          'Si vous obtenez une **validation totale**, vous recevez directement le diplôme.',
+          'En cas de **validation partielle**, vous devrez compléter votre parcours avec des formations ou de nouvelles expériences professionnelles.',
+        ],
+      },
+      { type: 'hr' },
+      { type: 'h2', text: '4. Quels sont les défis pour une assistante maternelle ?' },
+      {
+        type: 'p',
+        text: '**La diversité des expériences** : L’auxiliaire de puériculture travaille souvent en équipe (crèche, hôpital, maternité), tandis qu’une assistante maternelle exerce seule à domicile. Le jury peut donc s’interroger sur votre capacité à évoluer dans un cadre collectif.',
+      },
+      {
+        type: 'p',
+        text: '**Solution** : Mettez en avant votre travail avec d’autres professionnels (RAM, PMI, parents, etc.).',
+      },
+      {
+        type: 'p',
+        text: '**Les soins médicaux** : Le DEAP comprend des compétences sur des soins spécifiques que l’assistante maternelle ne pratique pas toujours (prise de température, surveillance des constantes…).',
+      },
+      {
+        type: 'p',
+        text: '**Solution** : Valorisez vos connaissances sur la santé infantile et, si besoin, envisagez des stages ou des compléments de formation.',
+      },
+      { type: 'hr' },
+      { type: 'h2', text: '5. Financement et accompagnement' },
+      {
+        type: 'p',
+        text: 'Faire une VAE a un coût (accompagnement, frais administratifs…). Plusieurs financements sont possibles :',
+      },
+      {
+        type: 'ul',
+        items: [
+          '**Compte Personnel de Formation (CPF)** : Principal moyen pour financer l’accompagnement VAE.',
+          '**Pôle emploi** : Peut financer une partie du parcours, mais cela dépend des fonds disponibles en région.',
+          '**Région et OPCO** : Certaines aides peuvent être attribuées aux professionnels de la petite enfance.',
+        ],
+      },
+      {
+        type: 'conclusion',
+        text: 'Oui, une assistante maternelle peut devenir auxiliaire de puériculture par la VAE. Il est essentiel de bien structurer son dossier pour prouver l’acquisition des compétences exigées par le diplôme. Un accompagnement peut être un atout pour réussir cette transition professionnelle et décrocher le DEAP.',
       },
     ],
   },
