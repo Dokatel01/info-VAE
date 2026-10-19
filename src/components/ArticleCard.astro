@@ -1,9 +1,9 @@
 ---
 // Carte d'article (page d'accueil : « Articles en vedette »).
 // Réutilisable : on lui passe un titre, un extrait, des tags, une image et un lien.
-// Toute la carte est cliquable : le lien est placé sur le titre (accessible au clavier et aux lecteurs
-// d'écran) et étendu à toute la carte en CSS (.article-card__link::after). Un seul lien par carte,
-// donc pas de liens imbriqués. Le bouton « Voir plus » est un simple repère visuel.
+// Le bouton « Voir plus » est un vrai lien (<a>) vers la page de l'article ; il est étendu à toute la
+// carte en CSS (.article-card__button::after), donc la carte entière est cliquable. Un seul lien par
+// carte : pas de liens imbriqués. Son nom accessible reprend le titre de l'article.
 import '../styles/article-card.css';
 
 const {
@@ -19,9 +19,7 @@ const {
 <article class="article-card">
   <img class="article-card__image" src={image} alt={imageAlt} width="712" height="384" loading="lazy" />
   <div class="article-card__body">
-    <h3 class="article-card__title">
-      <a class="article-card__link" href={href}>{title}</a>
-    </h3>
+    <h3 class="article-card__title">{title}</h3>
     <p class="article-card__excerpt">{excerpt}</p>
     {tags.length > 0 && (
       <ul class="article-card__tags">
@@ -31,8 +29,7 @@ const {
       </ul>
     )}
     <div class="article-card__actions">
-      <!-- Décoratif : toute la carte est cliquable via le lien du titre (un seul lien par carte). -->
-      <span class="article-card__button article-card__button--solid" aria-hidden="true">Voir plus</span>
+      <a class="article-card__button article-card__button--solid" href={href} aria-label={`Voir plus : ${title}`}>Voir plus</a>
     </div>
   </div>
 </article>

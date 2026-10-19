@@ -66,13 +66,13 @@ test('page article : la carte conseillers est bien dans le bloc sticky', () => {
   assert.match(src, /article-page__sticky[\s\S]*<AdvisorCard/);
 });
 
-// ---- Cartes d'articles : plus de bouton « Plus d'infos », carte entièrement cliquable ----
-test('carte d\'article : pas de « Plus d\'infos », un seul lien (pas de liens imbriqués)', () => {
+// ---- Cartes d'articles : plus de bouton « Plus d'infos », « Voir plus » = vrai lien, carte entièrement cliquable ----
+test('carte d\'article : « Voir plus » est un vrai lien, un seul lien par carte, pas de « Plus d\'infos »', () => {
   const src = fs.readFileSync(new URL('../src/components/ArticleCard.astro', import.meta.url), 'utf8');
   assert.doesNotMatch(src, /Plus d.infos/);
   assert.equal((src.match(/<a\s/g) || []).length, 1, 'une seule balise <a> par carte');
-  assert.match(src, /<h3[^>]*>\s*<a class="article-card__link"/);
+  assert.match(src, /<a class="article-card__button[^>]*href=\{href\}[^>]*>Voir plus<\/a>/);
   const css = read('article-card.css');
-  assert.match(css, /\.article-card__link::after\s*\{[^}]*inset:\s*0/);
+  assert.match(css, /\.article-card__button::after\s*\{[^}]*inset:\s*0/);
   assert.match(rule(css, '.article-card'), /position:\s*relative/);
 });

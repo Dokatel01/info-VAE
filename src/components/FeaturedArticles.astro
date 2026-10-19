@@ -1,16 +1,53 @@
 ---
-// Section « Articles en vedette » : 3 cartes alimentées par src/data/featuredArticles.js
+// Section « Articles en vedette » : 3 articles tirés AU HASARD parmi tous les articles du site.
+//
+// Comment ça marche : le site est statique (pas de serveur à chaque visite), donc le tirage se fait
+// dans le navigateur. Toutes les cartes sont présentes dans la page mais masquées ; un petit script
+// (placé juste après la grille, donc exécuté avant l'affichage) en montre 3 DIFFÉRENTES, choisies au
+// hasard, à chaque ouverture ou actualisation de la page. Sans JavaScript, on voit la sélection par
+// défaut (3 premières cartes). Le marquage des cartes est celui de ArticleCard : aucun doublon de code.
 import '../styles/featured-articles.css';
 import ArticleCard from './ArticleCard.astro';
-import { featuredArticles } from '../data/featuredArticles.js';
+import { allCards, defaultFeaturedSlugs } from '../data/featuredArticles.js';
+
+// Les cartes par défaut d'abord (visibles), puis toutes les autres (masquées).
+const ordered = [
+  ...defaultFeaturedSlugs.map((slug) => allCards.find((card) => card.slug === slug)),
+  ...allCards.filter((card) => !defaultFeaturedSlugs.includes(card.slug)),
+];
 ---
 <section class="featured-articles">
   <div class="container">
     <h2 class="featured-articles__title">Articles en vedette</h2>
-    <div class="featured-articles__grid">
-      {featuredArticles.map((article) => (
-        <ArticleCard {...article} />
+    <div class="featured-articles__grid" data-featured-grid data-count="3">
+      {ordered.map((card, index) => (
+        <div class="featured-articles__item" hidden={index >= 3}>
+          <ArticleCard {...card} />
+        </div>
       ))}
     </div>
+    <script is:inline>
+      (function () {
+        var grid = document.querySelector('[data-featured-grid]');
+        if (!grid) return;
+        var items = Array.prototype.slice.call(grid.children);
+        var count = Number(grid.getAttribute('data-count')) || 3;
+        var rnd = function (n) {
+          if (window.crypto && window.crypto.getRandomValues) {
+            return window.crypto.getRandomValues(new Uint32Array(1))[0] % n;
+          }
+          return Math.floor(Math.random() * n);
+        };
+        // Mélange de Fisher-Yates : chaque article n'apparaît qu'une seule fois dans la sélection.
+        for (var i = items.length - 1; i > 0; i--) {
+          var j = rnd(i + 1);
+          var tmp = items[i]; items[i] = items[j]; items[j] = tmp;
+        }
+        items.forEach(function (item, index) {
+          item.hidden = index >= count;
+          grid.appendChild(item);
+        });
+      })();
+    </script>
   </div>
 </section>

@@ -20,6 +20,15 @@
   gap: 24px;
 }
 
+/* Chaque carte est enveloppée (pour pouvoir la masquer) sans changer la mise en page de la grille */
+.featured-articles__item {
+  display: contents;
+}
+
+.featured-articles__item[hidden] {
+  display: none;
+}
+
 /* Tablette : 2 colonnes. Mobile : 1 colonne. */
 @media (max-width: 900px) {
   .featured-articles__grid {

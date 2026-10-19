@@ -7,13 +7,11 @@
 //
 // Pour changer les articles mis en avant ou leur ordre : modifier la liste ci-dessous.
 
-import { getArticle, articleUrl } from './articles.js';
+import { articles, getArticle, articleUrl } from './articles.js';
 
-const featuredSlugs = ['qui-peut-faire-une-vae', 'aides-financieres-vae', 'combien-coute-la-vae'];
-
-export const featuredArticles = featuredSlugs.map((slug) => {
-  const article = getArticle(slug);
+function toCard(article) {
   return {
+    slug: article.slug,
     title: article.cardTitle ?? article.title,
     excerpt: article.excerpt,
     tags: article.categories,
@@ -21,4 +19,15 @@ export const featuredArticles = featuredSlugs.map((slug) => {
     imageAlt: article.imageAlt,
     href: articleUrl(article),
   };
-});
+}
+
+// Sélection par défaut (affichée si JavaScript est désactivé, et avant le tirage au sort).
+const defaultSlugs = ['qui-peut-faire-une-vae', 'aides-financieres-vae', 'combien-coute-la-vae'];
+export const defaultFeaturedSlugs = defaultSlugs;
+
+// TOUS les articles du site, sous forme de cartes. Le navigateur en tire 3 au hasard à chaque visite
+// (voir le script dans FeaturedArticles.astro). Un nouvel article intégré dans articles.js
+// entre automatiquement dans le tirage.
+export const allCards = articles.map(toCard);
+
+export const featuredArticles = defaultSlugs.map((slug) => toCard(getArticle(slug)));
