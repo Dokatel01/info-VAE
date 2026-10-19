@@ -25,9 +25,14 @@ const related = getRelated(article);
     <ArticleSummary article={article} />
     <div class="article-page__grid">
       <ArticleContent article={article} />
+      <!-- Colonne latérale : elle occupe toute la hauteur de la ligne de la grille (align-self: stretch)
+           et son contenu « glisse » à l'intérieur grâce à position: sticky (voir article-page.css).
+           La carte conseillers et le « Plan article » restent ensemble pour ne jamais se chevaucher. -->
       <aside class="article-page__side">
-        <AdvisorCard />
-        <ArticleToc items={toc} />
+        <div class="article-page__sticky">
+          <AdvisorCard />
+          <ArticleToc items={toc} />
+        </div>
       </aside>
     </div>
   </div>

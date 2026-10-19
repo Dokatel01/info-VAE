@@ -11,15 +11,40 @@
   align-items: start;
 }
 
+/* Colonne latérale : elle s'étire sur toute la hauteur de la ligne (la grille est en `align-items: start`
+   pour que l'article ne s'étire pas) : c'est la « piste » sur laquelle la carte sticky peut glisser. */
 .article-page__side {
+  align-self: stretch;
+}
+
+/* CARTE CONSEILLERS STICKY (même principe que la page d'accueil, voir how-it-works.css) :
+   - `position: sticky` + `top` : le bloc reste visible pendant le défilement de l'article ;
+   - il reste DANS son parent (.article-page__side) : il s'arrête avec la ligne de la grille,
+     donc avant les articles connexes, la session d'information et le pied de page ;
+   - aucun `overflow` sur les ancêtres (aside, grille, conteneur, main, body, html). */
+.article-page__sticky {
+  position: sticky;
+  top: var(--sticky-offset);
   display: grid;
   gap: 24px;
+}
+
+/* Fenêtre trop basse : le bloc (carte + plan) dépasserait de l'écran une fois collé -> pas de sticky */
+@media (max-height: 600px) {
+  .article-page__sticky {
+    position: static;
+  }
 }
 
 /* Tablette / mobile : une seule colonne ; la colonne latérale passe sous l'article */
 @media (max-width: 900px) {
   .article-page__grid {
     grid-template-columns: minmax(0, 1fr);
+  }
+
+  /* Une seule colonne : le sticky est désactivé (comme sur l'accueil) */
+  .article-page__sticky {
+    position: static;
   }
 
   .article__title {
