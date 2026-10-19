@@ -32,26 +32,32 @@ test('recherche par titre (avec ou sans accents)', () => {
 test('recherche par catégorie', () => {
   assert.deepEqual(slugsFor('CPF')[0], 'aides-financieres-vae'); // catégorie de l'article « aides »
   assert.ok(slugsFor('budget').includes('combien-coute-la-vae'));
-  assert.deepEqual(slugsFor('eligibilite'), ['qui-peut-faire-une-vae']);
+  assert.equal(slugsFor('eligibilite')[0], 'qui-peut-faire-une-vae'); // catégorie « Eligibilité » (provisoire) : en premier
+  assert.ok(slugsFor('Aide soignant').includes('comment-obtenir-le-diplome-d-etat-d-aide-soignant-deas-par-la-vae')); // catégorie officielle du Sheet
+  assert.ok(slugsFor('Etapes VAE').includes('comment-choisir-son-organisme-accompagnateur-vae'));
 });
 
 test('recherche par résumé et par contenu (avec extrait)', () => {
   assert.ok(slugsFor('options de financement').includes('combien-coute-la-vae')); // résumé
   const results = searchArticles(index, 'OPCO');
-  assert.deepEqual(results.map((r) => r.article.slug), ['combien-coute-la-vae']);
-  assert.match(results[0].snippet, /OPCO/);
+  const hit = results.find((r) => r.article.slug === 'combien-coute-la-vae');
+  assert.ok(hit, 'OPCO doit retrouver l\'article sur les coûts');
+  assert.match(hit.snippet, /OPCO/);
+  for (const r of results) assert.match(r.snippet, /OPCO/i); // chaque résultat montre le mot trouvé
 });
 
 test('début de mot et plusieurs mots (tous requis)', () => {
   assert.ok(slugsFor('financ').includes('aides-financieres-vae'));
   // « cpf » et « pôle » sont aussi dans le texte de l'article sur les coûts : il remonte, mais après
-  assert.deepEqual(slugsFor('cpf pole'), ['aides-financieres-vae', 'combien-coute-la-vae']);
+  const cpfPole = slugsFor('cpf pole');
+  assert.equal(cpfPole[0], 'aides-financieres-vae');
+  assert.ok(cpfPole.includes('combien-coute-la-vae'));
   assert.deepEqual(slugsFor('cpf zzzz'), []);
 });
 
 test('le titre passe avant le contenu', () => {
   const results = searchArticles(index, 'financ');
-  assert.equal(results[0].article.slug, 'aides-financieres-vae'); // dans son titre ET ses catégories
+  assert.match(results[0].article.title, /financ/i); // le premier résultat a « financ » dans son titre
 });
 
 test('aucun résultat / requête vide', () => {

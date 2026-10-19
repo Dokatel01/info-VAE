@@ -32,8 +32,10 @@
 // ============================================================================
 
 import { slugify } from '../lib/text.js';
+import { sheetArticles } from './sheetArticles.js';
 
-export const articles = [
+// Articles de démonstration de l'étape précédente (les 3 articles de l'accueil).
+const baseArticles = [
   {
     slug: 'qui-peut-faire-une-vae',
     title: 'Qui peut faire une VAE et pour quels diplômes ?',
@@ -159,6 +161,9 @@ export const articles = [
     ],
   },
 ];
+
+// Articles issus du Google Sheets (voir src/data/sheetArticles.js), ajoutés à la suite.
+export const articles = [...baseArticles, ...sheetArticles];
 
 /** Adresses déjà prises par d'autres pages du site : un article ne peut pas les utiliser. */
 export const reservedSlugs = ['recherche', 'search-index'];

@@ -73,3 +73,52 @@ test('utilitaires de texte', () => {
   assert.equal(inlineToHtml('a **b** <i>'), 'a <strong>b</strong> &lt;i&gt;');
   assert.equal(inlineToHtml('x\ny'), 'x<br>y');
 });
+
+// ---------------------------------------------------------------------------
+// Articles issus du Google Sheets (src/data/sheetArticles.js)
+// ---------------------------------------------------------------------------
+import { sheetArticles } from '../src/data/sheetArticles.js';
+import { officialCategories, parseSheetCategories } from '../src/data/categories.js';
+
+test('catégories officielles : les 8 libellés du Sheet, orthographe exacte', () => {
+  assert.deepEqual(officialCategories, [
+    'Tarif', 'Pour qui', 'Financement', 'Etapes VAE',
+    'Auxiliaire Puériculture', 'Aide soignant', 'VAE général', 'Educateur spécialisé',
+  ]);
+});
+
+test('catégories multiples du Sheet → liste, texte inchangé', () => {
+  assert.deepEqual(parseSheetCategories('Pour qui, Auxiliaire Puériculture'), ['Pour qui', 'Auxiliaire Puériculture']);
+  assert.deepEqual(parseSheetCategories('Financement, Tarif'), ['Financement', 'Tarif']);
+  assert.deepEqual(parseSheetCategories('Etapes VAE'), ['Etapes VAE']);
+  assert.deepEqual(parseSheetCategories(''), []);
+});
+
+test('articles du Sheet : uniquement des catégories officielles, titres sans espace superflu', () => {
+  assert.equal(sheetArticles.length, 5);
+  for (const a of sheetArticles) {
+    for (const c of a.categories) assert.ok(officialCategories.includes(c), `${a.slug} : catégorie non officielle « ${c} »`);
+    assert.equal(a.title, a.title.trim());
+    assert.ok(a.source?.sheetRow && a.source?.docId, `${a.slug} : traçabilité Sheet/Doc manquante`);
+    assert.ok(articles.includes(a), `${a.slug} : absent de la liste d'articles du site`);
+  }
+});
+
+test('articles du Sheet : catégories attendues ligne par ligne (relevé du 19/10/2026)', () => {
+  const byRow = Object.fromEntries(sheetArticles.map((a) => [a.source.sheetRow, a.categories]));
+  assert.deepEqual(byRow, {
+    8: ['Pour qui', 'Auxiliaire Puériculture'],
+    9: ['Financement', 'Tarif'],
+    10: ['Financement', 'Tarif'],
+    11: ['Aide soignant'],
+    12: ['Etapes VAE'],
+  });
+});
+
+test('articles du Sheet : contenu complet, aucune fin de texte coupée', () => {
+  for (const a of sheetArticles) {
+    const last = a.content[a.content.length - 1];
+    assert.ok(/[.!?»)]$/.test(last.text.trim()), `${a.slug} : dernier bloc non terminé`);
+    assert.ok(a.content.filter((b) => b.type === 'h2').length >= 2, `${a.slug} : au moins 2 sections`);
+  }
+});

@@ -111,3 +111,12 @@ de la colonne latérale n'est **pas** sticky (décision à confirmer).
 ## À connecter plus tard
 
 Formulaire d'inscription (n'envoie rien), Google Sheets / Google Docs, bouton menu orange, « Ressources », « Contact », autres liens de nav (`#`).
+
+## Articles issus du Google Sheets (étape 4 — intégration manuelle)
+
+- Fichier : `src/data/sheetArticles.js` (5 articles, état « à intégrer » dans le Sheet au 19/10/2026) et `src/data/categories.js` (les 8 catégories officielles).
+- Chaque article garde dans `source` sa ligne du Sheet et l'identifiant de son Google Doc.
+- Les catégories sont celles du Sheet, **libellés inchangés** ; plusieurs catégories = une liste.
+- Non intégrés (Doc source tronqué, à corriger dans le Doc) : ligne 13 « Peut-on faire une VAE à distance » et ligne 14 « Une assistante maternelle peut-elle devenir auxiliaire de puériculture par la VAE ».
+- Le Google Sheets n'est PAS modifié par ce projet : l'état « à intégrer » → « Publié » et la date de publication se mettent à jour seulement après vérification dans `npm run dev`.
+- Les 3 articles de démonstration de l'accueil gardent leurs catégories provisoires (Eligibilité, Diplômes, CPF, Pôle emploi, Coûts, Budget) en attendant votre décision.
