@@ -33,6 +33,7 @@
 
 import { slugify } from '../lib/text.js';
 import { sheetArticles } from './sheetArticles.js';
+import { generatedImages } from './images.js';
 
 // Articles de démonstration de l'étape précédente (les 3 articles de l'accueil).
 const baseArticles = [
@@ -163,7 +164,13 @@ const baseArticles = [
 ];
 
 // Articles issus du Google Sheets (voir src/data/sheetArticles.js), ajoutés à la suite.
-export const articles = [...baseArticles, ...sheetArticles];
+// L'illustration de chaque article est créée par `npm run images` (src/lib/illustration.js) et
+// enregistrée dans src/data/images.js : si elle existe, elle remplace l'image par défaut.
+// Un article sans illustration garde l'image indiquée dans ses données (image par défaut).
+export const articles = [...baseArticles, ...sheetArticles].map((article) => {
+  const generated = generatedImages[article.slug];
+  return generated ? { ...article, image: generated.file } : article;
+});
 
 /** Adresses déjà prises par d'autres pages du site : un article ne peut pas les utiliser. */
 export const reservedSlugs = ['recherche', 'search-index'];

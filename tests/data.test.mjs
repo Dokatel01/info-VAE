@@ -100,7 +100,7 @@ test('articles du Sheet : uniquement des catégories officielles, titres sans es
     for (const c of a.categories) assert.ok(officialCategories.includes(c), `${a.slug} : catégorie non officielle « ${c} »`);
     assert.equal(a.title, a.title.trim());
     assert.ok(a.source?.sheetRow && a.source?.docId, `${a.slug} : traçabilité Sheet/Doc manquante`);
-    assert.ok(articles.includes(a), `${a.slug} : absent de la liste d'articles du site`);
+    assert.ok(articles.some((x) => x.slug === a.slug), `${a.slug} : absent de la liste d'articles du site`);
   }
 });
 
