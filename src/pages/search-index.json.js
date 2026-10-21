@@ -6,7 +6,7 @@ import { inlineToPlain } from '../lib/text.js';
 function plainContent(article) {
   return article.content
     .map((block) => {
-      if (block.type === 'ul') return block.items.map(inlineToPlain).join(' ');
+      if (block.type === 'ul' || block.type === 'ol') return block.items.map(inlineToPlain).join(' ');
       if (block.type === 'hr') return '';
       return inlineToPlain(block.text);
     })

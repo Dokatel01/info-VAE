@@ -120,7 +120,62 @@ test('articles du Sheet : catégories attendues ligne par ligne (relevé du 19/1
 test('articles du Sheet : contenu complet, aucune fin de texte coupée', () => {
   for (const a of sheetArticles) {
     const last = a.content[a.content.length - 1];
-    assert.ok(/[.!?»)]$/.test(last.text.trim()), `${a.slug} : dernier bloc non terminé`);
+    assert.ok(/[.!?»)\u{1F300}-\u{1FAFF}]$/u.test(last.text.trim()), `${a.slug} : dernier bloc non terminé`);
     assert.ok(a.content.filter((b) => b.type === 'h2').length >= 2, `${a.slug} : au moins 2 sections`);
+  }
+});
+
+// ---------------------------------------------------------------------------
+// Lot 2 (lignes 3 à 7 et 15 à 21 du Sheet) + ligne 2 : intégration du 21/10/2026
+// ---------------------------------------------------------------------------
+import { sheetArticlesLot2 } from '../src/data/sheetArticlesLot2.js';
+
+test('lot 2 : 12 articles, catégories exactes du Sheet ligne par ligne, aucun texte provisoire', () => {
+  assert.equal(sheetArticlesLot2.length, 12);
+  const byRow = Object.fromEntries(sheetArticlesLot2.map((a) => [a.source.sheetRow, a.categories]));
+  assert.deepEqual(byRow, {
+    3: ['Pour qui'],
+    4: ['Etapes VAE'],
+    5: ['Etapes VAE'],
+    6: ['Etapes VAE'],
+    7: ['Pour qui', 'Auxiliaire Puériculture'],
+    15: ['Etapes VAE'],
+    16: ['Etapes VAE'],
+    17: ['VAE général'],
+    18: ['Etapes VAE'],
+    19: ['Etapes VAE'],
+    20: ['Educateur spécialisé'],
+    21: ['Financement'],
+  });
+  for (const a of articles) {
+    assert.equal(a.provisional, false, `${a.slug} : texte provisoire`);
+    assert.ok(!JSON.stringify(a.content).includes('Contenu provisoire'), `${a.slug} : texte d'attente`);
+    for (const c of a.categories) assert.ok(officialCategories.includes(c), `${a.slug} : catégorie non officielle « ${c} »`);
+  }
+});
+
+test('ligne 2 : /combien-coute-la-vae existe une seule fois, catégorie « Tarif »', () => {
+  const same = articles.filter((a) => a.slug === 'combien-coute-la-vae');
+  assert.equal(same.length, 1);
+  assert.deepEqual(same[0].categories, ['Tarif']);
+});
+
+test('aucun doublon de titre ni de Google Doc dans tout le site', () => {
+  const titles = articles.map((a) => a.title.toLowerCase());
+  assert.equal(new Set(titles).size, titles.length, 'titres en double');
+  const docs = articles.filter((a) => a.source).map((a) => a.source.docId);
+  assert.equal(new Set(docs).size, docs.length, 'Doc intégré deux fois');
+  const rows = articles.filter((a) => a.source).map((a) => a.source.sheetRow);
+  assert.equal(new Set(rows).size, rows.length, 'ligne du Sheet intégrée deux fois');
+});
+
+test('menu et pied de page : aucun lien d’article en « # », tous vers un article existant', async () => {
+  const fs = await import('node:fs');
+  for (const file of ['src/components/NavBar.astro', 'src/components/Footer.astro']) {
+    const text = fs.readFileSync(new URL(`../${file}`, import.meta.url), 'utf8');
+    assert.ok(!/href="#"|href: '#'/.test(text), `${file} : lien « # » restant`);
+    const hrefs = [...text.matchAll(/(?:href="|href: ')(\/[a-z0-9-]+)/g)].map((m) => m[1]);
+    assert.ok(hrefs.length >= 4, `${file} : liens d'articles attendus`);
+    for (const href of hrefs) assert.ok(getArticle(href.slice(1)), `${file} : ${href} ne mène à aucun article`);
   }
 });

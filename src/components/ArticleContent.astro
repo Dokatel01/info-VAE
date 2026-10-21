@@ -16,6 +16,7 @@ const { article } = Astro.props;
       if (block.type === 'h2') return <h2 id={slugifyHeading(block.text)}>{block.text}</h2>;
       if (block.type === 'h3') return <h3>{block.text}</h3>;
       if (block.type === 'ul') return <ul>{block.items.map((item) => <li set:html={inlineToHtml(item)} />)}</ul>;
+      if (block.type === 'ol') return <ol>{block.items.map((item) => <li set:html={inlineToHtml(item)} />)}</ol>;
       if (block.type === 'hr') return <hr />;
       if (block.type === 'conclusion') return <p class="article__conclusion" set:html={inlineToHtml(block.text)} />;
       return <p set:html={inlineToHtml(block.text)} />;

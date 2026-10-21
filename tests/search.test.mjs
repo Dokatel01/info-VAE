@@ -25,14 +25,15 @@ test('normalisation : accents, majuscules et apostrophes', () => {
 });
 
 test('recherche par titre (avec ou sans accents)', () => {
-  assert.deepEqual(slugsFor('Combien coûte'), ['combien-coute-la-vae']);
-  assert.deepEqual(slugsFor('combien coute'), ['combien-coute-la-vae']);
+  assert.equal(slugsFor('Combien coûte')[0], 'combien-coute-la-vae'); // le titre passe avant le contenu
+  assert.equal(slugsFor('combien coute')[0], 'combien-coute-la-vae');
 });
 
 test('recherche par catégorie', () => {
-  assert.deepEqual(slugsFor('CPF')[0], 'aides-financieres-vae'); // catégorie de l'article « aides »
+  assert.equal(slugsFor('Tarif')[0], 'combien-coute-la-vae'); // catégorie « Tarif » (ligne 2 du Sheet), mot du titre
   assert.ok(slugsFor('budget').includes('combien-coute-la-vae'));
-  assert.equal(slugsFor('eligibilite')[0], 'qui-peut-faire-une-vae'); // catégorie « Eligibilité » (provisoire) : en premier
+  assert.equal(slugsFor('Pour qui')[0], 'qui-peut-faire-une-vae'); // catégorie officielle « Pour qui »
+  assert.ok(slugsFor('Educateur spécialisé').includes('comment-faire-une-vae-pour-devenir-educateur-specialise'));
   assert.ok(slugsFor('Aide soignant').includes('comment-obtenir-le-diplome-d-etat-d-aide-soignant-deas-par-la-vae')); // catégorie officielle du Sheet
   assert.ok(slugsFor('Etapes VAE').includes('comment-choisir-son-organisme-accompagnateur-vae'));
 });
@@ -48,10 +49,11 @@ test('recherche par résumé et par contenu (avec extrait)', () => {
 
 test('début de mot et plusieurs mots (tous requis)', () => {
   assert.ok(slugsFor('financ').includes('aides-financieres-vae'));
-  // « cpf » et « pôle » sont aussi dans le texte de l'article sur les coûts : il remonte, mais après
+  // « cpf » et « pôle » sont dans plusieurs articles : ceux qui les ont dans le titre passent d'abord
   const cpfPole = slugsFor('cpf pole');
-  assert.equal(cpfPole[0], 'aides-financieres-vae');
+  assert.ok(cpfPole.includes('aides-financieres-vae'));
   assert.ok(cpfPole.includes('combien-coute-la-vae'));
+  assert.match(searchArticles(index, 'cpf pole')[0].article.title, /p[ôo]le emploi|cpf/i);
   assert.deepEqual(slugsFor('cpf zzzz'), []);
 });
 

@@ -27,60 +27,26 @@
 //   { type: 'h2', text }        titre de section : alimente le « Plan article »
 //   { type: 'h3', text }        sous-titre
 //   { type: 'ul', items: [...] } liste à puces ; **gras** permis
+//   { type: 'ol', items: [...] } liste numérotée ; **gras** permis
 //   { type: 'hr' }              séparateur
 //   { type: 'conclusion', text } paragraphe de conclusion (en italique)
 // ============================================================================
 
 import { slugify } from '../lib/text.js';
 import { sheetArticles } from './sheetArticles.js';
+import { sheetArticlesLot2 } from './sheetArticlesLot2.js';
 import { generatedImages } from './images.js';
 
-// Articles de démonstration de l'étape précédente (les 3 articles de l'accueil).
+// Ligne 2 du Sheet (adresse /combien-coute-la-vae, déjà utilisée par la navigation).
+// Les deux autres articles de démonstration (provisoires) ont été remplacés par les lignes 3 et 21
+// du Sheet (src/data/sheetArticlesLot2.js), aux mêmes adresses.
 const baseArticles = [
-  {
-    slug: 'qui-peut-faire-une-vae',
-    title: 'Qui peut faire une VAE et pour quels diplômes ?',
-    categories: ['Eligibilité', 'Diplômes'],
-    excerpt: "Découvrez les conditions d'éligibilité et la liste des diplômes accessibles par la VAE.",
-    summary: "Découvrez les conditions d'éligibilité et la liste des diplômes accessibles par la VAE.",
-    updatedAt: '2026-10-14',
-    author: 'La Rédaction de Info-VAE',
-    image: '/images/article-eligibilite-diplomes.jpg',
-    imageAlt: '',
-    provisional: true,
-    content: [
-      { type: 'p', text: "[Contenu provisoire] Le texte de cet article sera fourni plus tard (Google Docs). Cette page sert à vérifier la mise en page, la recherche et les catégories." },
-      { type: 'h2', text: 'Les conditions pour faire une VAE' },
-      { type: 'p', text: "[Contenu provisoire] Texte à venir." },
-      { type: 'h2', text: 'Les diplômes accessibles' },
-      { type: 'p', text: "[Contenu provisoire] Texte à venir." },
-    ],
-  },
-  {
-    slug: 'aides-financieres-vae',
-    title: 'Les aides financières pour la VAE : CPF, Pôle emploi...',
-    categories: ['Financement', 'CPF', 'Pôle emploi'],
-    excerpt: 'Explorez les différentes options de financement pour votre démarche de VAE.',
-    summary: 'Explorez les différentes options de financement pour votre démarche de VAE.',
-    updatedAt: '2026-10-14',
-    author: 'La Rédaction de Info-VAE',
-    image: '/images/article-aides-financieres.jpg',
-    imageAlt: '',
-    provisional: true,
-    content: [
-      { type: 'p', text: "[Contenu provisoire] Le texte de cet article sera fourni plus tard (Google Docs). Cette page sert à vérifier la mise en page, la recherche et les catégories." },
-      { type: 'h2', text: 'Financer sa VAE avec le CPF' },
-      { type: 'p', text: "[Contenu provisoire] Texte à venir." },
-      { type: 'h2', text: 'Les aides de Pôle emploi' },
-      { type: 'p', text: "[Contenu provisoire] Texte à venir." },
-    ],
-  },
   {
     slug: 'combien-coute-la-vae', // adresse déjà utilisée par la nav et par la référence
     title: 'Tarif accompagnement et frais de passage devant le jury : combien coûte réellement une VAE',
     cardTitle: 'Combien coûte une VAE ?',
     breadcrumbTitle: 'Tarif accompagnement et frais de passage devant le jury',
-    categories: ['Coûts', 'Budget'],
+    categories: ['Tarif'], // ligne 2 du Sheet : catégorie « Tarif »
     excerpt: "Analysez le coût global d'une démarche de VAE et préparez votre budget en conséquence.",
     summary:
       "La Validation des Acquis de l'Expérience (VAE) est un dispositif permettant de transformer une expérience professionnelle en un diplôme, un titre ou une certification reconnue. Découvrez les différents coûts et options de financement.",
@@ -167,7 +133,7 @@ const baseArticles = [
 // L'illustration de chaque article est créée par `npm run images` (src/lib/illustration.js) et
 // enregistrée dans src/data/images.js : si elle existe, elle remplace l'image par défaut.
 // Un article sans illustration garde l'image indiquée dans ses données (image par défaut).
-export const articles = [...baseArticles, ...sheetArticles].map((article) => {
+export const articles = [...baseArticles, ...sheetArticles, ...sheetArticlesLot2].map((article) => {
   const generated = generatedImages[article.slug];
   return generated ? { ...article, image: generated.file } : article;
 });
