@@ -8,7 +8,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "test": "node --test tests/data.test.mjs tests/search.test.mjs tests/sticky.test.mjs tests/featured.test.mjs tests/images.test.mjs",
+    "test": "node --test tests/data.test.mjs tests/search.test.mjs tests/sticky.test.mjs tests/featured.test.mjs tests/images.test.mjs tests/contact.test.mjs",
     "images": "node scripts/generate-images.mjs"
   },
   "dependencies": {

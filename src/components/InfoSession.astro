@@ -23,8 +23,8 @@ import Icon from './Icon.astro';
       <span class="info-session__circle info-session__circle--cream" aria-hidden="true"></span>
       <span class="info-session__circle info-session__circle--yellow" aria-hidden="true"></span>
 
-      <!-- À CONNECTER PLUS TARD : ce formulaire n'envoie encore rien (voir le script plus bas).
-           Il faudra le relier à un service d'inscription (newsletter / session d'information). -->
+      <!-- Formulaire relié à /api/contact (netlify/functions/contact.mjs) : chaque envoi valide crée une ligne
+           dans le Google Sheets « Info VAE – Contacts ». Trois champs seulement : Prénom, Nom, Email. -->
       <form class="info-session__form" id="signup-form" novalidate>
         <label class="info-session__label" for="signup-firstname">Prénom</label>
         <input class="info-session__input" id="signup-firstname" name="firstname" type="text" placeholder="Prénom" autocomplete="given-name" required />
@@ -40,19 +40,61 @@ import Icon from './Icon.astro';
 </section>
 
 <script>
-  // Comportement PROVISOIRE du formulaire : contrôle des champs, mais aucun envoi.
+  // Envoi du formulaire vers /api/contact (fonction Netlify → Google Sheets « Info VAE – Contacts »).
+  // Contrôle immédiat des 3 champs dans le navigateur ; le contrôle qui fait foi est celui du serveur.
   const form = document.getElementById('signup-form');
   const status = document.getElementById('signup-status');
+  const openedAt = Date.now(); // sert d'anti-spam : un robot envoie le formulaire immédiatement
+  const EMAIL_RE = /^[^\s@<>()[\]\\,;:"]+@[^\s@<>()[\]\\,;:"]+\.[^\s@<>()[\]\\,;:"]{2,}$/;
+
+  function show(state, message) {
+    status.hidden = false;
+    status.dataset.state = state;
+    status.textContent = message;
+  }
 
   if (form && status) {
-    form.addEventListener('submit', (event) => {
+    const button = form.querySelector('button[type="submit"]');
+    form.addEventListener('submit', async (event) => {
       event.preventDefault();
+      const email = form.elements.email;
+      email.setCustomValidity(EMAIL_RE.test(email.value.trim()) ? '' : "Veuillez saisir une adresse e-mail valide (exemple : nom@domaine.fr).");
       if (!form.checkValidity()) {
         form.reportValidity(); // affiche les messages natifs du navigateur
         return;
       }
-      status.hidden = false;
-      status.textContent = "Formulaire non connecté pour le moment : aucune donnée n'a été envoyée.";
+      button.disabled = true;
+      show('pending', 'Envoi en cours…');
+      try {
+        // Un visiteur très rapide (remplissage automatique) attend un instant : le serveur refuse les envois instantanés.
+        const wait = 3000 - (Date.now() - openedAt);
+        if (wait > 0) await new Promise((resolve) => setTimeout(resolve, wait));
+        const response = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            firstname: form.elements.firstname.value,
+            lastname: form.elements.lastname.value,
+            email: form.elements.email.value,
+            elapsed: Date.now() - openedAt,
+          }),
+        });
+        const result = await response.json().catch(() => null);
+        if (response.ok && result && result.ok) {
+          form.reset();
+          show('success', 'Merci ! Votre inscription a bien été enregistrée. Nous reviendrons vers vous très prochainement.');
+        } else if (response.status === 422) {
+          show('error', "Certaines informations ne sont pas valides. Vérifiez votre prénom, votre nom et votre adresse e-mail.");
+        } else if (response.status === 429) {
+          show('error', 'Trop de tentatives. Merci de réessayer dans quelques minutes.');
+        } else {
+          show('error', "Votre inscription n'a pas pu être enregistrée. Merci de réessayer un peu plus tard.");
+        }
+      } catch (error) {
+        show('error', "Impossible de contacter le serveur. Vérifiez votre connexion et réessayez.");
+      } finally {
+        button.disabled = false;
+      }
     });
   }
 </script>

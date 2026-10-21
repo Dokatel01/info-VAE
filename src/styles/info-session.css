@@ -119,6 +119,9 @@
   color: var(--color-text-secondary);
 }
 
+.info-session__status[data-state='success'] { color: #166534; font-weight: 600; }
+.info-session__status[data-state='error'] { color: #b91c1c; font-weight: 600; }
+
 /* Étiquettes des champs : invisibles à l'écran (la référence n'affiche que des
    textes d'exemple dans les champs), mais lues par les lecteurs d'écran. */
 .info-session__label {
