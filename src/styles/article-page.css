@@ -21,30 +21,49 @@
    - `position: sticky` + `top` : le bloc reste visible pendant le défilement de l'article ;
    - il reste DANS son parent (.article-page__side) : il s'arrête avec la ligne de la grille,
      donc avant les articles connexes, la session d'information et le pied de page ;
-   - aucun `overflow` sur les ancêtres (aside, grille, conteneur, main, body, html). */
+   - aucun `overflow` sur les ancêtres (aside, grille, conteneur, main, body, html) ;
+   - le sticky n'est JAMAIS retiré selon la hauteur de la fenêtre : si l'écran est bas (portable,
+     zoom 125 % à 200 %), le bloc est limité à la hauteur visible et c'est le « Plan article »
+     qui défile à l'intérieur (voir plus bas), la carte conseillers reste entière. */
 .article-page__sticky {
   position: sticky;
-  top: var(--sticky-offset);
-  display: grid;
+  top: var(--sticky-offset, 24px);
+  display: flex;
+  flex-direction: column;
   gap: 24px;
+  /* hauteur visible moins le décalage haut et une marge basse égale ; `dvh` suit la barre d'adresse mobile */
+  max-height: calc(100vh - 2 * var(--sticky-offset, 24px));
+  max-height: calc(100dvh - 2 * var(--sticky-offset, 24px));
 }
 
-/* Fenêtre trop basse : le bloc (carte + plan) dépasserait de l'écran une fois collé -> pas de sticky */
-@media (max-height: 600px) {
-  .article-page__sticky {
-    position: static;
-  }
+.article-page__sticky > .advisor-card {
+  flex: none;
 }
 
-/* Tablette / mobile : une seule colonne ; la colonne latérale passe sous l'article */
-@media (max-width: 900px) {
+/* Le plan est la seule partie qui peut défiler : cet `overflow` est sur le plan lui-même, à
+   l'intérieur du bloc sticky, donc il n'empêche pas le sticky (il ne l'englobe pas). */
+.article-page__sticky > .article-toc {
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+/* Mobile et tablette portrait (768 px et moins) : une seule colonne ; la colonne latérale passe sous
+   l'article. Au-delà de 768 px il y a deux colonnes, donc le sticky reste actif (zoom 150 % d'un
+   écran 1366 px = ~900 px de large : il doit encore fonctionner). Même seuil que how-it-works.css. */
+@media (max-width: 768px) {
   .article-page__grid {
     grid-template-columns: minmax(0, 1fr);
   }
 
-  /* Une seule colonne : le sticky est désactivé (comme sur l'accueil) */
+  /* Une seule colonne : rien à « coller », le sticky est désactivé (comme sur l'accueil) */
   .article-page__sticky {
     position: static;
+    max-height: none;
+  }
+
+  .article-page__sticky > .article-toc {
+    overflow-y: visible;
   }
 
   .article__title {

@@ -54,12 +54,12 @@
    -------------------------------------------------------------------------- */
 .how-it-works__sticky {
   position: sticky;
-  top: var(--sticky-offset);
+  top: var(--sticky-offset, 24px);
 }
 
 /* Tablette et mobile : une seule colonne, la carte repasse en position normale
    (une carte collée en haut d'un petit écran masquerait le texte). */
-@media (max-width: 900px) {
+@media (max-width: 768px) {
   .how-it-works__grid {
     grid-template-columns: 1fr;
     gap: 24px;
