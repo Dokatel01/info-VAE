@@ -76,7 +76,7 @@ test('anti-spam : origine étrangère, mauvais format, envoi trop rapide, trop d
   assert.equal((await handle(request('{pas du json'), ENV, sink.fn, fresh())).status, 400);
   assert.equal((await handle(request({ ...GOOD, elapsed: 200 }), ENV, sink.fn, fresh())).status, 400);
   assert.equal((await handle(request({ firstname: 'A', lastname: 'B', email: 'a@b.fr' }), ENV, sink.fn, fresh())).status, 400); // sans délai
-  assert.equal((await handle(new Request('https://info-vae.netlify.app/api/contact'), ENV, sink.fn, fresh())).status, 405);
+  assert.equal((await handle(new Request('https://info-vae.netlify.app/api/contact', { method: 'PUT' }), ENV, sink.fn, fresh())).status, 405);
   assert.equal(sink.calls.length, 0);
   const limiter = createRateLimiter({ max: 2 });
   const statuses = [];
@@ -144,4 +144,18 @@ test('UTM : aucun champ visible ajouté au formulaire, capture présente dans le
   assert.ok(/utm_source/.test(layout) && /sessionStorage/.test(layout));
   const form = fs.readFileSync(new URL('../src/components/InfoSession.astro', import.meta.url), 'utf8').match(/<form[\s\S]*?<\/form>/)[0];
   assert.ok(!/utm/i.test(form), 'aucun champ UTM dans le formulaire');
+});
+
+test('diagnostic : GET indique en ligne/configuré (sans valeurs) ; les échecs disent où ça casse', async () => {
+  const get = (env) => handle(new Request('https://info-vae.netlify.app/api/contact'), env, okSink().fn, fresh());
+  assert.deepEqual(await (await get(ENV)).json(), { service: 'contact', online: true, configured: true });
+  assert.deepEqual(await (await get({})).json(), { service: 'contact', online: true, configured: false });
+  assert.ok(!JSON.stringify(await (await get(ENV)).json()).includes('s3cret'));
+  const detail = async (fn, env = ENV) => (await (await handle(request(GOOD), env, fn, fresh())).json()).detail;
+  assert.equal(await detail(okSink().fn, {}), 'variables-netlify-absentes');
+  assert.match(await detail(async () => new Response('<!DOCTYPE html><html>', { status: 200 })), /script-page-html/);
+  assert.equal(await detail(async () => new Response('', { status: 404 })), 'script-http-404');
+  assert.equal(await detail(async () => new Response(JSON.stringify({ ok: false, error: 'secret' }))), 'script-refus:secret');
+  assert.match(await detail(async () => { throw new Error('x'); }), /^reseau:/);
+  for (const d of [await detail(async () => new Response('', { status: 500 }))]) assert.ok(!d.includes('s3cret-test'));
 });

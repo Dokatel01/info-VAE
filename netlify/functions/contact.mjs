@@ -17,6 +17,9 @@ const json = (status, body) =>
   new Response(JSON.stringify(body), { status, headers: { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'no-store' } });
 
 export async function handle(req, env = process.env, fetchImpl = fetch, rateLimiter = allow) {
+  // Diagnostic : ouvrir /api/contact dans le navigateur indique si la fonction est en ligne et configurée
+  // (seulement oui/non, jamais les valeurs).
+  if (req.method === 'GET') return json(200, { service: 'contact', online: true, configured: Boolean(env.APPS_SCRIPT_URL && env.APPS_SCRIPT_SECRET) });
   if (req.method !== 'POST') return json(405, { ok: false, error: 'method' });
 
   // 1. Sécurité : requête venant du site lui-même, au format JSON.
@@ -36,9 +39,17 @@ export async function handle(req, env = process.env, fetchImpl = fetch, rateLimi
   if (!result.ok) return json(422, { ok: false, error: 'validation', fields: result.errors });
 
   // 4. Configuration serveur indispensable.
-  if (!env.APPS_SCRIPT_URL || !env.APPS_SCRIPT_SECRET) return json(500, { ok: false, error: 'config' });
+  if (!env.APPS_SCRIPT_URL || !env.APPS_SCRIPT_SECRET) {
+    console.error('[contact] variables APPS_SCRIPT_URL / APPS_SCRIPT_SECRET absentes dans Netlify');
+    return json(500, { ok: false, error: 'config', detail: 'variables-netlify-absentes' });
+  }
 
   // 5. Écriture dans le Sheet : on ne répond « ok » que si le script confirme.
+  //    `detail` (sans aucun secret) dit où ça a échoué ; il est aussi écrit dans les journaux Netlify.
+  const fail = (detail) => {
+    console.error('[contact] enregistrement impossible :', detail);
+    return json(502, { ok: false, error: 'enregistrement', detail });
+  };
   try {
     const res = await fetchImpl(env.APPS_SCRIPT_URL, {
       method: 'POST',
@@ -48,10 +59,14 @@ export async function handle(req, env = process.env, fetchImpl = fetch, rateLimi
       redirect: 'follow',
       signal: AbortSignal.timeout(15000),
     });
-    const data = await res.json().catch(() => null);
-    if (!res.ok || !data || data.ok !== true) return json(502, { ok: false, error: 'enregistrement' });
-  } catch {
-    return json(502, { ok: false, error: 'enregistrement' });
+    const text = await res.text();
+    let data = null;
+    try { data = JSON.parse(text); } catch { /* réponse non JSON */ }
+    if (!res.ok) return fail(`script-http-${res.status}`);
+    if (!data) return fail(/^\s*<(!doctype|html)/i.test(text) ? 'script-page-html (déploiement non public ou URL incorrecte)' : 'script-reponse-illisible');
+    if (data.ok !== true) return fail(`script-refus:${String(data.error ?? 'inconnu').slice(0, 40)}`);
+  } catch (error) {
+    return fail(`reseau:${error?.name ?? 'erreur'}`);
   }
   return json(200, { ok: true });
 }

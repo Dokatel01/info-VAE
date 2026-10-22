@@ -86,10 +86,12 @@ import Icon from './Icon.astro';
           form.reset();
           show('success', 'Merci ! Votre inscription a bien été enregistrée. Nous reviendrons vers vous très prochainement.');
         } else if (response.status === 422) {
+          console.warn('[contact] refusé', response.status, result);
           show('error', "Certaines informations ne sont pas valides. Vérifiez votre prénom, votre nom et votre adresse e-mail.");
         } else if (response.status === 429) {
           show('error', 'Trop de tentatives. Merci de réessayer dans quelques minutes.');
         } else {
+          console.warn('[contact] échec', response.status, result); // aide au diagnostic (F12 > Console)
           show('error', "Votre inscription n'a pas pu être enregistrée. Merci de réessayer un peu plus tard.");
         }
       } catch (error) {
