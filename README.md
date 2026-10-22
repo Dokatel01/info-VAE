@@ -120,3 +120,7 @@ Formulaire d'inscription (n'envoie rien), Google Sheets / Google Docs, bouton me
 - Non intégrés (Doc source tronqué, à corriger dans le Doc) : ligne 13 « Peut-on faire une VAE à distance » et ligne 14 « Une assistante maternelle peut-elle devenir auxiliaire de puériculture par la VAE ».
 - Le Google Sheets n'est PAS modifié par ce projet : l'état « à intégrer » → « Publié » et la date de publication se mettent à jour seulement après vérification dans `npm run dev`.
 - (Résolu le 21/10/2026) Les 3 articles de l'accueil utilisent maintenant les catégories officielles du Sheet : Tarif, Pour qui, Financement.
+
+## Maillage interne et photos (22/10/2026)
+- **Liens contextuels** : règles dans `src/data/internalLinks.js` (expressions → article cible), appliqués à l'affichage par `src/lib/internalLinks.js` ; le texte des Docs n'est jamais modifié. **Articles liés** : 3 articles calculés automatiquement (catégories communes, liens, mots du titre), ou choisis à la main avec le champ `related`.
+- **Photos** : voir `docs/photos-brief.md` (cahier des charges, procédure, textes alternatifs dans `src/data/imageAlt.js`). Sans photo, l'article garde son illustration.

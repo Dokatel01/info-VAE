@@ -24,6 +24,7 @@ export function GET() {
     summary: article.summary,
     categories: article.categories,
     image: article.image,
+    imageSrcset: article.imageSrcset ?? '',
     imageAlt: article.imageAlt ?? '',
     content: plainContent(article),
   }));

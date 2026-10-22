@@ -75,3 +75,14 @@
   margin-top: 24px;
   font-style: italic;
 }
+
+/* Liens contextuels vers d'autres articles (maillage interne) */
+.article__content a.article__link {
+  color: var(--color-primary);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.article__content a.article__link:hover,
+.article__content a.article__link:focus-visible {
+  text-decoration-thickness: 2px;
+}

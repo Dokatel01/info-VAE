@@ -32,10 +32,13 @@
 //   { type: 'conclusion', text } paragraphe de conclusion (en italique)
 // ============================================================================
 
-import { slugify } from '../lib/text.js';
+import { slugify, inlineToPlain } from '../lib/text.js';
 import { sheetArticles } from './sheetArticles.js';
 import { sheetArticlesLot2 } from './sheetArticlesLot2.js';
 import { generatedImages } from './images.js';
+import { photos } from './photos.js';
+import { photoAlt } from './imageAlt.js';
+import { addInternalLinks } from '../lib/internalLinks.js';
 
 // Ligne 2 du Sheet (adresse /combien-coute-la-vae, déjà utilisée par la navigation).
 // Les deux autres articles de démonstration (provisoires) ont été remplacés par les lignes 3 et 21
@@ -133,7 +136,15 @@ const baseArticles = [
 // L'illustration de chaque article est créée par `npm run images` (src/lib/illustration.js) et
 // enregistrée dans src/data/images.js : si elle existe, elle remplace l'image par défaut.
 // Un article sans illustration garde l'image indiquée dans ses données (image par défaut).
-export const articles = [...baseArticles, ...sheetArticles, ...sheetArticlesLot2].map((article) => {
+// Les extraits et résumés sont affichés en texte simple : le gras (**…**) du Google Doc n'y apparaît pas.
+const plain = (article) => ({ ...article, excerpt: inlineToPlain(article.excerpt), summary: inlineToPlain(article.summary) });
+
+export const articles = [...baseArticles, ...sheetArticles, ...sheetArticlesLot2].map(plain).map((article) => {
+  // 1) photo optimisée (src/data/photos.js) avec son texte alternatif, 2) sinon illustration générée, 3) sinon image par défaut.
+  const photo = photos[article.slug];
+  if (photo && photoAlt[article.slug]) {
+    return { ...article, image: photo.src, imageSrcset: photo.srcset, imageAlt: photoAlt[article.slug] };
+  }
   const generated = generatedImages[article.slug];
   return generated ? { ...article, image: generated.file } : article;
 });
@@ -160,11 +171,30 @@ export function slugifyHeading(text) {
   return slugify(text);
 }
 
-/** Articles liés : ceux indiqués dans `related`, sinon les autres articles (3 au maximum). */
-export function getRelated(article) {
-  const others = articles.filter((item) => item.slug !== article.slug);
-  const chosen = article.related
-    ? article.related.map(getArticle).filter(Boolean)
-    : others;
-  return chosen.slice(0, 3);
+// Mots trop courants pour compter dans la ressemblance de deux titres.
+const STOP = new Set(['vae', 'pour', 'une', 'des', 'les', 'que', 'qui', 'est', 'ce', 'qu', 'il', 'faut', 'savoir', 'comment', 'peut', 'sur', 'dans', 'par', 'son', 'ses', 'sa', 'la', 'le', 'de', 'du', 'et', 'en', 'un', 'au', 'aux', 'ou', 'à', 'avec', 'quelques', 'conseils', 'validation', 'acquis', 'experience', 'diplome', 'etat']);
+const words = (text) => new Set(slugify(text).split('-').filter((w) => w.length > 2 && !STOP.has(w)));
+
+/**
+ * « Articles liés » : 3 articles au maximum, uniquement parmi les articles EXISTANTS.
+ * 1) ceux indiqués à la main dans `related` (adresses), sinon
+ * 2) les plus proches, par score : catégories communes (3 points chacune), lien dans le texte dans un sens
+ *    ou dans l'autre (2 points), mots communs des titres (1 point chacun). À score égal : ordre alphabétique
+ *    des adresses, donc le résultat ne change pas d'une construction du site à l'autre.
+ * Un nouvel article est donc relié automatiquement, sans rien configurer.
+ */
+export function getRelated(article, pool = articles) {
+  const others = pool.filter((item) => item.slug !== article.slug);
+  if (article.related) return article.related.map((slug) => others.find((o) => o.slug === slug)).filter(Boolean).slice(0, 3);
+  const slugs = pool.map((a) => a.slug);
+  const outgoing = new Set(addInternalLinks(article, slugs).links.map((l) => l.slug));
+  const titleWords = words(article.title);
+  const scored = others.map((other) => {
+    const shared = other.categories.filter((c) => article.categories.includes(c)).length;
+    const linked = outgoing.has(other.slug) || addInternalLinks(other, slugs).links.some((l) => l.slug === article.slug);
+    const common = [...words(other.title)].filter((w) => titleWords.has(w)).length;
+    return { other, score: shared * 3 + (linked ? 2 : 0) + common };
+  });
+  scored.sort((a, b) => b.score - a.score || a.other.slug.localeCompare(b.other.slug));
+  return scored.slice(0, 3).map((x) => x.other);
 }

@@ -3,8 +3,11 @@
 import '../styles/article-content.css';
 import CategoryList from './CategoryList.astro';
 import { formatDate, inlineToHtml } from '../lib/text.js';
-import { slugifyHeading } from '../data/articles.js';
+import { slugifyHeading, articles } from '../data/articles.js';
+import { addInternalLinks } from '../lib/internalLinks.js';
 const { article } = Astro.props;
+// Liens contextuels vers d'autres articles (règles dans src/data/internalLinks.js) ; le texte source reste intact.
+const { content } = addInternalLinks(article, articles.map((a) => a.slug));
 ---
 <article class="article" id="article">
   <CategoryList categories={article.categories} variant="chips" />
@@ -12,7 +15,7 @@ const { article } = Astro.props;
   <p class="article__meta">Actualisé le {formatDate(article.updatedAt)} • {article.author}</p>
 
   <div class="article__content">
-    {article.content.map((block) => {
+    {content.map((block) => {
       if (block.type === 'h2') return <h2 id={slugifyHeading(block.text)}>{block.text}</h2>;
       if (block.type === 'h3') return <h3>{block.text}</h3>;
       if (block.type === 'ul') return <ul>{block.items.map((item) => <li set:html={inlineToHtml(item)} />)}</ul>;

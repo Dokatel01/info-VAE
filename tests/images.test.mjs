@@ -15,10 +15,11 @@ test('chaque article a une illustration à jour (sinon : lancer `npm run images`
   assert.deepEqual(stale, [], `articles sans illustration à jour : ${stale.join(', ')} → npm run images`);
 });
 
-test('chaque article utilise SON illustration, enregistrée dans le projet', () => {
+test('chaque article utilise SA photo (si elle existe) ou SON illustration, enregistrée dans le projet', () => {
   for (const article of articles) {
-    assert.equal(article.image, `/images/articles/${article.slug}.svg`);
-    assert.ok(fs.existsSync(file(article.slug)), `fichier manquant pour ${article.slug}`);
+    assert.ok(fs.existsSync(file(article.slug)), `illustration de secours manquante pour ${article.slug}`);
+    if (article.imageSrcset) assert.match(article.image, new RegExp(`^/images/photos/${article.slug}-712\\.webp$`));
+    else assert.equal(article.image, `/images/articles/${article.slug}.svg`);
   }
 });
 

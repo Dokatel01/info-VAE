@@ -16,6 +16,7 @@ function toCard(article) {
     excerpt: article.excerpt,
     tags: article.categories,
     image: article.image,
+    imageSrcset: article.imageSrcset,
     imageAlt: article.imageAlt,
     href: articleUrl(article),
   };

@@ -30,10 +30,12 @@ function renderResult({ article, snippet }) {
 
   const img = el('img', 'result-card__image');
   img.src = article.image;
+  if (article.imageSrcset) { img.srcset = article.imageSrcset; img.sizes = '(min-width: 1024px) 357px, 100vw'; }
   img.alt = article.imageAlt || '';
   img.width = 712;
   img.height = 384;
   img.loading = 'lazy';
+  img.decoding = 'async';
   card.append(img);
 
   const body = el('div', 'result-card__body');

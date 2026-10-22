@@ -16,13 +16,14 @@ export function escapeHtml(text) {
  */
 export function inlineToHtml(text) {
   return escapeHtml(text)
+    .replace(/\[([^\]]+)\]\((\/[a-z0-9-]+)\)/g, '<a class="article__link" href="$2">$1</a>') // lien interne : [texte](/adresse)
     .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
     .replace(/\n/g, '<br>');
 }
 
 /** Même texte, sans la mise en forme (pour l'index de recherche). */
 export function inlineToPlain(text) {
-  return String(text).replace(/\*\*(.+?)\*\*/g, '$1').replace(/\n/g, ' ');
+  return String(text).replace(/\[([^\]]+)\]\(\/[a-z0-9-]+\)/g, '$1').replace(/\*\*(.+?)\*\*/g, '$1').replace(/\n/g, ' ');
 }
 
 /** Identifiant d'ancre à partir d'un titre : « Comment financer sa VAE ? » → « comment-financer-sa-vae ». */

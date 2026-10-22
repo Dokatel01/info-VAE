@@ -13,11 +13,12 @@ const {
   // Image provisoire par défaut si l'article n'a pas d'image
   image = '/images/article-default.jpg',
   imageAlt = '',
+  imageSrcset = undefined, // photos optimisées : 480 / 712 / 1424 px (le navigateur choisit la bonne taille)
   href = '#',
 } = Astro.props;
 ---
 <article class="article-card">
-  <img class="article-card__image" src={image} alt={imageAlt} width="712" height="384" loading="lazy" />
+  <img class="article-card__image" src={image} srcset={imageSrcset} sizes={imageSrcset ? '(min-width: 1024px) 357px, (min-width: 640px) 50vw, 100vw' : undefined} alt={imageAlt} width="712" height="384" loading="lazy" decoding="async" />
   <div class="article-card__body">
     <h3 class="article-card__title">{title}</h3>
     <p class="article-card__excerpt">{excerpt}</p>

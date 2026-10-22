@@ -18,3 +18,5 @@ Thumbs.db
 .vscode/
 .idea/
 npm-debug.log*
+photos-source/*
+!photos-source/.gitkeep
