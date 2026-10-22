@@ -2,6 +2,7 @@
  * Google Apps Script lié au Google Sheets « Info VAE – Contacts ».
  * Reçoit les envois de la fonction Netlify (netlify/functions/contact.mjs) et ajoute UNE ligne :
  *   A : Date et heure de réception | B : Prénom | C : Nom | D : Email
+ *   E à I : utm_source | utm_medium | utm_campaign | utm_term | utm_content (vides si absents)
  *
  * Installation : voir apps-script/README.md.
  * Le mot de passe partagé (SECRET) n'est PAS dans ce fichier : il est enregistré dans
@@ -19,9 +20,12 @@ function doPost(e) {
     var firstname = safe_(data.firstname, 80), lastname = safe_(data.lastname, 80), email = safe_(data.email, 254);
     if (!firstname || !lastname || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) return reply_({ ok: false, error: 'validation' });
 
+    // Paramètres UTM : facultatifs, jamais bloquants (valeur absente = cellule vide).
+    var utm = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'].map(function (k) { return safe_(data[k], 200); });
+
     lock.waitLock(10000); // évite que deux envois simultanés s'écrasent
     var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(SHEET_NAME);
-    sheet.appendRow([new Date(), firstname, lastname, email]);
+    sheet.appendRow([new Date(), firstname, lastname, email].concat(utm));
     var row = sheet.getLastRow();
     sheet.getRange(row, 1).setNumberFormat('dd/MM/yyyy HH:mm:ss');
     SpreadsheetApp.flush();

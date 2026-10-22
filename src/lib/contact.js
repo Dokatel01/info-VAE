@@ -10,6 +10,7 @@ const EMAIL_RE = /^[^\s@<>()[\]\\,;:"]+@[^\s@<>()[\]\\,;:"]+\.[^\s@<>()[\]\\,;:"
 // Caractères de contrôle (retours à la ligne, tabulations…) : refusés dans les noms.
 // eslint-disable-next-line no-control-regex
 const CONTROL_RE = /[\u0000-\u001f\u007f]/;
+const CONTROL_RE_G = /[\u0000-\u001f\u007f]/g;
 
 function clean(value) {
   return typeof value === 'string' ? value.trim().replace(/\s+/g, ' ') : '';
@@ -57,4 +58,24 @@ export function isAllowedOrigin(originHeader, refererHeader, allowedList) {
   let host = '';
   try { host = new URL(source).host; } catch { return false; }
   return hosts.includes(host);
+}
+
+// ---------------------------------------------------------------------------
+// Paramètres UTM (origine du contact). Ils ne font JAMAIS échouer un envoi :
+// une valeur absente, vide, trop longue ou bizarre est simplement vidée ou raccourcie.
+// ---------------------------------------------------------------------------
+export const UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
+export const UTM_MAX = 200;
+
+/** Renvoie toujours les 5 clés (chaîne vide si absente), sans caractère de contrôle, 200 caractères au maximum. */
+export function cleanUtm(input) {
+  const source = input && typeof input === 'object' && !Array.isArray(input) ? input : {};
+  const out = {};
+  for (const key of UTM_KEYS) {
+    const raw = source[key];
+    out[key] = typeof raw === 'string' || typeof raw === 'number'
+      ? String(raw).replace(CONTROL_RE_G, ' ').replace(/\s+/g, ' ').trim().slice(0, UTM_MAX)
+      : '';
+  }
+  return out;
 }

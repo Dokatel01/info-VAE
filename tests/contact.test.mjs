@@ -3,7 +3,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
-import { validateContact, createRateLimiter, isAllowedOrigin } from '../src/lib/contact.js';
+import { validateContact, cleanUtm, UTM_KEYS, createRateLimiter, isAllowedOrigin } from '../src/lib/contact.js';
 import { handle } from '../netlify/functions/contact.mjs';
 
 const ENV = { APPS_SCRIPT_URL: 'https://script.example/exec', APPS_SCRIPT_SECRET: 's3cret-test', ALLOWED_ORIGINS: 'info-vae.netlify.app' };
@@ -36,8 +36,7 @@ test('envoi valide : réponse 200, UNE écriture, secret transmis au script seul
   assert.deepEqual(await res.json(), { ok: true });
   assert.equal(sink.calls.length, 1);
   const sent = JSON.parse(sink.calls[0].init.body);
-  assert.deepEqual(sent, { secret: 's3cret-test', firstname: 'Marie', lastname: 'Dupont', email: 'marie.dupont@example.fr' });
-  assert.deepEqual(Object.keys(sent).sort(), ['email', 'firstname', 'lastname', 'secret']); // aucun autre champ
+  assert.deepEqual(sent, { secret: 's3cret-test', firstname: 'Marie', lastname: 'Dupont', email: 'marie.dupont@example.fr', utm_source: '', utm_medium: '', utm_campaign: '', utm_term: '', utm_content: '' });
 });
 
 test('données invalides : 422, rien n’est écrit', async () => {
@@ -115,4 +114,34 @@ test('formulaire : exactement trois champs (prénom, nom, e-mail)', () => {
   const form = html.match(/<form[\s\S]*?<\/form>/)[0];
   const fields = [...form.matchAll(/<(input|select|textarea)\b[^>]*name="([^"]+)"/g)].map((m) => m[2]);
   assert.deepEqual(fields, ['firstname', 'lastname', 'email']);
+});
+
+test('UTM : valeurs transmises avec le contact ; absentes → vides ; jamais bloquant', async () => {
+  const utm = { utm_source: 'google', utm_medium: 'cpc', utm_campaign: 'vae-2026', utm_term: 'vae aide soignant', utm_content: 'annonce-a' };
+  let sink = okSink();
+  assert.equal((await handle(request({ ...GOOD, utm }), ENV, sink.fn, fresh())).status, 200);
+  assert.deepEqual(JSON.parse(sink.calls[0].init.body), { secret: 's3cret-test', firstname: 'Marie', lastname: 'Dupont', email: 'marie.dupont@example.fr', ...utm });
+  // UTM partiels : les autres restent vides
+  sink = okSink();
+  assert.equal((await handle(request({ ...GOOD, utm: { utm_source: 'facebook' } }), ENV, sink.fn, fresh())).status, 200);
+  const partial = JSON.parse(sink.calls[0].init.body);
+  assert.equal(partial.utm_source, 'facebook');
+  for (const k of ['utm_medium', 'utm_campaign', 'utm_term', 'utm_content']) assert.equal(partial[k], '');
+  // UTM absents, nuls, de mauvais type, ou énormes : l'envoi réussit toujours
+  for (const bad of [undefined, null, 'x', 42, [], { utm_source: { a: 1 }, utm_medium: ['x'], utm_campaign: null }, { utm_source: 'a'.repeat(5000) }]) {
+    sink = okSink();
+    const res = await handle(request({ ...GOOD, utm: bad }), ENV, sink.fn, fresh());
+    assert.equal(res.status, 200, `UTM ${JSON.stringify(bad)?.slice(0, 30)} ne doit pas bloquer`);
+    const sent = JSON.parse(sink.calls[0].init.body);
+    for (const k of UTM_KEYS) assert.ok(typeof sent[k] === 'string' && sent[k].length <= 200);
+  }
+  assert.equal(cleanUtm({ utm_source: 'a\nb\u0000c' }).utm_source, 'a b c');
+  assert.equal(cleanUtm({ utm_source: '  x  ' }).utm_source, 'x');
+});
+
+test('UTM : aucun champ visible ajouté au formulaire, capture présente dans le gabarit, sans secret', () => {
+  const layout = fs.readFileSync(new URL('../src/layouts/BaseLayout.astro', import.meta.url), 'utf8');
+  assert.ok(/utm_source/.test(layout) && /sessionStorage/.test(layout));
+  const form = fs.readFileSync(new URL('../src/components/InfoSession.astro', import.meta.url), 'utf8').match(/<form[\s\S]*?<\/form>/)[0];
+  assert.ok(!/utm/i.test(form), 'aucun champ UTM dans le formulaire');
 });

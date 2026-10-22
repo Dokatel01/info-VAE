@@ -77,6 +77,8 @@ import Icon from './Icon.astro';
             lastname: form.elements.lastname.value,
             email: form.elements.email.value,
             elapsed: Date.now() - openedAt,
+            // Origine du visiteur (UTM mémorisés par le gabarit) : facultatif, jamais affiché ni bloquant.
+            utm: typeof window.infoVaeUtm === 'function' ? window.infoVaeUtm() : {},
           }),
         });
         const result = await response.json().catch(() => null);

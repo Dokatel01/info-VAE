@@ -20,6 +20,46 @@ const { title, description } = Astro.props;
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <!-- Origine des visiteurs : mémorise les paramètres UTM de l'adresse (utm_source, utm_medium, utm_campaign,
+         utm_term, utm_content) pour les retrouver à l'envoi du formulaire, même après avoir changé de page.
+         - Règle : une adresse qui porte au moins un UTM non vide REMPLACE l'ensemble mémorisé (nouvelle campagne) ;
+           une adresse sans UTM, ou avec des UTM vides, ne change RIEN (on n'écrase jamais avec du vide).
+         - Mémoire : sessionStorage (durée de l'onglet, rien n'est gardé ensuite). Si le navigateur la bloque,
+           les valeurs restent seulement en mémoire de la page. Aucun champ visible n'est ajouté. -->
+    <script is:inline>
+      (function () {
+        var KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
+        var STORE = 'infovae_utm';
+        var memory = {};
+        function read() {
+          try {
+            var raw = window.sessionStorage.getItem(STORE);
+            var data = raw ? JSON.parse(raw) : null;
+            if (data && typeof data === 'object') return data;
+          } catch (e) {}
+          return memory;
+        }
+        function write(data) {
+          memory = data;
+          try { window.sessionStorage.setItem(STORE, JSON.stringify(data)); } catch (e) {}
+        }
+        try {
+          var params = new URLSearchParams(window.location.search);
+          var found = {}, any = false;
+          KEYS.forEach(function (key) {
+            var value = (params.get(key) || '').trim().slice(0, 200);
+            found[key] = value;
+            if (value) any = true;
+          });
+          if (any) write(found);
+        } catch (e) {}
+        window.infoVaeUtm = function () {
+          var stored = read(), out = {};
+          KEYS.forEach(function (key) { out[key] = typeof stored[key] === 'string' ? stored[key] : ''; });
+          return out;
+        };
+      })();
+    </script>
   </head>
   <body>
     <Header />

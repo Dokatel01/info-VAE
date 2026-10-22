@@ -7,7 +7,7 @@
 //   APPS_SCRIPT_SECRET   mot de passe partagé avec le script (le même que la propriété SECRET du script)
 //   ALLOWED_ORIGINS      (facultatif) sites autorisés, ex. « info-vae.netlify.app,www.info-vae.fr »
 // Rien de tout cela n'est écrit dans le code ni envoyé au navigateur.
-import { validateContact, createRateLimiter, isAllowedOrigin, MIN_FILL_MS } from '../../src/lib/contact.js';
+import { validateContact, cleanUtm, createRateLimiter, isAllowedOrigin, MIN_FILL_MS } from '../../src/lib/contact.js';
 
 export const config = { path: '/api/contact' };
 
@@ -43,7 +43,8 @@ export async function handle(req, env = process.env, fetchImpl = fetch, rateLimi
     const res = await fetchImpl(env.APPS_SCRIPT_URL, {
       method: 'POST',
       headers: { 'content-type': 'text/plain;charset=utf-8' },
-      body: JSON.stringify({ secret: env.APPS_SCRIPT_SECRET, ...result.values }),
+      // Les 5 paramètres UTM sont facultatifs : absents → chaînes vides, jamais d'erreur.
+      body: JSON.stringify({ secret: env.APPS_SCRIPT_SECRET, ...result.values, ...cleanUtm(body.utm) }),
       redirect: 'follow',
       signal: AbortSignal.timeout(15000),
     });
