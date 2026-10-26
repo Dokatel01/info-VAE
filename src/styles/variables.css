@@ -7,6 +7,7 @@
 
 :root {
   /* --- Couleurs principales --- */
+  --anchor-offset: 24px;           /* marge au-dessus d'un titre atteint par un lien d'ancre (plan de l'article) */
   --color-primary: #046a7a;        /* vert-bleu : barre de navigation, boutons, pied de page */
   --color-accent: #ff8c00;         /* orange : bouton menu, bouton « Suis-je éligible ? » */
   --color-blue: #2563eb;           /* bleu de fin du dégradé du héro */

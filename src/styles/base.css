@@ -16,6 +16,14 @@ html {
   text-size-adjust: 100%;
 }
 
+/* Défilement progressif vers les ancres (« Plan article », etc.) au lieu d'un saut brusque.
+   Désactivé pour les visiteurs qui ont demandé « réduire les animations » dans leur système (accessibilité). */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
 body {
   margin: 0;
   font-family: var(--font-sans);

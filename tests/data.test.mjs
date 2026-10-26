@@ -237,3 +237,16 @@ test('extraits et résumés affichés en texte simple : aucun ** ni code de lien
     for (const field of ['excerpt', 'summary']) assert.ok(!/\*\*|\]\(\//.test(a[field]), `${a.slug} : ${field} contient du balisage`);
   }
 });
+
+test('plan de l’article : défilement fluide (sauf « réduire les animations »), marge d’ancre, ancres inchangées', async () => {
+  const fs = await import('node:fs');
+  const read = (f) => fs.readFileSync(new URL(`../${f}`, import.meta.url), 'utf8');
+  assert.match(read('src/styles/base.css'), /@media \(prefers-reduced-motion: no-preference\)\s*\{\s*html\s*\{\s*scroll-behavior: smooth;/);
+  assert.match(read('src/styles/article-content.css'), /\.article__content h2 \{[^}]*scroll-margin-top: var\(--anchor-offset, 24px\)/);
+  assert.match(read('src/styles/variables.css'), /--anchor-offset: 24px/);
+  // chaque lien du plan pointe vers l'identifiant d'un titre h2 existant
+  for (const a of articles) {
+    const ids = new Set(a.content.filter((b) => b.type === 'h2').map((b) => slugify(b.text)));
+    for (const item of getToc(a)) assert.ok(ids.has(item.id), `${a.slug} : ancre ${item.id}`);
+  }
+});

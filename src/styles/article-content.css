@@ -39,7 +39,9 @@
   font-weight: 600;
   line-height: 28px;
   color: var(--color-text-strong);
-  scroll-margin-top: 16px;
+  /* Arrivée d'un clic sur le « Plan article » : le titre s'arrête 24 px sous le haut de la fenêtre.
+     Si un en-tête fixe est ajouté un jour : mettre --anchor-offset = hauteur de l'en-tête + 24 px (variables.css). */
+  scroll-margin-top: var(--anchor-offset, 24px);
 }
 
 .article__content h3 {
