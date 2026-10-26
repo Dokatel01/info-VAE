@@ -17,7 +17,9 @@
 
 export const MAX_INLINE_LINKS = 4;
 
-export const linkTargets = {
+import { autoLinkTargets } from './autoLinkTargets.js';
+
+const manualLinkTargets = {
   'combien-coute-la-vae': ['combien coûte une VAE', 'coût d’une VAE', "coût d'une VAE", 'coûts d’une VAE', "coûts d'une VAE", 'coût de la VAE', 'Combien coûte', 'tarifs'],
   'qui-peut-faire-une-vae': ['Qui peut faire une VAE', 'qui peut faire une VAE', 'conditions d’éligibilité', 'êtes éligible à la VAE'],
   'quelles-sont-les-etapes-de-la-vae': ['les étapes de la VAE', 'étapes de la VAE', 'étapes de la procédure'],
@@ -39,3 +41,6 @@ export const linkTargets = {
   'le-profil-type-d-un-candidat-a-la-vae-pour-le-deap-diplome-d-etat-d-auxiliaire-de-puericulture': ['profil type', 'profils types', 'profil des candidats'],
   'la-validation-des-acquis-de-l-experience-vae-un-dispositif-cle-pour-l-evolution-professionnelle': ['dispositif clé', 'qu’est-ce que la VAE', "qu'est-ce que la VAE"],
 };
+
+// Expressions saisies à la main + expressions ajoutées par l'automatisation (src/data/autoLinkTargets.js).
+export const linkTargets = { ...manualLinkTargets, ...autoLinkTargets };

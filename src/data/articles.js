@@ -35,6 +35,7 @@
 import { slugify, inlineToPlain } from '../lib/text.js';
 import { sheetArticles } from './sheetArticles.js';
 import { sheetArticlesLot2 } from './sheetArticlesLot2.js';
+import { autoArticles } from './autoArticles.js';
 import { generatedImages } from './images.js';
 import { photos } from './photos.js';
 import { photoAlt } from './imageAlt.js';
@@ -139,7 +140,7 @@ const baseArticles = [
 // Les extraits et résumés sont affichés en texte simple : le gras (**…**) du Google Doc n'y apparaît pas.
 const plain = (article) => ({ ...article, excerpt: inlineToPlain(article.excerpt), summary: inlineToPlain(article.summary) });
 
-export const articles = [...baseArticles, ...sheetArticles, ...sheetArticlesLot2].map(plain).map((article) => {
+export const articles = [...baseArticles, ...sheetArticles, ...sheetArticlesLot2, ...autoArticles].map(plain).map((article) => {
   // 1) photo optimisée (src/data/photos.js) avec son texte alternatif, 2) sinon illustration générée, 3) sinon image par défaut.
   const photo = photos[article.slug];
   if (photo && photoAlt[article.slug]) {

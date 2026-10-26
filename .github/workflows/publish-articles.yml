@@ -1,0 +1,79 @@
+# Publication quotidienne des articles « à intégrer » du Google Sheets (du lundi au vendredi, 8 h 00 heure de Paris).
+# Mode d'emploi et étapes de configuration : docs/automatisation-publication.md
+name: Publication quotidienne des articles
+
+on:
+  schedule:
+    # GitHub raconte l'heure en UTC. Paris = UTC+1 l'hiver, UTC+2 l'été : on déclenche à 6 h ET 7 h UTC,
+    # et l'étape « Garde horaire » ne laisse passer que celui qui tombe à 8 h à Paris.
+    - cron: '0 6 * * 1-5'
+    - cron: '0 7 * * 1-5'
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'Mode de lancement manuel'
+        type: choice
+        default: simulation
+        options:
+          - simulation        # lit le Sheet et les Docs, ne modifie rien
+          - publication       # publie vraiment
+          - test-lecture-docs # vérifie la lecture des Docs déjà publiés, ne modifie rien
+
+# Un seul passage à la fois : un second passage attend la fin du premier (pas de publication en double).
+concurrency:
+  group: publication-articles
+  cancel-in-progress: false
+
+permissions:
+  contents: write   # pour enregistrer l'article dans le dépôt (Netlify redéploie ensuite tout seul)
+
+jobs:
+  publier:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Garde horaire (8 h à Paris, été comme hiver)
+        id: garde
+        run: |
+          HEURE_PARIS=$(TZ=Europe/Paris date +%H)
+          echo "Heure à Paris : $(TZ=Europe/Paris date '+%Y-%m-%d %H:%M')"
+          if [ "${{ github.event_name }}" = "schedule" ] && [ "$HEURE_PARIS" != "08" ]; then
+            echo "Il n'est pas 8 h à Paris : ce déclenchement est ignoré (l'autre horaire UTC s'en charge)."
+            echo "lancer=non" >> "$GITHUB_OUTPUT"
+          else
+            echo "lancer=oui" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: actions/checkout@v4
+        if: steps.garde.outputs.lancer == 'oui'
+        with:
+          ref: main
+
+      - uses: actions/setup-node@v4
+        if: steps.garde.outputs.lancer == 'oui'
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Installer les dépendances
+        if: steps.garde.outputs.lancer == 'oui'
+        run: npm ci
+
+      - name: Lancer la publication
+        if: steps.garde.outputs.lancer == 'oui'
+        env:
+          GOOGLE_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}
+          SHEET_ID: ${{ vars.SHEET_ID }}
+          SHEET_TAB: ${{ vars.SHEET_TAB }}
+          SITE_URL: ${{ vars.SITE_URL }}
+          GIT_AUTHOR_NAME: Info VAE - publication automatique
+          GIT_AUTHOR_EMAIL: actions@users.noreply.github.com
+          GIT_COMMITTER_NAME: Info VAE - publication automatique
+          GIT_COMMITTER_EMAIL: actions@users.noreply.github.com
+          MODE: ${{ github.event.inputs.mode }}
+        run: |
+          case "$MODE" in
+            simulation)        node scripts/publish/run.mjs --dry-run ;;
+            test-lecture-docs) node scripts/publish/run.mjs --selfcheck ;;
+            *)                 node scripts/publish/run.mjs ;;
+          esac

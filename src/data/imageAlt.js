@@ -4,7 +4,9 @@
 // Ils sont utilisés dès qu'une photo existe pour l'article (src/data/photos.js). Si la photo finale diffère
 // du brief (docs/photos-brief.md), ajuster la phrase : elle doit décrire la photo réellement publiée.
 // Un article sans texte ici ne s'affiche pas avec une photo (un test le vérifie).
-export const photoAlt = {
+import { autoPhotoAlt } from './autoImageAlt.js';
+
+const manualPhotoAlt = {
   'combien-coute-la-vae': 'Une personne calcule son budget avec une calculatrice, des documents et un ordinateur portable sur un bureau',
   'qui-peut-faire-une-vae': 'Trois adultes de métiers différents, en tenue de travail, souriants côte à côte',
   'quelles-sont-les-etapes-de-la-vae': 'Les mains d’une personne cochent une liste d’étapes sur une feuille posée près d’un ordinateur portable',
@@ -26,3 +28,6 @@ export const photoAlt = {
   'peut-on-faire-une-vae-a-distance': 'Une personne casque sur les oreilles suit un entretien en visioconférence depuis son bureau à domicile',
   'une-assistante-maternelle-peut-elle-devenir-auxiliaire-de-puericulture-par-la-vae': 'Une assistante maternelle joue avec deux enfants dans le salon de son domicile',
 };
+
+// Textes écrits à la main (prioritaires) + textes provisoires ajoutés par l'automatisation (src/data/autoImageAlt.js).
+export const photoAlt = { ...autoPhotoAlt, ...manualPhotoAlt };
