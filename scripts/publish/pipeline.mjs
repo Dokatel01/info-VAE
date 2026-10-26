@@ -224,7 +224,7 @@ export async function runPublication({ deps, today = parisDate(), dryRun = false
       if (clean(now.title) !== item.title || now.docId !== item.docId) throw new Error('la ligne du Sheet a changé pendant l’exécution');
       if (now.status === STATUS_PUBLISHED) { add(item, 'publié', `/${v.slug} en ligne ; le Sheet indiquait déjà « ${STATUS_PUBLISHED} »`, { slug: v.slug }); continue; }
       if (!isToIntegrate(now.status)) throw new Error(`l’état de la ligne est devenu « ${now.status} » : non modifié`);
-      await deps.sheet.markPublished(item.row, sheetSerial(v.date), col);
+      await deps.sheet.markPublished(item.row, sheetSerial(v.date), col, { item, date: v.date });
       const back = await deps.sheet.recheck(item.row);
       if (back.status !== STATUS_PUBLISHED) throw new Error('relecture du Sheet : l’état n’est pas « Publié »');
       add(item, 'publié', `/${v.slug} en ligne et Sheet mis à jour (${STATUS_PUBLISHED}, ${v.date})${v.isNew ? '' : ' [article déjà intégré lors d’un passage précédent]'}`, { slug: v.slug });

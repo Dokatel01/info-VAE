@@ -10,7 +10,9 @@ import { parseDocMarkdown } from '../src/lib/docToBlocks.js';
 import { sheetArticlesLot2 } from '../src/data/sheetArticlesLot2.js';
 import { createGoogleClient, extractLink, docIdFromUrl } from '../scripts/publish/google.mjs';
 import { runPublication, parseSheet, isToIntegrate, sheetSerial, columnLetter, parisDate } from '../scripts/publish/pipeline.mjs';
-import { realRepo, realSite, sheetAdapter } from '../scripts/publish/run.mjs';
+import { realRepo, realSite, sheetAdapter, createBackend } from '../scripts/publish/run.mjs';
+import { createAppsScriptClient, validateScriptUrl } from '../scripts/publish/appsscript.mjs';
+import vm from 'node:vm';
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const silent = () => {};
@@ -314,4 +316,196 @@ test('copie réelle du dépôt : article ajouté, illustration créée, données
   const list2 = JSON.parse(execFileSync('node', ['scripts/publish/list-existing.mjs', tmp], { cwd: tmp, encoding: 'utf8', maxBuffer: 1 << 26 }));
   assert.equal(list2.auto.length, 1);
   assert.equal(git('log', '--oneline').trim().split('\n').length, 2, 'aucun second commit');
+});
+
+
+// ============================================================================
+// Passerelle Google Apps Script (apps-script/publication/Code.gs) — exécutée dans un environnement simulé
+// ============================================================================
+const SECRET = 'a'.repeat(16) + 'b'.repeat(16) + 'c'.repeat(16);
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxEXEMPLEEXEMPLE/exec';
+const DOCID = (n) => `DOCUMENT${String(n).padStart(2, '0')}ABCDEFGHIJKLMNOPQRS`;
+
+function makeGateway({ rows, docs = {}, secret = SECRET, tab = 'Feuille 1' }) {
+  const header = ['Titre', 'Catégorie', 'Détails', 'Propriétaire', 'État', 'Date de publication', 'Fichier', 'Notes'];
+  const grid = [header.map((t) => ({ text: t })), ...rows.map((r) => [
+    { text: r.title }, { text: r.cat ?? 'Etapes VAE' }, { text: '' }, { text: '' }, { text: r.status }, { text: r.date ?? '' },
+    { text: 'doc', link: r.doc ? `https://docs.google.com/document/d/${r.doc}/edit` : null }, { text: '' },
+  ])];
+  const driveCalls = [];
+  const writes = [];
+  const sheet = {
+    getLastRow: () => grid.length, getLastColumn: () => grid[0].length,
+    getRange(r, c, nr = 1, nc = 1) {
+      const cells = () => grid.slice(r - 1, r - 1 + nr).map((row) => row.slice(c - 1, c - 1 + nc));
+      const one = () => grid[r - 1][c - 1];
+      return {
+        getDisplayValues: () => cells().map((row) => row.map((x) => x.text)),
+        getRichTextValues: () => cells().map((row) => row.map((x) => ({ getLinkUrl: () => x.link ?? null, getRuns: () => [] }))),
+        getFormulas: () => cells().map((row) => row.map(() => '')),
+        getDisplayValue: () => one().text,
+        setValue(v) { writes.push([r, c]); one().value = v; one().text = v && v.iso ? v.iso.split('-').reverse().join('/') : String(v); },
+        setNumberFormat(f) { one().fmt = f; },
+      };
+    },
+  };
+  const props = new Map(secret ? [['INFO_VAE_SECRET', secret]] : []);
+  const cache = new Map();
+  const ctx = vm.createContext({
+    console: { log() {}, error() {} }, JSON, Date, Math, String, Number, Array, Object, RegExp, Error, encodeURIComponent,
+    PropertiesService: { getScriptProperties: () => ({ getProperty: (k) => props.get(k) ?? null, setProperty: (k, v) => props.set(k, v) }) },
+    CacheService: { getScriptCache: () => ({ get: (k) => cache.get(k) ?? null, put: (k, v) => cache.set(k, v) }) },
+    LockService: { getScriptLock: () => ({ waitLock() {}, releaseLock() {} }) },
+    SpreadsheetApp: { getActiveSpreadsheet: () => ({ getSheetByName: (n) => (n === tab ? sheet : null) }), flush() {} },
+    ScriptApp: { getOAuthToken: () => 'oauth-token-simule' },
+    UrlFetchApp: {
+      fetch(url, opts) {
+        driveCalls.push({ url, method: opts.method });
+        const id = decodeURIComponent(/files\/([^/]+)\/export/.exec(url)[1]);
+        return id in docs ? { getResponseCode: () => 200, getContentText: () => docs[id] } : { getResponseCode: () => 404, getContentText: () => '' };
+      },
+    },
+    ContentService: { MimeType: { JSON: 'json' }, createTextOutput: (t) => ({ setMimeType() { return { getContent: () => t }; } }) },
+    Utilities: {
+      computeHmacSha256Signature: (v, k) => Int8Array.from(crypto.createHmac('sha256', k).update(v).digest()),
+      parseDate: (s) => ({ iso: s }),
+    },
+  });
+  vm.runInContext(fs.readFileSync(path.join(repoRoot, 'apps-script/publication/Code.gs'), 'utf8'), ctx);
+  const bodies = [];
+  const fetchImpl = async (url, init) => {
+    bodies.push(init.body);
+    assert.equal(init.method, 'POST');
+    const out = ctx.doPost({ postData: { contents: init.body } });
+    const text = out.getContent();
+    return { ok: true, status: 200, json: async () => JSON.parse(text) };
+  };
+  return { ctx, grid, driveCalls, writes, fetchImpl, bodies, props };
+}
+const clientFor = (gw, extra = {}) => createAppsScriptClient({ url: SCRIPT_URL, secret: SECRET, fetchImpl: gw.fetchImpl, sleep: async () => {}, ...extra });
+const sampleRows = () => [
+  { title: 'Article à publier', status: 'à intégrer', doc: DOCID(1) },
+  { title: 'Article en examen', status: "En cours d'examen", doc: DOCID(2) },
+  { title: 'Déjà publié', status: 'Publié', doc: DOCID(3), date: '01/10/2026' },
+];
+
+test('Apps Script : ping signé accepté ; mauvais secret, secret absent, requête rejouée ou périmée refusés', async () => {
+  const gw = makeGateway({ rows: sampleRows() });
+  assert.equal((await clientFor(gw).ping()).version, '1.0');
+  await assert.rejects(createAppsScriptClient({ url: SCRIPT_URL, secret: 'z'.repeat(40), fetchImpl: gw.fetchImpl, sleep: async () => {} }).ping(), /unauthorized/);
+  const none = makeGateway({ rows: sampleRows(), secret: null });
+  await assert.rejects(clientFor(none).ping(), /unavailable/);
+  // rejeu : même corps envoyé deux fois
+  await clientFor(gw).ping();
+  const replayBody = gw.bodies[gw.bodies.length - 1];
+  const again = JSON.parse(gw.ctx.doPost({ postData: { contents: replayBody } }).getContent());
+  assert.equal(again.error, 'replay');
+  // périmée : horloge du client une heure en retard
+  await assert.rejects(clientFor(gw, { nowMs: () => Date.now() - 3600_000 }).ping(), /expired/);
+  // charge utile modifiée après signature
+  const tampered = JSON.parse(replayBody);
+  tampered.payload = tampered.payload.replace('ping', 'readSheet');
+  assert.equal(JSON.parse(gw.ctx.doPost({ postData: { contents: JSON.stringify(tampered) } }).getContent()).error, 'unauthorized');
+  assert.equal(JSON.parse(gw.ctx.doPost({ postData: { contents: 'pas du json' } }).getContent()).ok, false);
+  assert.equal(JSON.parse(gw.ctx.doGet().getContent()).ok, false);
+});
+
+test('Apps Script : le secret ne voyage jamais dans les requêtes ni dans les réponses d’erreur', async () => {
+  const gw = makeGateway({ rows: sampleRows(), docs: { [DOCID(1)]: '# T' } });
+  const c = clientFor(gw);
+  await c.ping(); await c.readSheet(); await c.exportDocMarkdown(DOCID(1));
+  await assert.rejects(c.exportDocMarkdown('ABCDEFGHIJKLMNOPQRSTUV'), (e) => !e.message.includes(SECRET));
+  for (const b of gw.bodies) assert.ok(!b.includes(SECRET), 'secret dans une requête');
+});
+
+test('Apps Script : lecture du Sheet (textes + liens) et des Docs liés, en lecture seule', async () => {
+  const gw = makeGateway({ rows: sampleRows(), docs: { [DOCID(1)]: '# Titre\n\nTexte', [DOCID(3)]: '# Autre' } });
+  const c = clientFor(gw);
+  const rows = await c.readSheet();
+  assert.equal(rows.length, 4);
+  assert.equal(rows[1].cells[0].text, 'Article à publier');
+  assert.equal(docIdFromUrl(rows[1].cells[6].link), DOCID(1));
+  const { items } = parseSheet(rows);
+  assert.deepEqual(items.filter((i) => isToIntegrate(i.status)).map((i) => i.row), [2]);
+  assert.match(await c.exportDocMarkdown(DOCID(1)), /Texte/);
+  assert.ok(gw.driveCalls.every((d) => d.method === 'get' && /\/export\?mimeType=text%2Fmarkdown/.test(d.url)), 'uniquement des exports en lecture');
+  assert.equal(gw.writes.length, 0, 'aucune écriture dans le Sheet');
+  await assert.rejects(c.exportDocMarkdown(DOCID(9)), /non référencé/);   // Doc absent du Sheet
+  await assert.rejects(c.exportDocMarkdown('../etc/passwd'), /invalide/);
+  assert.equal(gw.driveCalls.length, 1, 'aucun appel Drive pour un Doc refusé');
+});
+
+test('Apps Script : markPublished n’écrit que État et Date, après revérification de la ligne', async () => {
+  const gw = makeGateway({ rows: sampleRows() });
+  const c = clientFor(gw);
+  const ok = { row: 2, title: 'Article à publier', docId: DOCID(1), date: '2026-10-27' };
+  await assert.rejects(c.markPublished({ ...ok, title: 'Autre titre' }), /a changé/);
+  await assert.rejects(c.markPublished({ ...ok, docId: DOCID(7) }), /a changé/);
+  await assert.rejects(c.markPublished({ ...ok, row: 3, title: 'Article en examen', docId: DOCID(2) }), /état inattendu/);
+  await assert.rejects(c.markPublished({ ...ok, row: 1 }), /invalide/);
+  await assert.rejects(c.markPublished({ ...ok, row: 99999 }), /invalide/);
+  await assert.rejects(c.markPublished({ ...ok, date: '27/10/2026' }), /date invalide/);
+  assert.equal(gw.writes.length, 0, 'tous les refus ont lieu avant toute écriture');
+  const res = await c.markPublished(ok);
+  assert.equal(res.status, 'Publié');
+  assert.deepEqual(gw.writes, [[2, 5], [2, 6]], 'colonnes E et F de la ligne 2 seulement');
+  assert.equal(gw.grid[1][5].value.iso, '2026-10-27');
+  assert.equal(gw.grid[1][5].fmt, 'dd/MM/yyyy');
+  assert.equal(gw.grid[2][4].text, "En cours d'examen");
+  const again = await c.markPublished(ok);
+  assert.equal(again.alreadyPublished, true, 'idempotent');
+  assert.equal(gw.writes.length, 2);
+});
+
+test('Apps Script : l’adresse du déploiement est contrôlée, le secret doit être assez long', () => {
+  assert.ok(validateScriptUrl(SCRIPT_URL));
+  for (const bad of ['http://script.google.com/macros/s/AKfy/exec', 'https://exemple.com/macros/s/AKfy/exec', 'https://script.google.com/macros/s/AKfy/dev', 'pas une adresse', 'https://script.google.com.evil.com/macros/s/AKfy/exec'])
+    assert.throws(() => validateScriptUrl(bad), /APPS_SCRIPT_URL/, bad);
+  assert.throws(() => createAppsScriptClient({ url: SCRIPT_URL, secret: 'court' }), /trop court/);
+});
+
+test('Apps Script : réponse HTML (déploiement non public) → message clair', async () => {
+  const c = createAppsScriptClient({ url: SCRIPT_URL, secret: SECRET, sleep: async () => {}, fetchImpl: async () => ({ ok: true, status: 200, json: async () => { throw new SyntaxError('html'); } }) });
+  await assert.rejects(c.ping(), /Tout le monde/);
+});
+
+test('choix de l’accès Google : Apps Script si ses deux secrets existent, sinon compte de service, sinon rien', () => {
+  const cfg = { sheetId: 'x', tab: 'Feuille 1' };
+  assert.equal(createBackend({ APPS_SCRIPT_URL: SCRIPT_URL, APPS_SCRIPT_SECRET: SECRET }, cfg).kind, 'apps-script');
+  assert.equal(createBackend({ APPS_SCRIPT_URL: SCRIPT_URL }, cfg), null);
+  const { privateKey } = crypto.generateKeyPairSync('rsa', { modulusLength: 2048 });
+  const json = JSON.stringify({ client_email: 'a@b.iam.gserviceaccount.com', private_key: privateKey.export({ type: 'pkcs8', format: 'pem' }) });
+  assert.equal(createBackend({ GOOGLE_SERVICE_ACCOUNT_JSON: json }, cfg).kind, 'service-account');
+  assert.equal(createBackend({ APPS_SCRIPT_URL: SCRIPT_URL, APPS_SCRIPT_SECRET: SECRET, GOOGLE_SERVICE_ACCOUNT_JSON: json }, cfg).kind, 'apps-script');
+  assert.equal(createBackend({}, cfg), null);
+});
+
+test('Apps Script, de bout en bout : publication complète via la passerelle, « Publié » écrit seulement après la vérification en ligne', async () => {
+  const gw = makeGateway({
+    rows: [
+      { title: 'Nouvelle règle de la VAE ?', status: 'à intégrer', doc: DOCID(1), cat: 'Etapes VAE' },
+      { title: 'Catégorie inventée', status: 'à intégrer', doc: DOCID(2), cat: 'Nouveauté' },
+      { title: 'En examen', status: "En cours d'examen", doc: DOCID(3) },
+    ],
+    docs: { [DOCID(1)]: mdOf('x'), [DOCID(2)]: mdOf('x'), [DOCID(3)]: mdOf('x') },
+  });
+  const backend = { kind: 'apps-script', ...clientFor(gw) };
+  const w = makeWorld({ rows: [], docs: {} });
+  w.deps.sheet = sheetAdapter({ backend });
+  w.deps.docs = { exportMarkdown: (id) => backend.exportDocMarkdown(id) };
+  let sheetWrittenBeforeVerify = null;
+  w.deps.site.verify = async (slug) => { sheetWrittenBeforeVerify = gw.writes.length; w.events.push(`site.verify:${slug}`); return { ok: true }; };
+  const rep = await run(w);
+  assert.equal(sheetWrittenBeforeVerify, 0, 'rien n’est écrit dans le Sheet avant la vérification en ligne');
+  assert.equal(outcomeOf(rep, 2), 'publié');
+  assert.equal(outcomeOf(rep, 3), 'erreur');
+  assert.equal(gw.grid[1][4].text, 'Publié');
+  assert.equal(gw.grid[1][5].value.iso, '2026-10-27');
+  assert.equal(gw.grid[2][4].text, 'à intégrer');
+  assert.equal(gw.grid[3][4].text, "En cours d'examen");
+  assert.ok(!JSON.stringify(rep).includes(SECRET));
+  assert.equal(w.state.auto.length, 1);
+  assert.equal(w.state.auto[0].source.docId, DOCID(1));
+  // le robot ne lit jamais le Doc « En cours d'examen »
+  assert.ok(!gw.driveCalls.some((d) => d.url.includes(DOCID(3))));
 });

@@ -7,6 +7,7 @@ import path from 'node:path';
 import { execFileSync, spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { createGoogleClient, parseCredentials } from './google.mjs';
+import { createAppsScriptClient } from './appsscript.mjs';
 import { runPublication, parseSheet, columnLetter, parisDate } from './pipeline.mjs';
 import { parseDocMarkdown } from '../../src/lib/docToBlocks.js';
 
@@ -107,8 +108,29 @@ export function realSite({ siteUrl, fetchImpl = fetch, sleep: wait = sleep, time
   };
 }
 
-export function sheetAdapter({ google, sheetId, tab }) {
-  const read = () => google.readSheet(sheetId, tab);
+/** Choisit l'accès Google : passerelle Apps Script si ses deux secrets existent, sinon compte de service. */
+export function createBackend(env, config) {
+  if (env.APPS_SCRIPT_URL && env.APPS_SCRIPT_SECRET) {
+    const client = createAppsScriptClient({ url: env.APPS_SCRIPT_URL, secret: env.APPS_SCRIPT_SECRET });
+    return { kind: 'apps-script', ...client, async readSheet() { return client.readSheet(); } };
+  }
+  if (env.GOOGLE_SERVICE_ACCOUNT_JSON) {
+    const google = createGoogleClient({ credentials: parseCredentials(env.GOOGLE_SERVICE_ACCOUNT_JSON) });
+    return {
+      kind: 'service-account',
+      readSheet: () => google.readSheet(config.sheetId, config.tab),
+      exportDocMarkdown: (id) => google.exportDocMarkdown(id),
+      async markPublishedCells(row, serial, col) {
+        await google.setValues(config.sheetId, `${config.tab}!${columnLetter(col.status)}${row}`, [['Publié']]);
+        await google.setValues(config.sheetId, `${config.tab}!${columnLetter(col.date)}${row}`, [[serial]]);
+      },
+    };
+  }
+  return null;
+}
+
+export function sheetAdapter({ backend }) {
+  const read = () => backend.readSheet();
   return {
     read,
     async recheck(rowNumber) {
@@ -117,9 +139,9 @@ export function sheetAdapter({ google, sheetId, tab }) {
       if (!it) throw new Error(`ligne ${rowNumber} introuvable`);
       return { title: it.title, status: String(it.status).trim(), docId: it.docId };
     },
-    async markPublished(rowNumber, serial, col) {
-      await google.setValues(sheetId, `${tab}!${columnLetter(col.status)}${rowNumber}`, [['Publié']]);
-      await google.setValues(sheetId, `${tab}!${columnLetter(col.date)}${rowNumber}`, [[serial]]);
+    async markPublished(rowNumber, serial, col, { item, date } = {}) {
+      if (backend.kind === 'apps-script') await backend.markPublished({ row: rowNumber, title: item.title, docId: item.docId, date });
+      else await backend.markPublishedCells(rowNumber, serial, col);
     },
   };
 }
@@ -134,18 +156,17 @@ async function main() {
   const args = process.argv.slice(2);
   const dryRun = args.includes('--dry-run') || process.env.DRY_RUN === 'true';
   const selfcheck = args.includes('--selfcheck');
-  const raw = process.env.GOOGLE_SERVICE_ACCOUNT_JSON;
-  if (!raw) {
-    writeSummary('Publication automatique — configuration manquante', ['Le secret GitHub `GOOGLE_SERVICE_ACCOUNT_JSON` n’est pas défini. Voir docs/automatisation-publication.md (étape 3).']);
-    process.exit(1);
-  }
-  const credentials = parseCredentials(raw);
   const config = {
     sheetId: process.env.SHEET_ID || DEFAULTS.sheetId,
     tab: process.env.SHEET_TAB || DEFAULTS.tab,
     siteUrl: process.env.SITE_URL || DEFAULTS.siteUrl,
   };
-  const google = createGoogleClient({ credentials });
+  const backend = createBackend(process.env, config);
+  if (!backend) {
+    writeSummary('Publication automatique — configuration manquante', ['Aucun accès Google configuré : définissez les secrets GitHub `APPS_SCRIPT_URL` et `APPS_SCRIPT_SECRET` (voir apps-script/publication/README.md), ou `GOOGLE_SERVICE_ACCOUNT_JSON`.']);
+    process.exit(1);
+  }
+  console.log(`Accès Google : ${backend.kind}`);
   const repo = realRepo();
 
   if (selfcheck) {
@@ -155,7 +176,7 @@ async function main() {
     let bad = 0;
     for (const a of sample) {
       try {
-        const { blocks } = parseDocMarkdown(await google.exportDocMarkdown(a.docId));
+        const { blocks } = parseDocMarkdown(await backend.exportDocMarkdown(a.docId));
         const same = JSON.stringify(blocks) === JSON.stringify(a.content);
         if (!same) bad++;
         lines.push(`- ${same ? '✅' : '⚠️'} /${a.slug} : ${blocks.length} blocs lus dans le Doc, ${a.content.length} dans le site${same ? ' (identiques)' : ' (différences : le Doc a peut-être été modifié depuis l’intégration)'}`);
@@ -166,8 +187,8 @@ async function main() {
   }
 
   const deps = {
-    sheet: sheetAdapter({ google, sheetId: config.sheetId, tab: config.tab }),
-    docs: { exportMarkdown: (id) => google.exportDocMarkdown(id) },
+    sheet: sheetAdapter({ backend }),
+    docs: { exportMarkdown: (id) => backend.exportDocMarkdown(id) },
     repo,
     site: realSite({ siteUrl: config.siteUrl }),
   };

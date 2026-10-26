@@ -1,9 +1,9 @@
 # Publication quotidienne automatique des articles
 
-Du lundi au vendredi à **8 h 00 (heure de Paris)**, GitHub Actions lance `scripts/publish/run.mjs`, même ordinateur éteint.
+Du lundi au vendredi à **18 h 00 (heure de Paris)**, GitHub Actions lance `scripts/publish/run.mjs`, même ordinateur éteint.
 
 ## Ce que fait le robot, dans l'ordre
-1. Lit le Google Sheets « Suivi article site info VAE » (onglet « Feuille 1 », colonnes repérées par leur **nom** : Titre, Catégorie, État, Date de publication, Fichier).
+1. Lit le Google Sheets (par la passerelle Apps Script, ou par un compte de service si configuré) « Suivi article site info VAE » (onglet « Feuille 1 », colonnes repérées par leur **nom** : Titre, Catégorie, État, Date de publication, Fichier).
 2. Retient les lignes dont l'état est exactement **« à intégrer »** (jamais « En cours d'examen », ni « Publié »). Aucune ligne → il s'arrête sans rien modifier.
 3. Pour chacune : lit le Google Doc en **lecture seule** (jamais modifié), vérifie le titre, le lien, les catégories (uniquement les 8 catégories officielles, aucune n'est créée), l'adresse (`/<titre-sans-accents>`) et le contenu (40 mots minimum).
 4. Crée l'article (même structure que les articles déjà publiés), son illustration, ses expressions de maillage (le titre) et un texte alternatif provisoire. Les liens contextuels et « Articles liés » se calculent à l'affichage.
@@ -17,10 +17,14 @@ Erreurs : une erreur sur un article n'arrête pas les autres. Le passage est mar
 Doublons : chaque article est reconnu par l'identifiant de son Doc. Si un passage s'interrompt après l'envoi vers GitHub, le passage suivant ne recrée rien : il vérifie que la page est en ligne puis marque le Sheet. Un passage ne démarre jamais en même temps qu'un autre.
 
 ## Heure d'été / heure d'hiver
-GitHub raconte l'heure en UTC. Deux déclenchements sont programmés (6 h et 7 h UTC) ; une étape « Garde horaire » ne laisse passer que celui qui tombe à 8 h à Paris (7 h UTC en hiver, 6 h UTC en été). Aucune intervention aux changements d'heure.
+GitHub raconte l'heure en UTC. Deux déclenchements sont programmés (16 h et 17 h UTC) ; une étape « Garde horaire » ne laisse passer que celui qui tombe à 18 h à Paris (17 h UTC en hiver, 16 h UTC en été). Aucune intervention aux changements d'heure.
 Limite connue : GitHub peut retarder un déclenchement de quelques minutes (parfois davantage aux heures chargées).
 
-## À configurer une seule fois (le robot ne peut pas le faire à votre place)
+## Accès Google : deux méthodes (le robot choisit l'Apps Script s'il est configuré)
+- **Apps Script (recommandé tant que Google Cloud est bloqué)** : voir `apps-script/publication/README.md` (secrets GitHub `APPS_SCRIPT_URL` et `APPS_SCRIPT_SECRET`).
+- **Compte de service Google Cloud** (ci-dessous) : secret `GOOGLE_SERVICE_ACCOUNT_JSON`.
+
+## Compte de service Google Cloud (alternative)
 **1. Compte de service Google** (console.cloud.google.com)
    - Créer (ou choisir) un projet ; activer **Google Sheets API** et **Google Drive API**.
    - IAM et administration → Comptes de service → Créer. Puis onglet Clés → Ajouter une clé → JSON : un fichier est téléchargé. Notez l'adresse du compte (`…@….iam.gserviceaccount.com`).
