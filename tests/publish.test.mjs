@@ -523,3 +523,12 @@ test('Sheet de référence : identifiant par défaut = copie officielle du 27/10
   await assert.rejects(checkGateway({ kind: 'apps-script', ping: async () => ({ version: '1.0' }) }, SHEET_REF), /ancienne version/);
   await checkGateway({ kind: 'service-account' }, SHEET_REF);                           // compte de service : pas concerné
 });
+
+test('Apps Script : HTTP 401/403 → explication claire du déploiement non public, sans nouvelle tentative', async () => {
+  let calls = 0;
+  const c = createAppsScriptClient({ url: SCRIPT_URL, secret: SECRET, sleep: async () => {}, fetchImpl: async () => { calls++; return { ok: false, status: 401 }; } });
+  await assert.rejects(c.ping(), /pas public.*Tout le monde/);
+  assert.equal(calls, 1);
+  const n = createAppsScriptClient({ url: SCRIPT_URL, secret: SECRET, sleep: async () => {}, fetchImpl: async () => ({ ok: false, status: 404 }) });
+  await assert.rejects(n.ping(), /APPS_SCRIPT_URL erronée/);
+});

@@ -31,6 +31,8 @@ export function createAppsScriptClient({ url, secret, fetchImpl = fetch, nowMs =
       try {
         res = await fetchImpl(endpoint, { method: 'POST', redirect: 'follow', headers: { 'content-type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ payload, sig }) });
       } catch (e) { last = new AppsScriptError(`passerelle injoignable (${e.message})`); await sleep(1000 * attempt); continue; }
+      if (res.status === 401 || res.status === 403) throw new AppsScriptError(`passerelle : HTTP ${res.status} — le déploiement Apps Script n'est pas public : Déployer → Gérer les déploiements → ✏ → « Qui a accès » = « Tout le monde » (pas « Tout le monde disposant d'un compte Google »), puis Nouvelle version`);
+      if (res.status === 404) throw new AppsScriptError('passerelle : HTTP 404 — adresse de déploiement introuvable (APPS_SCRIPT_URL erronée ou déploiement supprimé)');
       if (!res.ok) { last = new AppsScriptError(`passerelle : HTTP ${res.status}`); if (res.status < 500 && res.status !== 429) break; await sleep(1000 * attempt); continue; }
       let body;
       try { body = await res.json(); } catch { throw new AppsScriptError('réponse inattendue de la passerelle (déploiement incorrect ? accès « Tout le monde » requis)'); }
