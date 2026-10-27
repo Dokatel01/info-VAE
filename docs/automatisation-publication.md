@@ -8,7 +8,7 @@ Du lundi au vendredi à **18 h 00 (heure de Paris)**, GitHub Actions lance `scri
 3. Pour chacune : lit le Google Doc en **lecture seule** (jamais modifié), vérifie le titre, le lien, les catégories (uniquement les 8 catégories officielles, aucune n'est créée), l'adresse (`/<titre-sans-accents>`) et le contenu (40 mots minimum).
 4. Crée l'article (même structure que les articles déjà publiés), son illustration, ses expressions de maillage (le titre) et un texte alternatif provisoire. Les liens contextuels et « Articles liés » se calculent à l'affichage.
 5. Lance les **contrôles** (`npm test`, contrôle des illustrations, `npm run build`). Si l'un échoue : rien n'est enregistré, l'article reste « à intégrer » et l'erreur est affichée.
-6. Enregistre dans GitHub (`main`) → **Netlify redéploie tout seul** (aucun jeton Netlify nécessaire).
+6. Enregistre dans GitHub (`main`) → **Vercel redéploie tout seul** (aucun jeton Vercel nécessaire ; le robot attend que la page soit réellement en ligne sur `https://info-vae.vercel.app`).
 7. Attend jusqu'à 20 min que la page soit **en ligne** avec son titre.
 8. **Seulement alors** : relit la ligne du Sheet (inchangée ?) et écrit « Publié » + la date du jour (jj/mm/aaaa), puis relit pour confirmer.
 
@@ -41,7 +41,7 @@ La **source officielle** de l'automatisation est le Google Sheets **« Suivi art
 
 **3. Secret GitHub** : dépôt `Dokatel01/info-VAE` → Settings → Secrets and variables → Actions → *New repository secret* :
    nom `GOOGLE_SERVICE_ACCOUNT_JSON`, valeur = **tout le contenu** du fichier JSON. Ne le collez jamais ailleurs (ni chat, ni code), puis supprimez le fichier téléchargé.
-   (Facultatif, onglet *Variables* : `SHEET_ID`, `SHEET_TAB`, `SITE_URL` ; sinon les valeurs par défaut sont utilisées, dont le Sheet de référence ci-dessus. Ne définissez `SHEET_ID` que pour changer de fichier.)
+   (Facultatif, onglet *Variables* : `SHEET_ID`, `SHEET_TAB`, `SITE_URL` (laisser vide : valeur par défaut `https://info-vae.vercel.app` ; une adresse Netlify est refusée) ; sinon les valeurs par défaut sont utilisées, dont le Sheet de référence ci-dessus. Ne définissez `SHEET_ID` que pour changer de fichier.)
 
 **4. Vérifier** Settings → Actions → General : Actions autorisées, et « Workflow permissions » = *Read and write*.
 

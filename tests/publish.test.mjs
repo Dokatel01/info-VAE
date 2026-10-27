@@ -10,7 +10,7 @@ import { parseDocMarkdown } from '../src/lib/docToBlocks.js';
 import { sheetArticlesLot2 } from '../src/data/sheetArticlesLot2.js';
 import { createGoogleClient, extractLink, docIdFromUrl } from '../scripts/publish/google.mjs';
 import { runPublication, parseSheet, isToIntegrate, sheetSerial, columnLetter, parisDate } from '../scripts/publish/pipeline.mjs';
-import { realRepo, realSite, sheetAdapter, createBackend, checkGateway, DEFAULTS } from '../scripts/publish/run.mjs';
+import { realRepo, realSite, sheetAdapter, createBackend, checkGateway, DEFAULTS, checkSiteUrl } from '../scripts/publish/run.mjs';
 import { createAppsScriptClient, validateScriptUrl } from '../scripts/publish/appsscript.mjs';
 import vm from 'node:vm';
 
@@ -557,4 +557,21 @@ test('Apps Script : liens des « puces intelligentes » (cellules sans lien lisi
   assert.equal(gw.writes.length, 0);
   const { items } = parseSheet(rows);
   assert.equal(items.find((i) => i.row === 2).docId, DOCID(1));
+});
+
+test('hébergement : adresse par défaut Vercel, Netlify refusé, adresse invalide refusée', () => {
+  assert.equal(DEFAULTS.siteUrl, 'https://info-vae.vercel.app');
+  assert.equal(checkSiteUrl(DEFAULTS.siteUrl), DEFAULTS.siteUrl);
+  assert.throws(() => checkSiteUrl('https://info-vae.netlify.app'), /Netlify/);
+  assert.throws(() => checkSiteUrl('pas une adresse'), /invalide/);
+});
+
+test('vérification du site : message clair si Vercel protège le site (401) et mention Vercel', async () => {
+  const mk = (res) => realSite({ siteUrl: 'https://exemple.test', timeoutMs: 1, intervalMs: 1, nowMs: (() => { let t = 0; return () => (t += 10); })(), sleep: async () => {}, fetchImpl: async () => res });
+  const prot = await mk({ ok: false, status: 401, text: async () => '' }).verify('a', 'Titre');
+  assert.equal(prot.ok, false);
+  assert.match(prot.detail, /401.*Deployment Protection/);
+  const ok = await mk({ ok: true, status: 200, headers: { get: (h) => (h === 'x-vercel-id' ? 'cdg1::x' : null) }, text: async () => '<title>Titre</title>' }).verify('a', 'Titre');
+  assert.equal(ok.ok, true);
+  assert.match(ok.detail, /Vercel/);
 });

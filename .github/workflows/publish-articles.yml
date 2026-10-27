@@ -31,7 +31,7 @@ concurrency:
   cancel-in-progress: false
 
 permissions:
-  contents: write   # pour enregistrer l'article dans le dépôt (Netlify redéploie ensuite tout seul)
+  contents: write   # pour enregistrer l'article dans le dépôt (Vercel redéploie ensuite tout seul)
 
 jobs:
   publier:

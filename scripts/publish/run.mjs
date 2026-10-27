@@ -16,7 +16,8 @@ export const DEFAULTS = {
   // L'ancien fichier (1LlVOvyM…, propriétaire contact@dokatel.com) n'est plus utilisé.
   sheetId: '1UBLJzkL7PZEPU9mf6C3PrB7ds-Htj-48m4Sqdsw3Qe8',
   tab: 'Feuille 1',
-  siteUrl: 'https://info-vae.netlify.app',
+  // Hébergement : Vercel (décision du 27/10/2026, Netlify abandonné). Chaque envoi sur GitHub (branche main) redéploie le site.
+  siteUrl: 'https://info-vae.vercel.app',
 };
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
@@ -100,14 +101,27 @@ export function realSite({ siteUrl, fetchImpl = fetch, sleep: wait = sleep, time
         try {
           const res = await fetchImpl(`${siteUrl.replace(/\/$/, '')}/${slug}?verif=${nowMs()}`, { headers: { 'cache-control': 'no-cache' }, redirect: 'follow' });
           const html = res.ok ? await res.text() : '';
-          if (res.ok && squash(html).includes(squash(title))) return { ok: true, detail: 'page accessible, titre présent' };
-          detail = res.ok ? 'page accessible mais titre introuvable' : `HTTP ${res.status}`;
+          if (res.ok && squash(html).includes(squash(title))) {
+            const vercel = res.headers?.get?.('x-vercel-id') ? ' (servie par Vercel)' : '';
+            return { ok: true, detail: `page accessible, titre présent${vercel}` };
+          }
+          detail = res.ok ? 'page accessible mais titre introuvable'
+            : (res.status === 401 || res.status === 403) ? `HTTP ${res.status} : le site est protégé (« Deployment Protection » de Vercel ?), le robot ne peut pas le lire`
+            : `HTTP ${res.status}`;
         } catch (e) { detail = `réseau : ${e.message}`; }
         if (nowMs() - started + intervalMs > timeoutMs) return { ok: false, detail: `${detail} après ${Math.round((nowMs() - started) / 60000)} min d’attente` };
         await wait(intervalMs);
       }
     },
   };
+}
+
+/** Le site se vérifie sur Vercel. Une adresse Netlify (ancienne variable SITE_URL oubliée) arrêterait le robot avant tout traitement. */
+export function checkSiteUrl(url) {
+  let host;
+  try { host = new URL(url).hostname; } catch { throw new Error(`adresse du site invalide : « ${url} »`); }
+  if (/(^|\.)netlify\.(app|com)$/.test(host)) throw new Error(`l'adresse du site (${host}) est celle de Netlify, abandonné : supprimez ou corrigez la variable GitHub SITE_URL (valeur attendue : ${DEFAULTS.siteUrl}). Aucun traitement n'a été fait`);
+  return url;
 }
 
 /** Choisit l'accès Google : passerelle Apps Script si ses deux secrets existent, sinon compte de service. */
@@ -186,6 +200,7 @@ async function main() {
     process.exit(1);
   }
   console.log(`Accès Google : ${backend.kind}`);
+  if (!selfcheck) { checkSiteUrl(config.siteUrl); console.log(`Site vérifié après chaque publication : ${config.siteUrl}`); }
   await checkGateway(backend, config.sheetId);
   const repo = realRepo();
 
@@ -222,6 +237,7 @@ async function main() {
   const report = await runPublication({ deps, dryRun, today: parisDate() });
   writeSummary(dryRun ? 'Publication automatique — SIMULATION' : 'Publication automatique', [
     `Résultat : ${report.summary}`,
+    `Site vérifié : ${config.siteUrl}`,
     '',
     ...report.results.map((r) => `- ${r.outcome === 'publié' ? '✅' : r.outcome === 'erreur' ? '❌' : 'ℹ️'} ligne ${r.row} « ${r.title} » : ${r.detail}`),
   ]);
