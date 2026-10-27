@@ -16,7 +16,7 @@
  * Mode d'emploi : apps-script/publication/README.md
  */
 
-var VERSION = '1.1';
+var VERSION = '1.2';
 var TIMEZONE = 'Europe/Paris';
 var MAX_AGE_SECONDS = 300;
 var MAX_ROWS = 2000;
@@ -132,7 +132,62 @@ function readSheet_() {
     for (var c = 0; c < lastCol; c++) cells.push({ text: texts[r][c], link: linkOf_(rich[r][c], formulas[r][c], texts[r][c]) });
     rows.push({ row: r + 1, cells: cells });
   }
+  fillMissingLinks_(rows);
   return rows;
+}
+
+function colLetter_(index) {
+  var n = index + 1, s = '';
+  while (n > 0) { var m = (n - 1) % 26; s = String.fromCharCode(65 + m) + s; n = Math.floor((n - 1) / 26); }
+  return s;
+}
+
+function attrs_(tag) {
+  var out = {}, re = /([\w:]+)="([^"]*)"/g, m;
+  while ((m = re.exec(tag))) out[m[1]] = m[2];
+  return out;
+}
+
+function unescapeXml_(s) {
+  return String(s).replace(/&quot;/g, '"').replace(/&apos;/g, "'").replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&');
+}
+
+/**
+ * Les « puces intelligentes » (smart chips) de fichier Google ne donnent pas leur adresse à getRichTextValues().
+ * Quand une cellule de la colonne « Fichier » a du texte mais pas de lien, on lit les liens dans l'export Excel du
+ * Sheet (Drive, lecture seule, même autorisation drive.readonly) : { 'G8': 'https://docs.google.com/…' }.
+ */
+function xlsxLinks_() {
+  var id = SpreadsheetApp.getActiveSpreadsheet().getId();
+  var url = 'https://www.googleapis.com/drive/v3/files/' + encodeURIComponent(id) + '/export?mimeType=' + encodeURIComponent('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') + '&supportsAllDrives=true';
+  var res = UrlFetchApp.fetch(url, { method: 'get', headers: { Authorization: 'Bearer ' + ScriptApp.getOAuthToken() }, muteHttpExceptions: true });
+  if (res.getResponseCode() !== 200) return {};
+  var files = {};
+  Utilities.unzip(res.getBlob()).forEach(function (b) { files[b.getName()] = b; });
+  var text = function (name) { return files[name] ? files[name].getDataAsString('UTF-8') : ''; };
+  var tab = PropertiesService.getScriptProperties().getProperty('SHEET_TAB') || 'Feuille 1';
+  var rid = null, tags = text('xl/workbook.xml').match(/<sheet [^>]*>/g) || [];
+  tags.forEach(function (t) { var a = attrs_(t); if (unescapeXml_(a.name) === tab) rid = a['r:id']; });
+  if (!rid) return {};
+  var target = null;
+  (text('xl/_rels/workbook.xml.rels').match(/<Relationship [^>]*>/g) || []).forEach(function (t) { var a = attrs_(t); if (a.Id === rid) target = a.Target; });
+  if (!target) return {};
+  var sheetPath = target.charAt(0) === '/' ? target.slice(1) : 'xl/' + target;
+  var relsPath = sheetPath.replace(/([^\/]+)$/, '_rels/$1.rels');
+  var targets = {};
+  (text(relsPath).match(/<Relationship [^>]*>/g) || []).forEach(function (t) { var a = attrs_(t); targets[a.Id] = unescapeXml_(a.Target); });
+  var map = {};
+  (text(sheetPath).match(/<hyperlink [^>]*>/g) || []).forEach(function (t) { var a = attrs_(t); if (a.ref && targets[a['r:id']]) map[a.ref] = targets[a['r:id']]; });
+  return map;
+}
+
+function fillMissingLinks_(rows) {
+  var col;
+  try { col = columns_(rows); } catch (e) { return; }
+  var missing = rows.filter(function (r) { var cell = r.cells[col.file]; return r.row > col.headerRow && cell && cell.text && !cell.link; });
+  if (!missing.length) return;
+  var map = xlsxLinks_();
+  missing.forEach(function (r) { var link = map[colLetter_(col.file) + r.row]; if (link) r.cells[col.file].link = link; });
 }
 
 /** Colonnes repérées par leur NOM (comme côté robot), pas par leur position. */

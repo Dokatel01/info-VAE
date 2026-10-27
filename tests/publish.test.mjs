@@ -327,11 +327,11 @@ const SHEET_REF = '1UBLJzkL7PZEPU9mf6C3PrB7ds-Htj-48m4Sqdsw3Qe8';
 const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxEXEMPLEEXEMPLE/exec';
 const DOCID = (n) => `DOCUMENT${String(n).padStart(2, '0')}ABCDEFGHIJKLMNOPQRS`;
 
-function makeGateway({ rows, docs = {}, secret = SECRET, tab = 'Feuille 1' }) {
+function makeGateway({ rows, docs = {}, secret = SECRET, tab = 'Feuille 1', chips = false }) {
   const header = ['Titre', 'Catégorie', 'Détails', 'Propriétaire', 'État', 'Date de publication', 'Fichier', 'Notes'];
   const grid = [header.map((t) => ({ text: t })), ...rows.map((r) => [
     { text: r.title }, { text: r.cat ?? 'Etapes VAE' }, { text: '' }, { text: '' }, { text: r.status }, { text: r.date ?? '' },
-    { text: 'doc', link: r.doc ? `https://docs.google.com/document/d/${r.doc}/edit` : null }, { text: '' },
+    { text: 'doc', link: r.doc && !chips ? `https://docs.google.com/document/d/${r.doc}/edit` : null }, { text: '' },
   ])];
   const driveCalls = [];
   const writes = [];
@@ -362,12 +362,24 @@ function makeGateway({ rows, docs = {}, secret = SECRET, tab = 'Feuille 1' }) {
     UrlFetchApp: {
       fetch(url, opts) {
         driveCalls.push({ url, method: opts.method });
+        if (url.includes('spreadsheetml')) {
+          const links = rows.map((r, i) => (r.doc ? `<hyperlink r:id="rId${i + 1}" ref="G${i + 2}"/>` : '')).join('');
+          const rels = rows.map((r, i) => (r.doc ? `<Relationship Id="rId${i + 1}" Target="https://docs.google.com/document/d/${r.doc}/edit?usp=sharing&amp;x=1" TargetMode="External"/>` : '')).join('');
+          const parts = {
+            'xl/workbook.xml': `<workbook><sheets><sheet name="Autre" sheetId="1" r:id="rId9"/><sheet name="${tab}" sheetId="2" r:id="rId2"/></sheets></workbook>`,
+            'xl/_rels/workbook.xml.rels': '<Relationships><Relationship Id="rId9" Target="worksheets/sheet1.xml"/><Relationship Id="rId2" Target="worksheets/sheet2.xml"/></Relationships>',
+            'xl/worksheets/sheet2.xml': `<worksheet><hyperlinks>${links}</hyperlinks></worksheet>`,
+            'xl/worksheets/_rels/sheet2.xml.rels': `<Relationships>${rels}</Relationships>`,
+          };
+          return { getResponseCode: () => 200, getBlob: () => ({ parts }) };
+        }
         const id = decodeURIComponent(/files\/([^/]+)\/export/.exec(url)[1]);
         return id in docs ? { getResponseCode: () => 200, getContentText: () => docs[id] } : { getResponseCode: () => 404, getContentText: () => '' };
       },
     },
     ContentService: { MimeType: { JSON: 'json' }, createTextOutput: (t) => ({ setMimeType() { return { getContent: () => t }; } }) },
     Utilities: {
+      unzip: (blob) => Object.entries(blob.parts).map(([name, text]) => ({ getName: () => name, getDataAsString: () => text })),
       computeHmacSha256Signature: (v, k) => Int8Array.from(crypto.createHmac('sha256', k).update(v).digest()),
       parseDate: (s) => ({ iso: s }),
     },
@@ -393,7 +405,7 @@ const sampleRows = () => [
 test('Apps Script : ping signé accepté ; mauvais secret, secret absent, requête rejouée ou périmée refusés', async () => {
   const gw = makeGateway({ rows: sampleRows() });
   const info = await clientFor(gw).ping();
-  assert.equal(info.version, '1.1');
+  assert.equal(info.version, '1.2');
   assert.equal(info.sheetId, SHEET_REF);
   await assert.rejects(createAppsScriptClient({ url: SCRIPT_URL, secret: 'z'.repeat(40), fetchImpl: gw.fetchImpl, sleep: async () => {} }).ping(), /unauthorized/);
   const none = makeGateway({ rows: sampleRows(), secret: null });
@@ -531,4 +543,18 @@ test('Apps Script : HTTP 401/403 → explication claire du déploiement non publ
   assert.equal(calls, 1);
   const n = createAppsScriptClient({ url: SCRIPT_URL, secret: SECRET, sleep: async () => {}, fetchImpl: async () => ({ ok: false, status: 404 }) });
   await assert.rejects(n.ping(), /APPS_SCRIPT_URL erronée/);
+});
+
+test('Apps Script : liens des « puces intelligentes » (cellules sans lien lisible) retrouvés via l’export Excel, lecture seule', async () => {
+  const gw = makeGateway({ rows: sampleRows(), chips: true, docs: { [DOCID(1)]: '# T\n\nTexte du Doc' } });
+  const c = clientFor(gw);
+  const rows = await c.readSheet();
+  assert.equal(docIdFromUrl(rows[1].cells[6].link), DOCID(1));
+  assert.equal(docIdFromUrl(rows[3].cells[6].link), DOCID(3));
+  assert.match(await c.exportDocMarkdown(DOCID(1)), /Texte du Doc/);   // le Doc est maintenant « référencé »
+  await assert.rejects(c.exportDocMarkdown(DOCID(9)), /non référencé/);
+  assert.ok(gw.driveCalls.every((d) => d.method === 'get'), 'uniquement des lectures');
+  assert.equal(gw.writes.length, 0);
+  const { items } = parseSheet(rows);
+  assert.equal(items.find((i) => i.row === 2).docId, DOCID(1));
 });
