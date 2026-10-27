@@ -371,7 +371,7 @@ function makeGateway({ rows, docs = {}, secret = SECRET, tab = 'Feuille 1', chip
             'xl/worksheets/sheet2.xml': `<worksheet><hyperlinks>${links}</hyperlinks></worksheet>`,
             'xl/worksheets/_rels/sheet2.xml.rels': `<Relationships>${rels}</Relationships>`,
           };
-          return { getResponseCode: () => 200, getBlob: () => ({ parts }) };
+          return { getResponseCode: () => 200, getBlob: () => { const b = { parts, setContentType: () => b }; return b; } };
         }
         const id = decodeURIComponent(/files\/([^/]+)\/export/.exec(url)[1]);
         return id in docs ? { getResponseCode: () => 200, getContentText: () => docs[id] } : { getResponseCode: () => 404, getContentText: () => '' };
@@ -405,7 +405,7 @@ const sampleRows = () => [
 test('Apps Script : ping signé accepté ; mauvais secret, secret absent, requête rejouée ou périmée refusés', async () => {
   const gw = makeGateway({ rows: sampleRows() });
   const info = await clientFor(gw).ping();
-  assert.equal(info.version, '1.2');
+  assert.equal(info.version, '1.3');
   assert.equal(info.sheetId, SHEET_REF);
   await assert.rejects(createAppsScriptClient({ url: SCRIPT_URL, secret: 'z'.repeat(40), fetchImpl: gw.fetchImpl, sleep: async () => {} }).ping(), /unauthorized/);
   const none = makeGateway({ rows: sampleRows(), secret: null });

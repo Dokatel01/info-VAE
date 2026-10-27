@@ -16,7 +16,7 @@
  * Mode d'emploi : apps-script/publication/README.md
  */
 
-var VERSION = '1.2';
+var VERSION = '1.3';
 var TIMEZONE = 'Europe/Paris';
 var MAX_AGE_SECONDS = 300;
 var MAX_ROWS = 2000;
@@ -163,7 +163,7 @@ function xlsxLinks_() {
   var res = UrlFetchApp.fetch(url, { method: 'get', headers: { Authorization: 'Bearer ' + ScriptApp.getOAuthToken() }, muteHttpExceptions: true });
   if (res.getResponseCode() !== 200) return {};
   var files = {};
-  Utilities.unzip(res.getBlob()).forEach(function (b) { files[b.getName()] = b; });
+  Utilities.unzip(res.getBlob().setContentType('application/zip')).forEach(function (b) { files[b.getName()] = b; });
   var text = function (name) { return files[name] ? files[name].getDataAsString('UTF-8') : ''; };
   var tab = PropertiesService.getScriptProperties().getProperty('SHEET_TAB') || 'Feuille 1';
   var rid = null, tags = text('xl/workbook.xml').match(/<sheet [^>]*>/g) || [];
