@@ -197,11 +197,13 @@ async function main() {
     for (const a of sample) {
       try {
         const { blocks } = parseDocMarkdown(await backend.exportDocMarkdown(a.docId));
-        const same = JSON.stringify(blocks) === JSON.stringify(a.content);
-        if (!same) bad++;
-        lines.push(`- ${same ? '✅' : '⚠️'} /${a.slug} : ${blocks.length} blocs lus dans le Doc, ${a.content.length} dans le site${same ? ' (identiques)' : ' (différences : le Doc a peut-être été modifié depuis l’intégration)'}`);
-        if (!same) {
-          const i = blocks.findIndex((b, k) => JSON.stringify(b) !== JSON.stringify(a.content[k]));
+        const flat = (list) => list.map((b) => (b.items ? b.items.join(' ') : b.text || '')).join(' ').replace(/\s+/g, '');
+        const sameText = flat(blocks) === flat(a.content);
+        const sameLayout = JSON.stringify(blocks) === JSON.stringify(a.content);
+        if (!sameText) bad++;
+        lines.push(`- ${sameText ? '✅' : '⚠️'} /${a.slug} : ${blocks.length} blocs lus dans le Doc, ${a.content.length} dans le site — ${sameText ? (sameLayout ? 'texte et mise en forme identiques' : 'texte identique (mise en forme choisie à l’intégration manuelle différente : normal)') : 'TEXTE DIFFÉRENT (le Doc a peut-être été modifié depuis l’intégration)'}`);
+        if (!sameText) {
+          const i = blocks.findIndex((b, k) => flat([b]) !== flat([a.content[k] || { text: '' }]));
           const cut = (b) => (b === undefined ? '(absent)' : JSON.stringify(b).slice(0, 110));
           lines.push(`  · premier écart au bloc ${i + 1} — Doc : ${cut(blocks[i])} — site : ${cut(a.content[i])}`);
         }
