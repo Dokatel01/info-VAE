@@ -200,6 +200,11 @@ async function main() {
         const same = JSON.stringify(blocks) === JSON.stringify(a.content);
         if (!same) bad++;
         lines.push(`- ${same ? '✅' : '⚠️'} /${a.slug} : ${blocks.length} blocs lus dans le Doc, ${a.content.length} dans le site${same ? ' (identiques)' : ' (différences : le Doc a peut-être été modifié depuis l’intégration)'}`);
+        if (!same) {
+          const i = blocks.findIndex((b, k) => JSON.stringify(b) !== JSON.stringify(a.content[k]));
+          const cut = (b) => (b === undefined ? '(absent)' : JSON.stringify(b).slice(0, 110));
+          lines.push(`  · premier écart au bloc ${i + 1} — Doc : ${cut(blocks[i])} — site : ${cut(a.content[i])}`);
+        }
       } catch (e) { bad++; lines.push(`- ❌ /${a.slug} : ${e.message}`); }
     }
     writeSummary('Test de lecture des Google Docs', lines);
