@@ -156,8 +156,17 @@ export function sheetAdapter({ backend }) {
   };
 }
 
+/** Annotations GitHub : visibles sur la page du run (même sans être connecté), sans secret. */
+const esc = (t) => String(t).replace(/%/g, '%25').replace(/\r/g, '%0D').replace(/\n/g, '%0A');
+export function annotate(title, lines, out = console.log) {
+  if (!process.env.GITHUB_ACTIONS) return;
+  const ok = !lines.some((l) => /❌|⚠️/.test(l));
+  out(`::${ok ? 'notice' : 'error'} title=${esc(title)}::${esc(lines.filter((l) => l.trim()).join(' | ')).slice(0, 3500)}`);
+}
+
 function writeSummary(title, lines) {
   const text = `## ${title}\n\n${lines.join('\n')}\n`;
+  annotate(title, lines);
   console.log(text);
   if (process.env.GITHUB_STEP_SUMMARY) fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, text);
 }
