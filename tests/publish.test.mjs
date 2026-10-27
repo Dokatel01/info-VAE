@@ -362,7 +362,7 @@ function makeGateway({ rows, docs = {}, secret = SECRET, tab = 'Feuille 1', chip
     UrlFetchApp: {
       fetch(url, opts) {
         driveCalls.push({ url, method: opts.method });
-        if (url.includes('spreadsheetml')) {
+        if (url.includes('/spreadsheets/d/')) {
           const links = rows.map((r, i) => (r.doc ? `<hyperlink r:id="rId${i + 1}" ref="G${i + 2}"/>` : '')).join('');
           const rels = rows.map((r, i) => (r.doc ? `<Relationship Id="rId${i + 1}" Target="https://docs.google.com/document/d/${r.doc}/edit?usp=sharing&amp;x=1" TargetMode="External"/>` : '')).join('');
           const parts = {
@@ -373,7 +373,7 @@ function makeGateway({ rows, docs = {}, secret = SECRET, tab = 'Feuille 1', chip
           };
           return { getResponseCode: () => 200, getBlob: () => { const b = { parts, setContentType: () => b }; return b; } };
         }
-        const id = decodeURIComponent(/files\/([^/]+)\/export/.exec(url)[1]);
+        const id = decodeURIComponent(/document\/d\/([^/]+)\/export/.exec(url)[1]);
         return id in docs ? { getResponseCode: () => 200, getContentText: () => docs[id] } : { getResponseCode: () => 404, getContentText: () => '' };
       },
     },
@@ -405,7 +405,7 @@ const sampleRows = () => [
 test('Apps Script : ping signé accepté ; mauvais secret, secret absent, requête rejouée ou périmée refusés', async () => {
   const gw = makeGateway({ rows: sampleRows() });
   const info = await clientFor(gw).ping();
-  assert.equal(info.version, '1.3');
+  assert.equal(info.version, '1.4');
   assert.equal(info.sheetId, SHEET_REF);
   await assert.rejects(createAppsScriptClient({ url: SCRIPT_URL, secret: 'z'.repeat(40), fetchImpl: gw.fetchImpl, sleep: async () => {} }).ping(), /unauthorized/);
   const none = makeGateway({ rows: sampleRows(), secret: null });
@@ -443,7 +443,7 @@ test('Apps Script : lecture du Sheet (textes + liens) et des Docs liés, en lect
   const { items } = parseSheet(rows);
   assert.deepEqual(items.filter((i) => isToIntegrate(i.status)).map((i) => i.row), [2]);
   assert.match(await c.exportDocMarkdown(DOCID(1)), /Texte/);
-  assert.ok(gw.driveCalls.every((d) => d.method === 'get' && /\/export\?mimeType=text%2Fmarkdown/.test(d.url)), 'uniquement des exports en lecture');
+  assert.ok(gw.driveCalls.every((d) => d.method === 'get' && /\/export\?format=(md|xlsx)$/.test(d.url) && !/googleapis\.com/.test(d.url)), 'uniquement des exports en lecture, sans API Drive');
   assert.equal(gw.writes.length, 0, 'aucune écriture dans le Sheet');
   await assert.rejects(c.exportDocMarkdown(DOCID(9)), /non référencé/);   // Doc absent du Sheet
   await assert.rejects(c.exportDocMarkdown('../etc/passwd'), /invalide/);

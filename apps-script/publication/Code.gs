@@ -16,7 +16,7 @@
  * Mode d'emploi : apps-script/publication/README.md
  */
 
-var VERSION = '1.3';
+var VERSION = '1.4';
 var TIMEZONE = 'Europe/Paris';
 var MAX_AGE_SECONDS = 300;
 var MAX_ROWS = 2000;
@@ -155,11 +155,11 @@ function unescapeXml_(s) {
 /**
  * Les « puces intelligentes » (smart chips) de fichier Google ne donnent pas leur adresse à getRichTextValues().
  * Quand une cellule de la colonne « Fichier » a du texte mais pas de lien, on lit les liens dans l'export Excel du
- * Sheet (Drive, lecture seule, même autorisation drive.readonly) : { 'G8': 'https://docs.google.com/…' }.
+ * Sheet (adresse d'export du Sheet, lecture seule, autorisation drive.readonly ; l'API Drive n'a pas besoin d'être activée) : { 'G8': 'https://docs.google.com/…' }.
  */
 function xlsxLinks_() {
   var id = SpreadsheetApp.getActiveSpreadsheet().getId();
-  var url = 'https://www.googleapis.com/drive/v3/files/' + encodeURIComponent(id) + '/export?mimeType=' + encodeURIComponent('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') + '&supportsAllDrives=true';
+  var url = 'https://docs.google.com/spreadsheets/d/' + encodeURIComponent(id) + '/export?format=xlsx';
   var res = UrlFetchApp.fetch(url, { method: 'get', headers: { Authorization: 'Bearer ' + ScriptApp.getOAuthToken() }, muteHttpExceptions: true });
   if (res.getResponseCode() !== 200) return {};
   var files = {};
@@ -228,7 +228,7 @@ function exportDoc_(params) {
   if (!/^[A-Za-z0-9_-]{20,80}$/.test(id)) throw new Error('docId invalide');
   var rows = readSheet_();
   if (!allowedDocIds_(rows, columns_(rows))[id]) throw new Error('Doc non référencé dans le Sheet');
-  var url = 'https://www.googleapis.com/drive/v3/files/' + encodeURIComponent(id) + '/export?mimeType=' + encodeURIComponent('text/markdown') + '&supportsAllDrives=true';
+  var url = 'https://docs.google.com/document/d/' + encodeURIComponent(id) + '/export?format=md';
   var res = UrlFetchApp.fetch(url, { method: 'get', headers: { Authorization: 'Bearer ' + ScriptApp.getOAuthToken() }, muteHttpExceptions: true });
   var code = res.getResponseCode();
   if (code !== 200) throw new Error('Doc inaccessible (HTTP ' + code + ')');
