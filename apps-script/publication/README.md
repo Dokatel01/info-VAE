@@ -5,7 +5,7 @@ Remplace l'accès « compte de service Google Cloud » (qui exige la console Goo
 ## Ce que le script peut (et ne peut pas) faire
 | Action | Effet |
 |---|---|
-| `ping` | répond « ok » (test de déploiement) |
+| `ping` | répond la version du script et l'identifiant du Sheet auquel il est lié (test de déploiement) |
 | `readSheet` | lit le Sheet de suivi |
 | `exportDoc` | lit le texte d'un Google Doc **lié dans le Sheet** (lecture seule, aucune modification possible) |
 | `markPublished` | écrit « Publié » et la date dans les colonnes État et Date d'**une** ligne, seulement si le titre et le Doc n'ont pas changé et si l'état est encore « à intégrer » |
@@ -13,6 +13,9 @@ Remplace l'accès « compte de service Google Cloud » (qui exige la console Goo
 Autorisations demandées à Google : `spreadsheets.currentonly` (ce Sheet uniquement), `drive.readonly` (lecture), `script.external_request`, `script.container.ui` (menu). Pas de suppression, pas de partage, pas d'accès aux autres fichiers en écriture.
 
 Sécurité : chaque requête est signée (HMAC-SHA256) avec un secret que seul le script et GitHub connaissent ; elle expire en 5 minutes et ne peut servir qu'une fois. Le secret est dans les propriétés du script, pas dans le code. Aucune donnée de requête n'est écrite dans les journaux.
+
+> **Sheet de référence :** le script doit être lié au fichier officiel « Suivi article site info VAE » de *Mon Drive → Info VAE → VAE* (identifiant `1UBLJzkL…Qe8`). Le robot vérifie cette liaison à chaque passage (action `ping`, version 1.1 ou plus) et s'arrête si elle est incorrecte.
+> **Mise à jour vers la version 1.1** (ajoute le contrôle ci-dessus) : recollez `Code.gs`, enregistrez, puis *Déployer → Gérer les déploiements → ✏ → Version : Nouvelle version → Déployer*. L'URL et le jeton ne changent pas.
 
 ## Ce que vous devez faire dans votre compte Google (une seule fois, ~10 minutes)
 1. Ouvrez le Sheet **« Suivi article site info VAE »** → menu **Extensions → Apps Script**.

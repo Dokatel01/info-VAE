@@ -10,7 +10,7 @@ import { parseDocMarkdown } from '../src/lib/docToBlocks.js';
 import { sheetArticlesLot2 } from '../src/data/sheetArticlesLot2.js';
 import { createGoogleClient, extractLink, docIdFromUrl } from '../scripts/publish/google.mjs';
 import { runPublication, parseSheet, isToIntegrate, sheetSerial, columnLetter, parisDate } from '../scripts/publish/pipeline.mjs';
-import { realRepo, realSite, sheetAdapter, createBackend } from '../scripts/publish/run.mjs';
+import { realRepo, realSite, sheetAdapter, createBackend, checkGateway, DEFAULTS } from '../scripts/publish/run.mjs';
 import { createAppsScriptClient, validateScriptUrl } from '../scripts/publish/appsscript.mjs';
 import vm from 'node:vm';
 
@@ -323,6 +323,7 @@ test('copie réelle du dépôt : article ajouté, illustration créée, données
 // Passerelle Google Apps Script (apps-script/publication/Code.gs) — exécutée dans un environnement simulé
 // ============================================================================
 const SECRET = 'a'.repeat(16) + 'b'.repeat(16) + 'c'.repeat(16);
+const SHEET_REF = '1UBLJzkL7PZEPU9mf6C3PrB7ds-Htj-48m4Sqdsw3Qe8';
 const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxEXEMPLEEXEMPLE/exec';
 const DOCID = (n) => `DOCUMENT${String(n).padStart(2, '0')}ABCDEFGHIJKLMNOPQRS`;
 
@@ -356,7 +357,7 @@ function makeGateway({ rows, docs = {}, secret = SECRET, tab = 'Feuille 1' }) {
     PropertiesService: { getScriptProperties: () => ({ getProperty: (k) => props.get(k) ?? null, setProperty: (k, v) => props.set(k, v) }) },
     CacheService: { getScriptCache: () => ({ get: (k) => cache.get(k) ?? null, put: (k, v) => cache.set(k, v) }) },
     LockService: { getScriptLock: () => ({ waitLock() {}, releaseLock() {} }) },
-    SpreadsheetApp: { getActiveSpreadsheet: () => ({ getSheetByName: (n) => (n === tab ? sheet : null) }), flush() {} },
+    SpreadsheetApp: { getActiveSpreadsheet: () => ({ getSheetByName: (n) => (n === tab ? sheet : null), getId: () => SHEET_REF }), flush() {} },
     ScriptApp: { getOAuthToken: () => 'oauth-token-simule' },
     UrlFetchApp: {
       fetch(url, opts) {
@@ -391,7 +392,9 @@ const sampleRows = () => [
 
 test('Apps Script : ping signé accepté ; mauvais secret, secret absent, requête rejouée ou périmée refusés', async () => {
   const gw = makeGateway({ rows: sampleRows() });
-  assert.equal((await clientFor(gw).ping()).version, '1.0');
+  const info = await clientFor(gw).ping();
+  assert.equal(info.version, '1.1');
+  assert.equal(info.sheetId, SHEET_REF);
   await assert.rejects(createAppsScriptClient({ url: SCRIPT_URL, secret: 'z'.repeat(40), fetchImpl: gw.fetchImpl, sleep: async () => {} }).ping(), /unauthorized/);
   const none = makeGateway({ rows: sampleRows(), secret: null });
   await assert.rejects(clientFor(none).ping(), /unavailable/);
@@ -508,4 +511,15 @@ test('Apps Script, de bout en bout : publication complète via la passerelle, «
   assert.equal(w.state.auto[0].source.docId, DOCID(1));
   // le robot ne lit jamais le Doc « En cours d'examen »
   assert.ok(!gw.driveCalls.some((d) => d.url.includes(DOCID(3))));
+});
+
+test('Sheet de référence : identifiant par défaut = copie officielle du 27/10/2026, et contrôle de la passerelle', async () => {
+  assert.equal(DEFAULTS.sheetId, SHEET_REF);
+  assert.ok(!fs.readFileSync(path.join(repoRoot, 'scripts/publish/run.mjs'), 'utf8').match(/sheetId: '1LlVOvy/), 'ancien identifiant retiré');
+  const gw = makeGateway({ rows: sampleRows() });
+  const backend = { kind: 'apps-script', ...clientFor(gw) };
+  await checkGateway(backend, SHEET_REF);                                              // bon Sheet : accepté
+  await assert.rejects(checkGateway(backend, '1LlVOvyMw3hoJ18ZUe58JjqcV42eJ30gQeL_Ow2oEjeQ'), /autre Sheet/);   // ancien Sheet : refusé
+  await assert.rejects(checkGateway({ kind: 'apps-script', ping: async () => ({ version: '1.0' }) }, SHEET_REF), /ancienne version/);
+  await checkGateway({ kind: 'service-account' }, SHEET_REF);                           // compte de service : pas concerné
 });

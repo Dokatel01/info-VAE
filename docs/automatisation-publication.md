@@ -20,6 +20,12 @@ Doublons : chaque article est reconnu par l'identifiant de son Doc. Si un passag
 GitHub raconte l'heure en UTC. Deux déclenchements sont programmés (16 h et 17 h UTC) ; une étape « Garde horaire » ne laisse passer que celui qui tombe à 18 h à Paris (17 h UTC en hiver, 16 h UTC en été). Aucune intervention aux changements d'heure.
 Limite connue : GitHub peut retarder un déclenchement de quelques minutes (parfois davantage aux heures chargées).
 
+## Fichier de référence officiel (décision du 27/10/2026)
+La **source officielle** de l'automatisation est le Google Sheets **« Suivi article site info VAE »** situé dans **Mon Drive → Info VAE → VAE** (compte `designer@dokatel.com`), identifiant `1UBLJzkL7PZEPU9mf6C3PrB7ds-Htj-48m4Sqdsw3Qe8`.
+- **Toute l'équipe doit désormais travailler dans CE fichier** (ajout de lignes, passage à « à intégrer », notes). L'ancien fichier (propriétaire `contact@dokatel.com`, « Partagés avec moi ») n'est plus lu : une ligne « à intégrer » saisie dedans ne serait jamais publiée. Il est conseillé de l'archiver ou d'y écrire « OBSOLÈTE » en tête.
+- Le script Apps Script doit être **lié à ce fichier**. À chaque passage, le robot interroge le script et **s'arrête sans rien faire** si celui-ci n'est pas lié au bon fichier, ou s'il s'agit d'une ancienne version du script.
+- Les Google Docs restent dans leur dossier d'origine : le compte `designer@dokatel.com` doit pouvoir les lire (l'accès par compte de service, s'il est utilisé, doit aussi être partagé avec ce nouveau fichier).
+
 ## Accès Google : deux méthodes (le robot choisit l'Apps Script s'il est configuré)
 - **Apps Script (recommandé tant que Google Cloud est bloqué)** : voir `apps-script/publication/README.md` (secrets GitHub `APPS_SCRIPT_URL` et `APPS_SCRIPT_SECRET`).
 - **Compte de service Google Cloud** (ci-dessous) : secret `GOOGLE_SERVICE_ACCOUNT_JSON`.
@@ -35,7 +41,7 @@ Limite connue : GitHub peut retarder un déclenchement de quelques minutes (parf
 
 **3. Secret GitHub** : dépôt `Dokatel01/info-VAE` → Settings → Secrets and variables → Actions → *New repository secret* :
    nom `GOOGLE_SERVICE_ACCOUNT_JSON`, valeur = **tout le contenu** du fichier JSON. Ne le collez jamais ailleurs (ni chat, ni code), puis supprimez le fichier téléchargé.
-   (Facultatif, onglet *Variables* : `SHEET_ID`, `SHEET_TAB`, `SITE_URL` ; sinon les valeurs actuelles sont utilisées.)
+   (Facultatif, onglet *Variables* : `SHEET_ID`, `SHEET_TAB`, `SITE_URL` ; sinon les valeurs par défaut sont utilisées, dont le Sheet de référence ci-dessus. Ne définissez `SHEET_ID` que pour changer de fichier.)
 
 **4. Vérifier** Settings → Actions → General : Actions autorisées, et « Workflow permissions » = *Read and write*.
 

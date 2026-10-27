@@ -16,7 +16,7 @@
  * Mode d'emploi : apps-script/publication/README.md
  */
 
-var VERSION = '1.0';
+var VERSION = '1.1';
 var TIMEZONE = 'Europe/Paris';
 var MAX_AGE_SECONDS = 300;
 var MAX_ROWS = 2000;
@@ -44,7 +44,7 @@ function doPost(e) {
     if (ACTIONS.indexOf(req.action) < 0) return reply_({ ok: false, error: 'bad_request' });
     var params = req.params || {};
     var data;
-    if (req.action === 'ping') data = { version: VERSION };
+    if (req.action === 'ping') data = { version: VERSION, sheetId: SpreadsheetApp.getActiveSpreadsheet().getId() };
     else if (req.action === 'readSheet') data = { rows: readSheet_() };
     else if (req.action === 'exportDoc') data = { markdown: exportDoc_(params) };
     else data = markPublished_(params);

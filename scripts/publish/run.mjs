@@ -12,7 +12,9 @@ import { runPublication, parseSheet, columnLetter, parisDate } from './pipeline.
 import { parseDocMarkdown } from '../../src/lib/docToBlocks.js';
 
 export const DEFAULTS = {
-  sheetId: '1LlVOvyMw3hoJ18ZUe58JjqcV42eJ30gQeL_Ow2oEjeQ',
+  // Fichier de référence OFFICIEL (décision du 27/10/2026) : « Suivi article site info VAE » dans Mon Drive → Info VAE → VAE.
+  // L'ancien fichier (1LlVOvyM…, propriétaire contact@dokatel.com) n'est plus utilisé.
+  sheetId: '1UBLJzkL7PZEPU9mf6C3PrB7ds-Htj-48m4Sqdsw3Qe8',
   tab: 'Feuille 1',
   siteUrl: 'https://info-vae.netlify.app',
 };
@@ -109,6 +111,14 @@ export function realSite({ siteUrl, fetchImpl = fetch, sleep: wait = sleep, time
 }
 
 /** Choisit l'accès Google : passerelle Apps Script si ses deux secrets existent, sinon compte de service. */
+/** Contrôle que la passerelle Apps Script est bien liée au Sheet de référence (sinon on s'arrête avant tout traitement). */
+export async function checkGateway(backend, expectedSheetId) {
+  if (backend.kind !== 'apps-script') return;
+  const info = await backend.ping();
+  if (!info.sheetId) throw new Error('le script Apps Script déployé est une ancienne version (il ne indique pas le Sheet auquel il est lié) : collez la dernière version de Code.gs et redéployez (Déployer → Gérer les déploiements → ✏ → Nouvelle version)');
+  if (info.sheetId !== expectedSheetId) throw new Error(`le script Apps Script est lié à un autre Sheet que le Sheet de référence (lié à …${info.sheetId.slice(-6)}, attendu …${expectedSheetId.slice(-6)}) : aucun traitement n'a été fait`);
+}
+
 export function createBackend(env, config) {
   if (env.APPS_SCRIPT_URL && env.APPS_SCRIPT_SECRET) {
     const client = createAppsScriptClient({ url: env.APPS_SCRIPT_URL, secret: env.APPS_SCRIPT_SECRET });
@@ -167,6 +177,7 @@ async function main() {
     process.exit(1);
   }
   console.log(`Accès Google : ${backend.kind}`);
+  await checkGateway(backend, config.sheetId);
   const repo = realRepo();
 
   if (selfcheck) {
