@@ -50,16 +50,17 @@
 
 .brand {
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  gap: 10px;
   color: inherit;
   text-decoration: none;
 }
 
-.brand__name {
-  font-size: 18px;
-  font-weight: 700;
-  line-height: 28px;
-  color: var(--color-text-strong);
+/* Logo Info VAE (ampoule + nom) : 64 px de haut, la largeur suit les proportions du fichier */
+.brand__logo {
+  display: block;
+  height: 64px;
+  width: auto;
 }
 
 .brand__tagline {
