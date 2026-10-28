@@ -14,6 +14,8 @@ Du lundi au vendredi à **18 h 00 (heure de Paris)**, GitHub Actions lance `scri
 
 Erreurs : une erreur sur un article n'arrête pas les autres. Le passage est marqué « échec » dans GitHub (vous recevez le courriel d'alerte habituel de GitHub) et le détail est dans le résumé du passage.
 
+**Phase de test : un seul article par jour ouvré.** À 18 h (Paris), le robot ne traite que le premier article « à intégrer » dans l'ordre du Sheet ; les suivants attendent les jours d'après. Si un article a déjà été publié aujourd'hui, une relance ne fait rien. Si le premier article échoue, le robot s'arrête là : la ligne reste « à intégrer », le Sheet n'est pas modifié et la cause est écrite dans le compte rendu de l'exécution (onglet Actions de GitHub).
+
 Doublons : chaque article est reconnu par l'identifiant de son Doc. Si un passage s'interrompt après l'envoi vers GitHub, le passage suivant ne recrée rien : il vérifie que la page est en ligne puis marque le Sheet. Un passage ne démarre jamais en même temps qu'un autre.
 
 ## Heure d'été / heure d'hiver

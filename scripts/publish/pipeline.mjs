@@ -131,7 +131,22 @@ export async function runPublication({ deps, today = parisDate(), dryRun = false
   const alreadyIn = [];
   const seenDocs = new Set();
 
-  for (const item of candidates) {
+  // RÈGLE DE LA PHASE DE TEST : un seul article par jour ouvré.
+  // a) Reprise : un article déjà intégré au site mais pas encore marqué « Publié » est finalisé en priorité
+  //    (c'est l'article du jour, aucun nouvel article n'est ajouté).
+  // b) Sinon, si le robot a déjà publié un article aujourd'hui (date de Paris), il ne fait rien.
+  // c) Sinon, seul le premier article « à intégrer » (ordre du Sheet) est traité ; en cas d'échec on s'arrête là.
+  const recovery = candidates.find((it) => it.docId && byDoc.has(it.docId));
+  if (!recovery) {
+    const doneToday = (existing.auto || []).find((a) => a.updatedAt === today);
+    if (doneToday) {
+      return { results, summary: `Un article a déjà été publié aujourd’hui par le robot (/${doneToday.slug}) : règle « un seul article par jour », rien à faire, rien n’a été modifié.`, changed: false };
+    }
+  }
+  const selected = recovery || candidates[0];
+  log(`Règle « un seul article par jour » : ligne ${selected.row} retenue${recovery ? ' (reprise d’un article déjà intégré)' : ''} ; ${candidates.length - 1} autre(s) article(s) « ${STATUS_TO_INTEGRATE} » reporté(s) aux jours suivants.`);
+
+  for (const item of [selected]) {
     try {
       if (!item.title) throw new Error('titre manquant');
       if (!item.docId) throw new Error('lien vers le Google Doc manquant ou illisible dans la colonne « Fichier »');

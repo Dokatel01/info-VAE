@@ -170,27 +170,63 @@ test('publication nominale : ordre dépôt → envoi → vérification en ligne 
   assert.ok(!w.events.some((e) => e === `doc:${DOC(2)}`), 'le Doc « En cours d’examen » n’est même pas lu');
 });
 
-test('erreurs isolées : Doc inaccessible, catégorie inconnue, catégorie manquante, doublon de Doc — les autres sont publiés', async () => {
+test('un seul article par jour : 5 articles « à intégrer » → seul le premier est publié, les autres ne sont ni lus ni modifiés', async () => {
   const w = makeWorld({
-    rows: [
-      { title: 'Article valide numéro un', status: 'à intégrer', doc: DOC(1) },
-      { title: 'Doc introuvable', status: 'à intégrer', doc: DOC(2) },
-      { title: 'Catégorie inventée', status: 'à intégrer', doc: DOC(3), cat: 'Nouveauté' },
-      { title: 'Sans catégorie', status: 'à intégrer', doc: DOC(4), cat: '' },
-      { title: 'Doublon du premier', status: 'à intégrer', doc: DOC(1) },
-      { title: 'Sans lien', status: 'à intégrer', doc: null },
-      { title: 'Article valide numéro deux', status: 'à intégrer', doc: DOC(5) },
-    ],
-    docs: { [DOC(1)]: mdOf('x'), [DOC(3)]: mdOf('x'), [DOC(4)]: mdOf('x'), [DOC(5)]: mdOf('x') },
+    rows: [1, 2, 3, 4, 5].map((n) => ({ title: `Article du jour numéro ${n}`, status: 'à intégrer', doc: DOC(n) })),
+    docs: Object.fromEntries([1, 2, 3, 4, 5].map((n) => [DOC(n), mdOf('x')])),
   });
   const rep = await run(w);
+  assert.equal(rep.results.length, 1);
   assert.equal(outcomeOf(rep, 2), 'publié');
-  assert.equal(outcomeOf(rep, 8), 'publié');
-  for (const r of [3, 4, 5, 6, 7]) assert.equal(outcomeOf(rep, r), 'erreur', `ligne ${r}`);
-  assert.match(rep.results.find((r) => r.row === 4).detail, /catégorie inconnue/);
-  assert.match(rep.results.find((r) => r.row === 3).detail, /inaccessible/);
+  assert.equal(w.state.auto.length, 1);
+  assert.equal(w.events.filter((e) => e === 'repo.commit').length, 1);
+  assert.equal(w.events.filter((e) => e.startsWith('sheet.mark')).length, 1);
+  for (const r of [3, 4, 5, 6]) assert.equal(w.grid[r - 1].cells[4].text, 'à intégrer', `ligne ${r} intacte`);
+  for (const n of [2, 3, 4, 5]) assert.ok(!w.events.includes(`doc:${DOC(n)}`), `Doc ${n} non lu`);
+});
+
+test('un seul article par jour : relance le même jour → rien de plus n’est publié', async () => {
+  const w = makeWorld({
+    rows: [1, 2, 3].map((n) => ({ title: `Article du jour numéro ${n}`, status: 'à intégrer', doc: DOC(n) })),
+    docs: Object.fromEntries([1, 2, 3].map((n) => [DOC(n), mdOf('x')])),
+  });
+  await run(w);
+  const again = await run(w);
+  assert.equal(again.changed, false);
+  assert.equal(again.results.length, 0);
+  assert.match(again.summary, /déjà été publié aujourd’hui/);
+  assert.equal(w.state.auto.length, 1);
+  assert.equal(w.grid[2].cells[4].text, 'à intégrer');
+  // le lendemain : le suivant est publié
+  const next = await run(w, { today: '2026-10-28' });
+  assert.equal(outcomeOf(next, 3), 'publié');
   assert.equal(w.state.auto.length, 2);
-  for (const r of [3, 4, 5, 6, 7]) assert.equal(w.grid[r - 1].cells[4].text, 'à intégrer', `ligne ${r} non marquée`);
+  assert.equal(w.grid[3].cells[4].text, 'à intégrer');
+});
+
+test('un seul article par jour : en cas d’échec du premier, on s’arrête, la cause est enregistrée et l’article reste « à intégrer »', async () => {
+  const w = makeWorld({
+    rows: [{ title: 'Catégorie inventée', status: 'à intégrer', doc: DOC(1), cat: 'Nouveauté' }, { title: 'Article suivant valide', status: 'à intégrer', doc: DOC(2) }],
+    docs: { [DOC(1)]: mdOf('x'), [DOC(2)]: mdOf('x') },
+  });
+  const rep = await run(w);
+  assert.equal(rep.results.length, 1);
+  assert.equal(outcomeOf(rep, 2), 'erreur');
+  assert.match(rep.results[0].detail, /catégorie inconnue/);
+  assert.equal(w.state.auto.length, 0);
+  assert.equal(w.grid[1].cells[4].text, 'à intégrer');
+  assert.equal(w.grid[2].cells[4].text, 'à intégrer');
+  assert.ok(!w.events.some((e) => e.startsWith('sheet.mark')));
+});
+
+test('validations conservées : Doc inaccessible, catégorie manquante, absence de lien → erreur claire, ligne intacte', async () => {
+  for (const [row, expect] of [[{ title: 'Doc introuvable', status: 'à intégrer', doc: DOC(2) }, /inaccessible/], [{ title: 'Sans catégorie', status: 'à intégrer', doc: DOC(4), cat: '' }, /catégorie manquante/], [{ title: 'Sans lien', status: 'à intégrer', doc: null }, /lien vers le Google Doc/]]) {
+    const w = makeWorld({ rows: [row], docs: { [DOC(4)]: mdOf('x') } });
+    const rep = await run(w);
+    assert.equal(outcomeOf(rep, 2), 'erreur');
+    assert.match(rep.results[0].detail, expect);
+    assert.equal(w.grid[1].cells[4].text, 'à intégrer');
+  }
 });
 
 test('page introuvable en ligne : le Sheet n’est PAS modifié', async () => {
@@ -225,15 +261,16 @@ test('échec des contrôles (tests/build) : rien n’est validé, ni envoyé, ni
   assert.equal(w.grid[1].cells[4].text, 'à intégrer');
 });
 
-test('lot qui échoue : repli article par article, le bon est publié, le mauvais reste « à intégrer »', async () => {
+test('contrôles qui échouent sur l’article du jour : il reste « à intégrer », le suivant n’est pas tenté', async () => {
   const w = makeWorld({
-    rows: [{ title: 'Bon article du lot', status: 'à intégrer', doc: DOC(1) }, { title: 'MAUVAIS article du lot', status: 'à intégrer', doc: DOC(2) }],
+    rows: [{ title: 'MAUVAIS article du jour', status: 'à intégrer', doc: DOC(1) }, { title: 'Bon article du lendemain', status: 'à intégrer', doc: DOC(2) }],
     docs: { [DOC(1)]: mdOf('x'), [DOC(2)]: mdOf('x') }, batchFailsOnce: true,
   });
   const rep = await run(w);
-  assert.equal(outcomeOf(rep, 2), 'publié');
-  assert.equal(outcomeOf(rep, 3), 'erreur');
-  assert.equal(w.state.auto.length, 1);
+  assert.equal(outcomeOf(rep, 2), 'erreur');
+  assert.equal(rep.results.length, 1);
+  assert.equal(w.state.auto.length, 0);
+  assert.equal(w.grid[1].cells[4].text, 'à intégrer');
   assert.equal(w.grid[2].cells[4].text, 'à intégrer');
 });
 
@@ -513,7 +550,7 @@ test('Apps Script, de bout en bout : publication complète via la passerelle, «
   const rep = await run(w);
   assert.equal(sheetWrittenBeforeVerify, 0, 'rien n’est écrit dans le Sheet avant la vérification en ligne');
   assert.equal(outcomeOf(rep, 2), 'publié');
-  assert.equal(outcomeOf(rep, 3), 'erreur');
+  assert.equal(rep.results.length, 1, 'un seul article traité');
   assert.equal(gw.grid[1][4].text, 'Publié');
   assert.equal(gw.grid[1][5].value.iso, '2026-10-27');
   assert.equal(gw.grid[2][4].text, 'à intégrer');

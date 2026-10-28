@@ -1,4 +1,5 @@
 # Publication quotidienne des articles « à intégrer » du Google Sheets (du lundi au vendredi, 18 h 00 heure de Paris).
+# PHASE DE TEST : UN SEUL article est publié par jour ouvré (le premier « à intégrer » dans l'ordre du Sheet).
 # Mode d'emploi et étapes de configuration : docs/automatisation-publication.md
 name: Publication quotidienne des articles
 
