@@ -46,7 +46,21 @@ export function createAppsScriptClient({ url, secret, fetchImpl = fetch, nowMs =
   return {
     ping: () => call('ping'),
     async readSheet() { return (await call('readSheet')).rows; },
-    async exportDocMarkdown(docId) { return (await call('exportDoc', { docId })).markdown; },
+    /**
+     * La passerelle relit le Sheet (et son export Excel pour les puces de fichier) à chaque lecture de Doc :
+     * avec beaucoup d'articles, Google refuse parfois cet export de façon passagère et répond « Doc non référencé ».
+     * On réessaie donc quelques fois, en espaçant les essais, avant de déclarer l'échec.
+     */
+    async exportDocMarkdown(docId) {
+      const attempts = 6;
+      for (let n = 1; ; n++) {
+        try { return (await call('exportDoc', { docId })).markdown; }
+        catch (e) {
+          if (n >= attempts || !/non référencé/.test(String(e.message))) throw e;
+          await sleep(4000 * n);
+        }
+      }
+    },
     /** Écrit « Publié » + date (AAAA-MM-JJ) ; le script revérifie la ligne avant d'écrire. */
     markPublished({ row, title, docId, date }) { return call('markPublished', { row, title, docId, date }); },
   };

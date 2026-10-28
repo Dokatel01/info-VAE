@@ -575,3 +575,24 @@ test('vérification du site : message clair si Vercel protège le site (401) et 
   assert.equal(ok.ok, true);
   assert.match(ok.detail, /Vercel/);
 });
+
+test('Apps Script : « Doc non référencé » passager → nouvel essai espacé, puis succès ; échec persistant → erreur après 6 essais', async () => {
+  const gw = makeGateway({ rows: sampleRows(), docs: { [DOCID(1)]: '# T' } });
+  const real = gw.fetchImpl;
+  let n = 0;
+  const flaky = async (url, init) => {
+    const body = JSON.parse(JSON.parse(init.body).payload);
+    if (body.action === 'exportDoc' && n++ < 2) return { ok: true, status: 200, json: async () => ({ ok: false, error: 'failed', detail: 'Doc non référencé dans le Sheet' }) };
+    return real(url, init);
+  };
+  const waits = [];
+  const c = createAppsScriptClient({ url: SCRIPT_URL, secret: SECRET, fetchImpl: flaky, sleep: async (ms) => { waits.push(ms); } });
+  await c.exportDocMarkdown(DOCID(1));
+  assert.equal(n, 3);
+  assert.deepEqual(waits, [4000, 8000]);
+  let calls = 0;
+  const always = async () => { calls++; return { ok: true, status: 200, json: async () => ({ ok: false, error: 'failed', detail: 'Doc non référencé dans le Sheet' }) }; };
+  const c2 = createAppsScriptClient({ url: SCRIPT_URL, secret: SECRET, fetchImpl: always, sleep: async () => {} });
+  await assert.rejects(c2.exportDocMarkdown(DOCID(1)), /non référencé/);
+  assert.equal(calls, 6);
+});
