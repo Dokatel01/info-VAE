@@ -175,7 +175,19 @@ const esc = (t) => String(t).replace(/%/g, '%25').replace(/\r/g, '%0D').replace(
 export function annotate(title, lines, out = console.log) {
   if (!process.env.GITHUB_ACTIONS) return;
   const ok = !lines.some((l) => /❌|⚠️/.test(l));
-  out(`::${ok ? 'notice' : 'error'} title=${esc(title)}::${esc(lines.filter((l) => l.trim()).join(' | ')).slice(0, 3500)}`);
+  // Une annotation est limitée en taille : on répartit les lignes en plusieurs blocs (6 au plus).
+  const chunks = [];
+  let cur = '';
+  for (const l of lines.filter((x) => x.trim())) {
+    const piece = l.slice(0, 600);
+    if (cur && cur.length + piece.length + 3 > 2800) { chunks.push(cur); cur = ''; }
+    cur += (cur ? ' | ' : '') + piece;
+  }
+  if (cur) chunks.push(cur);
+  chunks.slice(0, 6).forEach((c, i, all) => {
+    const t = all.length > 1 ? `${title} (${i + 1}/${all.length})` : title;
+    out(`::${ok ? 'notice' : 'error'} title=${esc(t)}::${esc(c)}`);
+  });
 }
 
 function writeSummary(title, lines) {
