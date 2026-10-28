@@ -54,3 +54,5 @@ La **source officielle** de l'automatisation est le Google Sheets **« Suivi art
 - Il ne crée pas de **photos** : il utilise l'illustration générée. Ajoutez ensuite la photo (voir `docs/photos-brief.md`) et remplacez le texte alternatif provisoire (`« Sur le thème : … »`) par une description de la photo dans `src/data/imageAlt.js`.
 - Il ne réécrit pas les textes et ne crée pas de catégorie : une catégorie inconnue = erreur signalée.
 - GitHub désactive les déclenchements programmés d'un dépôt **public** sans aucune activité depuis 60 jours ; en cas de message GitHub en ce sens, réactivez le workflow dans l'onglet Actions.
+
+<!-- Essai du 28/10/2026 : commit signé comme le robot, pour vérifier que Vercel le déploie. -->
