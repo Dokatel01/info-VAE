@@ -133,6 +133,37 @@ export async function checkGateway(backend, expectedSheetId) {
   if (info.sheetId !== expectedSheetId) throw new Error(`le script Apps Script est lié à un autre Sheet que le Sheet de référence (lié à …${info.sheetId.slice(-6)}, attendu …${expectedSheetId.slice(-6)}) : aucun traitement n'a été fait`);
 }
 
+/**
+ * Test de l'autorisation d'ÉCRITURE de la passerelle, sans rien écrire : on envoie « markPublished » avec un titre
+ * qui ne correspond à aucune ligne. Si la signature est acceptée, la passerelle répond « la ligne a changé » AVANT
+ * toute écriture ; si elle est refusée, elle répond « unauthorized ».
+ */
+export async function writeAuthTest(backend, { createClient = createAppsScriptClient, env = process.env, log = writeSummary } = {}) {
+  if (backend.kind !== 'apps-script') { log('Test d’écriture', ['Ce test ne concerne que la passerelle Apps Script.']); return 1; }
+  const variants = [
+    ['titre ASCII (référence)', { legacyPayload: true }, 'Controle sans accent ne correspondant a aucune ligne'],
+    ['titre avec accents, ancien format de signature', { legacyPayload: true }, 'Contrôle à é ï ô – ne correspond à aucune ligne'],
+    ['titre avec accents, format ASCII (celui du robot)', { legacyPayload: false }, 'Contrôle à é ï ô – ne correspond à aucune ligne'],
+  ];
+  const lines = [];
+  let robotOk = false;
+  for (const [label, opts, title] of variants) {
+    const client = createClient({ url: env.APPS_SCRIPT_URL, secret: env.APPS_SCRIPT_SECRET, ...opts });
+    let verdict;
+    try {
+      await client.markPublished({ row: 2, title, docId: 'AAAAAAAAAAAAAAAAAAAAAAAA', date: '2026-01-01' });
+      verdict = '⚠️ la passerelle a ACCEPTÉ la demande (inattendu : vérifier le Sheet)';
+    } catch (e) {
+      if (/unauthorized/.test(e.message)) verdict = '❌ signature REFUSÉE (« unauthorized »)';
+      else if (/la ligne a changé/.test(e.message)) { verdict = '✅ signature acceptée, demande refusée par sécurité avant toute écriture (« la ligne a changé »)'; if (opts.legacyPayload === false) robotOk = true; }
+      else verdict = `❌ ${e.message}`;
+    }
+    lines.push(`- ${label} : ${verdict}`);
+  }
+  log('Test de l’autorisation d’écriture (aucune écriture)', lines);
+  return robotOk ? 0 : 1;
+}
+
 export function createBackend(env, config) {
   if (env.APPS_SCRIPT_URL && env.APPS_SCRIPT_SECRET) {
     const client = createAppsScriptClient({ url: env.APPS_SCRIPT_URL, secret: env.APPS_SCRIPT_SECRET });
@@ -201,6 +232,7 @@ async function main() {
   const args = process.argv.slice(2);
   const dryRun = args.includes('--dry-run') || process.env.DRY_RUN === 'true';
   const selfcheck = args.includes('--selfcheck');
+  const testWrite = args.includes('--test-ecriture');
   const config = {
     sheetId: process.env.SHEET_ID || DEFAULTS.sheetId,
     tab: process.env.SHEET_TAB || DEFAULTS.tab,
@@ -212,6 +244,7 @@ async function main() {
     process.exit(1);
   }
   console.log(`Accès Google : ${backend.kind}`);
+  if (testWrite) { process.exit(await writeAuthTest(backend)); }
   if (!selfcheck) { checkSiteUrl(config.siteUrl); console.log(`Site vérifié après chaque publication : ${config.siteUrl}`); }
   await checkGateway(backend, config.sheetId);
   const repo = realRepo();

@@ -10,7 +10,7 @@ import { parseDocMarkdown } from '../src/lib/docToBlocks.js';
 import { sheetArticlesLot2 } from '../src/data/sheetArticlesLot2.js';
 import { createGoogleClient, extractLink, docIdFromUrl } from '../scripts/publish/google.mjs';
 import { runPublication, parseSheet, isToIntegrate, sheetSerial, columnLetter, parisDate } from '../scripts/publish/pipeline.mjs';
-import { realRepo, realSite, sheetAdapter, createBackend, checkGateway, DEFAULTS, checkSiteUrl } from '../scripts/publish/run.mjs';
+import { realRepo, realSite, sheetAdapter, createBackend, checkGateway, DEFAULTS, checkSiteUrl, writeAuthTest } from '../scripts/publish/run.mjs';
 import { createAppsScriptClient, validateScriptUrl } from '../scripts/publish/appsscript.mjs';
 import vm from 'node:vm';
 
@@ -537,6 +537,41 @@ test('Apps Script : markPublished n’écrit que État et Date, après revérifi
   const again = await c.markPublished(ok);
   assert.equal(again.alreadyPublished, true, 'idempotent');
   assert.equal(gw.writes.length, 2);
+});
+
+test('Apps Script : le texte signé est 100 % ASCII (titre accentué inclus) et se relit à l’identique ; l’ancien format reste disponible pour le diagnostic', async () => {
+  const seen = [];
+  const gw = makeGateway({ rows: sampleRows() });
+  const spy = async (u, init) => { seen.push(JSON.parse(init.body).payload); return gw.fetchImpl(u, init); };
+  const title = 'Article à publier';
+  await clientFor(gw, { fetchImpl: spy }).markPublished({ row: 2, title, docId: DOCID(1), date: '2026-10-27' });
+  assert.match(seen[0], /^[\x00-\x7f]*$/, 'aucun caractère non ASCII dans le texte signé');
+  assert.equal(JSON.parse(seen[0]).params.title, title, 'le titre accentué est relu à l’identique');
+  const legacy = [];
+  const gw2 = makeGateway({ rows: sampleRows() });
+  await clientFor(gw2, { legacyPayload: true, fetchImpl: async (u, init) => { legacy.push(JSON.parse(init.body).payload); return gw2.fetchImpl(u, init); } }).markPublished({ row: 2, title, docId: DOCID(1), date: '2026-10-27' });
+  assert.match(legacy[0], /à/, 'ancien format : accents bruts');
+});
+
+test('test d’écriture sans écriture : « la ligne a changé » = signature acceptée ; « unauthorized » = refusée ; jamais d’écriture', async () => {
+  const gw = makeGateway({ rows: sampleRows() });
+  const out = [];
+  const code = await writeAuthTest({ kind: 'apps-script' }, { createClient: (o) => clientFor(gw, o), env: { APPS_SCRIPT_URL: SCRIPT_URL, APPS_SCRIPT_SECRET: SECRET }, log: (t, l) => out.push(...l) });
+  assert.equal(code, 0);
+  assert.equal(gw.writes.length, 0);
+  assert.equal(out.length, 3);
+  assert.ok(out.every((l) => /signature acceptée/.test(l)));
+  // passerelle qui refuse les signatures d'un format donné
+  const refusing = (o) => createAppsScriptClient({ url: SCRIPT_URL, secret: SECRET, ...o, sleep: async () => {}, fetchImpl: async (u, init) => {
+    const body = JSON.parse(init.body);
+    if (!o.legacyPayload) return gw.fetchImpl(u, init);
+    return { ok: true, status: 200, json: async () => ({ ok: false, error: /[^\x00-\x7f]/.test(body.payload) ? 'unauthorized' : 'failed', detail: 'la ligne a changé' }) };
+  } });
+  const out2 = [];
+  const code2 = await writeAuthTest({ kind: 'apps-script' }, { createClient: refusing, env: { APPS_SCRIPT_URL: SCRIPT_URL, APPS_SCRIPT_SECRET: SECRET }, log: (t, l) => out2.push(...l) });
+  assert.equal(code2, 0, 'le format du robot est accepté');
+  assert.match(out2[1], /REFUSÉE/, 'l’ancien format accentué est signalé comme refusé');
+  assert.equal(await writeAuthTest({ kind: 'service-account' }, { log: () => {} }), 1);
 });
 
 test('Apps Script : l’adresse du déploiement est contrôlée, le secret doit être assez long', () => {

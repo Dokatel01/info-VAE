@@ -25,6 +25,7 @@ on:
           - simulation        # lit le Sheet et les Docs, ne modifie rien
           - publication       # publie vraiment
           - test-lecture-docs # vérifie la lecture des Docs déjà publiés, ne modifie rien
+          - test-ecriture     # vérifie que la passerelle accepte la signature d'écriture, sans rien écrire
 
 # Un seul passage à la fois : un second passage attend la fin du premier (pas de publication en double).
 concurrency:
@@ -84,12 +85,13 @@ jobs:
           if [ "${{ github.event_name }}" = "push" ]; then
             MODE="$(grep -v '^#' .github/test-requests/mode.txt | tr -d '[:space:]')"
             case "$MODE" in
-              simulation|test-lecture-docs) ;;
-              *) echo "Mode « $MODE » non autorisé par ce déclencheur (simulation ou test-lecture-docs seulement)."; exit 1 ;;
+              simulation|test-lecture-docs|test-ecriture) ;;
+              *) echo "Mode « $MODE » non autorisé par ce déclencheur (simulation, test-lecture-docs ou test-ecriture seulement)."; exit 1 ;;
             esac
           fi
           case "$MODE" in
             simulation)        node scripts/publish/run.mjs --dry-run ;;
             test-lecture-docs) node scripts/publish/run.mjs --selfcheck ;;
+            test-ecriture)     node scripts/publish/run.mjs --test-ecriture ;;
             *)                 node scripts/publish/run.mjs ;;
           esac

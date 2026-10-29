@@ -17,7 +17,7 @@ export function validateScriptUrl(url) {
   return u.href;
 }
 
-export function createAppsScriptClient({ url, secret, fetchImpl = fetch, nowMs = () => Date.now(), sleep = (ms) => new Promise((r) => setTimeout(r, ms)) }) {
+export function createAppsScriptClient({ url, secret, legacyPayload = false, fetchImpl = fetch, nowMs = () => Date.now(), sleep = (ms) => new Promise((r) => setTimeout(r, ms)) }) {
   const endpoint = validateScriptUrl(url);
   if (!secret || secret.length < 32) throw new AppsScriptError('APPS_SCRIPT_SECRET manquant ou trop court (32 caractères minimum).');
 
@@ -25,7 +25,11 @@ export function createAppsScriptClient({ url, secret, fetchImpl = fetch, nowMs =
     let last;
     for (let attempt = 1; attempt <= 3; attempt++) {
       // Nouveau nonce à chaque tentative : une requête n'est acceptée qu'une seule fois par le script.
-      const payload = JSON.stringify({ action, params, ts: Math.floor(nowMs() / 1000), nonce: crypto.randomBytes(18).toString('base64url') });
+      let payload = JSON.stringify({ action, params, ts: Math.floor(nowMs() / 1000), nonce: crypto.randomBytes(18).toString('base64url') });
+      // Le texte signé est rendu 100 % ASCII (les accents deviennent \uXXXX, JSON reste identique une fois lu) :
+      // la signature ne dépend ainsi d'aucun choix d'encodage entre ce script et Google Apps Script.
+      // (Les lectures n'envoient que des identifiants ASCII ; seule l'écriture « Publié » envoie le titre, avec ses accents.)
+      if (!legacyPayload) payload = payload.replace(/[\u0080-\uffff]/g, (c) => `\\u${c.charCodeAt(0).toString(16).padStart(4, '0')}`);
       const sig = crypto.createHmac('sha256', secret).update(payload).digest('hex');
       let res;
       try {
