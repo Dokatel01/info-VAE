@@ -57,6 +57,14 @@ export const generatedImages = {
     "hash": "6vpsl9",
     "generatedAt": "2026-10-21"
   },
+  "essai-de-build-automatique-branche-de-test-ne-pas-publier": {
+    "file": "/images/articles/essai-de-build-automatique-branche-de-test-ne-pas-publier.svg",
+    "motif": "steps",
+    "secondary": "diploma",
+    "theme": "soleil",
+    "hash": "127ucum",
+    "generatedAt": "2026-10-29"
+  },
   "est-ce-que-pole-emploi-finance-la-vae-ce-qu-il-faut-savoir": {
     "file": "/images/articles/est-ce-que-pole-emploi-finance-la-vae-ce-qu-il-faut-savoir.svg",
     "motif": "card",
