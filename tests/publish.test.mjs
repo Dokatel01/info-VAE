@@ -204,6 +204,30 @@ test('un seul article par jour : relance le même jour → rien de plus n’est 
   assert.equal(w.grid[3].cells[4].text, 'à intégrer');
 });
 
+test('article déjà déployé mais page pas encore visible : relance le même jour → il est finalisé, aucun doublon, aucun second article', async () => {
+  const w = makeWorld({
+    rows: [1, 2, 3].map((n) => ({ title: `Article du jour numéro ${n}`, status: 'à intégrer', doc: DOC(n) })),
+    docs: Object.fromEntries([1, 2, 3].map((n) => [DOC(n), mdOf('x')])),
+  });
+  let live = false;
+  w.deps.site.verify = async (slug) => { w.events.push(`site.verify:${slug}`); return live ? { ok: true } : { ok: false, detail: 'HTTP 404' }; };
+  const first = await run(w);
+  assert.equal(outcomeOf(first, 2), 'erreur');
+  assert.equal(w.grid[1].cells[4].text, 'à intégrer', 'pas « Publié » tant que la page n’est pas vérifiée');
+  assert.ok(!w.events.some((e) => e.startsWith('sheet.mark')));
+  live = true; // le déploiement Vercel est terminé
+  const second = await run(w);
+  assert.equal(outcomeOf(second, 2), 'publié');
+  assert.equal(second.results.length, 1);
+  assert.equal(w.state.auto.length, 1, 'aucun doublon dans le dépôt');
+  assert.equal(w.events.filter((e) => e === 'repo.commit').length, 1, 'un seul commit');
+  assert.equal(w.grid[1].cells[4].text, 'Publié');
+  for (const r of [3, 4]) assert.equal(w.grid[r - 1].cells[4].text, 'à intégrer');
+  const third = await run(w); // troisième passage le même jour : rien
+  assert.equal(third.results.length, 0);
+  assert.equal(w.state.auto.length, 1);
+});
+
 test('un seul article par jour : en cas d’échec du premier, on s’arrête, la cause est enregistrée et l’article reste « à intégrer »', async () => {
   const w = makeWorld({
     rows: [{ title: 'Catégorie inventée', status: 'à intégrer', doc: DOC(1), cat: 'Nouveauté' }, { title: 'Article suivant valide', status: 'à intégrer', doc: DOC(2) }],
@@ -327,6 +351,10 @@ test('copie réelle du dépôt : article ajouté, illustration créée, données
   process.env.INFOVAE_NESTED = '1'; // le `npm test` lancé dans la copie ne relance pas cet essai (évite la boucle)
   const base = realRepo(tmp);
   const repo = { ...base, push: async () => {} };
+  const listNested = () => JSON.parse(execFileSync('node', ['scripts/publish/list-existing.mjs', tmp], { cwd: tmp, encoding: 'utf8', maxBuffer: 1 << 26 }));
+  // Le dépôt réel contient déjà les articles publiés par le robot : on compte donc par rapport à l'état de départ
+  // (le test ne doit jamais supposer que la liste des articles automatiques est vide).
+  const before = listNested().auto.length;
   const w = makeWorld({
     rows: [{ title: 'Que faire après un refus de recevabilité de sa VAE ?', status: 'à intégrer', doc: DOC(9), cat: 'Etapes VAE, Financement' }],
     docs: { [DOC(9)]: mdOf('x') },
@@ -339,10 +367,11 @@ test('copie réelle du dépôt : article ajouté, illustration créée, données
   const slug = 'que-faire-apres-un-refus-de-recevabilite-de-sa-vae';
   assert.ok(fs.existsSync(path.join(tmp, 'public/images/articles', `${slug}.svg`)), 'illustration créée');
   assert.match(fs.readFileSync(path.join(tmp, 'src/data/images.js'), 'utf8'), new RegExp(slug));
-  const list = JSON.parse(execFileSync('node', ['scripts/publish/list-existing.mjs', tmp], { cwd: tmp, encoding: 'utf8', maxBuffer: 1 << 26 }));
+  const list = listNested();
   const added = list.all.find((a) => a.slug === slug);
   assert.ok(added && added.docId === DOC(9) && added.row === 2);
-  assert.deepEqual(list.auto[0].categories, ['Etapes VAE', 'Financement']);
+  assert.equal(list.auto.length, before + 1, 'un seul article ajouté');
+  assert.deepEqual(list.auto.find((a) => a.slug === slug).categories, ['Etapes VAE', 'Financement']);
   assert.ok(list.targets[slug]?.[0].startsWith('Que faire après un refus'));
   assert.match(list.alts[slug], /^Sur le thème : Que faire après un refus/);
   assert.match(git('log', '--oneline', '-1'), /Publication automatique/);
@@ -350,8 +379,9 @@ test('copie réelle du dépôt : article ajouté, illustration créée, données
   w.grid[1].cells[4].text = 'à intégrer';
   const again = await run(w);
   assert.equal(outcomeOf(again, 2), 'publié');
-  const list2 = JSON.parse(execFileSync('node', ['scripts/publish/list-existing.mjs', tmp], { cwd: tmp, encoding: 'utf8', maxBuffer: 1 << 26 }));
-  assert.equal(list2.auto.length, 1);
+  const list2 = listNested();
+  assert.equal(list2.auto.length, before + 1, 'relance : aucun doublon');
+  assert.equal(list2.auto.filter((a) => a.slug === slug).length, 1);
   assert.equal(git('log', '--oneline').trim().split('\n').length, 2, 'aucun second commit');
 });
 
