@@ -160,5 +160,13 @@ export const generatedImages = {
     "theme": "lagon",
     "hash": "17djad9",
     "generatedAt": "2026-10-19"
+  },
+  "vae-a-40-50-ou-60-ans-est-ce-encore-possible": {
+    "file": "/images/articles/vae-a-40-50-ou-60-ans-est-ce-encore-possible.svg",
+    "motif": "diploma",
+    "secondary": null,
+    "theme": "lagon",
+    "hash": "13y5ieq",
+    "generatedAt": "2026-10-29"
   }
 };
