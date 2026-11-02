@@ -168,5 +168,13 @@ export const generatedImages = {
     "theme": "lagon",
     "hash": "13y5ieq",
     "generatedAt": "2026-10-29"
+  },
+  "vae-ou-reprise-d-etudes-que-choisir": {
+    "file": "/images/articles/vae-ou-reprise-d-etudes-que-choisir.svg",
+    "motif": "diploma",
+    "secondary": "choose",
+    "theme": "soleil",
+    "hash": "z1bmva",
+    "generatedAt": "2026-11-02"
   }
 };

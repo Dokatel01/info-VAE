@@ -3,5 +3,8 @@
 export const autoLinkTargets = {
   "vae-a-40-50-ou-60-ans-est-ce-encore-possible": [
     "VAE à 40, 50 ou 60 ans : Est-ce encore possible"
+  ],
+  "vae-ou-reprise-d-etudes-que-choisir": [
+    "VAE ou reprise d’études : que choisir"
   ]
 };

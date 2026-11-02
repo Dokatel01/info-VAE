@@ -204,5 +204,143 @@ export const autoArticles = [
         "text": "*Les informations de cet article sont données à titre général. Les conditions d'accès, de financement et de déroulement de la VAE évoluent régulièrement : vérifiez-les sur le site officiel vae.gouv.fr ou auprès d'un conseiller avant de vous engager.*"
       }
     ]
+  },
+  {
+    "slug": "vae-ou-reprise-d-etudes-que-choisir",
+    "title": "VAE ou reprise d’études : que choisir ?",
+    "categories": [
+      "VAE général"
+    ],
+    "excerpt": "Vous voulez obtenir un diplôme, mais vous hésitez entre faire reconnaître ce que vous savez déjà faire et retourner sur les bancs de l’école. Les deux voies mènent à une certification officielle, pourtant elles ne répondent pas aux mêmes situations. Voici les critères concrets pour trancher.",
+    "summary": "Vous voulez obtenir un diplôme, mais vous hésitez entre faire reconnaître ce que vous savez déjà faire et retourner sur les bancs de l’école. Les deux voies mènent à une certification officielle, pourtant elles ne répondent pas aux mêmes situations. Voici les critères concrets pour trancher.",
+    "updatedAt": "2026-11-02",
+    "author": "La Rédaction de Info-VAE",
+    "image": "/images/article-default.jpg",
+    "imageAlt": "",
+    "provisional": false,
+    "source": {
+      "sheetRow": 23,
+      "docId": "10EdzcoKFfArYGeGzT2oKKi1w3rg8uARQ",
+      "sheetStatus": "à intégrer"
+    },
+    "content": [
+      {
+        "type": "p",
+        "text": "Vous voulez obtenir un diplôme, mais vous hésitez entre faire reconnaître ce que vous savez déjà faire et retourner sur les bancs de l’école. Les deux voies mènent à une certification officielle, pourtant elles ne répondent pas aux mêmes situations. Voici les critères concrets pour trancher."
+      },
+      {
+        "type": "h2",
+        "text": "Deux démarches qui visent le même résultat"
+      },
+      {
+        "type": "p",
+        "text": "La validation des acquis de l’expérience (VAE) permet d’obtenir tout ou partie d’un diplôme, d’un titre professionnel ou d’un certificat de qualification professionnelle inscrit au Répertoire national des certifications professionnelles (RNCP), à partir de l’expérience acquise. La reprise d’études consiste à suivre une formation, en présentiel ou à distance, qui se termine par des examens ou une soutenance."
+      },
+      {
+        "type": "p",
+        "text": "Dans les deux cas, le diplôme obtenu a la même valeur. Les titres professionnels délivrés après une VAE sont par exemple identiques à ceux obtenus par la formation continue, la formation initiale ou l’apprentissage."
+      },
+      {
+        "type": "h2",
+        "text": "Ce que la VAE exige : une expérience en lien avec le diplôme"
+      },
+      {
+        "type": "p",
+        "text": "La VAE ne repose pas sur des cours, mais sur vos activités passées. Selon Service-Public.gouv.fr, il n’est plus exigé de justifier d’une durée minimale d’expérience, mais cette expérience doit avoir un lien direct avec la certification visée. Elle peut être professionnelle ou non : bénévolat, responsabilités syndicales, mandat électif ou aide apportée à un proche, par exemple."
+      },
+      {
+        "type": "p",
+        "text": "Si vous exercez depuis plusieurs années des missions proches de celles du diplôme, la VAE est généralement la voie la plus directe. Si votre expérience est mince ou éloignée du diplôme, le jury aura peu d’éléments à évaluer et la reprise d’études sera plus réaliste."
+      },
+      {
+        "type": "h2",
+        "text": "Les critères pour choisir"
+      },
+      {
+        "type": "h3",
+        "text": "La durée"
+      },
+      {
+        "type": "p",
+        "text": "Un parcours de VAE dure souvent entre six et huit mois pour certains diplômes, selon France VAE. Il comprend la recevabilité, la rédaction du dossier de validation, puis le passage devant le jury, qui doit avoir lieu dans les trois mois suivant l’envoi du dossier. Une reprise d’études suit en revanche le calendrier de la formation : souvent une ou plusieurs années."
+      },
+      {
+        "type": "h3",
+        "text": "Le rythme de vie"
+      },
+      {
+        "type": "p",
+        "text": "La VAE se prépare en parallèle de l’emploi, à votre rythme, avec quelques rendez-vous d’accompagnement. Les salariés peuvent demander un congé de VAE de 48 heures maximum par session d’évaluation, rémunéré. Reprendre des études suppose en général d’être disponible sur des horaires fixes, sauf pour les formations conçues pour les actifs."
+      },
+      {
+        "type": "h3",
+        "text": "Le coût et le financement"
+      },
+      {
+        "type": "p",
+        "text": "Un accompagnement à la VAE coûte généralement entre 1 500 et 3 000 euros, selon France VAE. Il peut être financé par le compte personnel de formation (CPF), avec une participation du candidat de 150 euros sauf exonération, par l’employeur ou par Transitions Pro, qui peut accorder un forfait de 2 000 euros. Les frais d’une formation diplômante varient beaucoup selon l’établissement et la durée."
+      },
+      {
+        "type": "h3",
+        "text": "Le contenu à maîtriser"
+      },
+      {
+        "type": "p",
+        "text": "En VAE, vous valorisez ce que vous savez déjà faire. En reprise d’études, vous acquérez des connaissances nouvelles. Si le diplôme vise des savoirs théoriques que votre pratique n’a pas couverts, le jury pourra ne valider qu’une partie du diplôme. Vous compléterez alors par une formation ciblée ou par de l’expérience supplémentaire."
+      },
+      {
+        "type": "h2",
+        "text": "Les situations où la VAE est à privilégier"
+      },
+      {
+        "type": "ul",
+        "items": [
+          "Vous exercez déjà le métier visé, parfois depuis longtemps, sans le diplôme correspondant.",
+          "Vous ne pouvez pas arrêter de travailler plusieurs mois pour vous former.",
+          "Vous souhaitez une reconnaissance rapide pour évoluer, être mieux classé ou sécuriser votre poste."
+        ]
+      },
+      {
+        "type": "h2",
+        "text": "Les situations où la reprise d’études est préférable"
+      },
+      {
+        "type": "ul",
+        "items": [
+          "Vous changez complètement de domaine et n’avez pas d’expérience dans le nouveau métier.",
+          "Le diplôme visé exige des enseignements ou des stages que seule une formation peut apporter.",
+          "Votre expérience est trop courte ou trop éloignée du référentiel du diplôme."
+        ]
+      },
+      {
+        "type": "h2",
+        "text": "Combiner les deux est possible"
+      },
+      {
+        "type": "p",
+        "text": "Les deux voies ne s’excluent pas. Une validation partielle par la VAE peut être complétée par une formation courte sur les blocs de compétences manquants. Certains établissements d’enseignement supérieur proposent aussi d’entrer en formation sans le diplôme habituellement demandé, grâce à la validation des acquis professionnels et personnels. Renseignez-vous directement auprès de l’établissement visé."
+      },
+      {
+        "type": "h2",
+        "text": "Comment décider en pratique"
+      },
+      {
+        "type": "ol",
+        "items": [
+          "Repérez le diplôme ou le titre qui vous intéresse et consultez sa fiche sur le site France VAE.",
+          "Comparez ses activités visées avec ce que vous faites réellement.",
+          "Prenez rendez-vous avec un conseiller en évolution professionnelle ou un point relais conseil, gratuitement.",
+          "Demandez un premier avis à un accompagnateur : il évaluera la faisabilité de votre dossier."
+        ]
+      },
+      {
+        "type": "h2",
+        "text": "Conclusion"
+      },
+      {
+        "type": "p",
+        "text": "La VAE convient à ceux dont l’expérience correspond déjà au diplôme, la reprise d’études à ceux qui doivent acquérir un savoir nouveau. Le meilleur choix dépend de votre expérience, de votre disponibilité et de votre projet. Un échange avec un conseiller vous évitera de perdre du temps dans la mauvaise voie."
+      }
+    ]
   }
 ];
