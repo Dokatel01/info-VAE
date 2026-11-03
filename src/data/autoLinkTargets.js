@@ -6,5 +6,8 @@ export const autoLinkTargets = {
   ],
   "vae-ou-reprise-d-etudes-que-choisir": [
     "VAE ou reprise d’études : que choisir"
+  ],
+  "top-10-des-erreurs-a-eviter-lors-de-sa-vae": [
+    "Top 10 des erreurs à éviter lors de sa VAE"
   ]
 };

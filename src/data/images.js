@@ -153,6 +153,14 @@ export const generatedImages = {
     "hash": "1kfl5wf",
     "generatedAt": "2026-10-21"
   },
+  "top-10-des-erreurs-a-eviter-lors-de-sa-vae": {
+    "file": "/images/articles/top-10-des-erreurs-a-eviter-lors-de-sa-vae.svg",
+    "motif": "diploma",
+    "secondary": "people",
+    "theme": "soleil",
+    "hash": "djezdl",
+    "generatedAt": "2026-11-03"
+  },
   "une-assistante-maternelle-peut-elle-devenir-auxiliaire-de-puericulture-par-la-vae": {
     "file": "/images/articles/une-assistante-maternelle-peut-elle-devenir-auxiliaire-de-puericulture-par-la-vae.svg",
     "motif": "child",

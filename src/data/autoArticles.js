@@ -342,5 +342,118 @@ export const autoArticles = [
         "text": "La VAE convient à ceux dont l’expérience correspond déjà au diplôme, la reprise d’études à ceux qui doivent acquérir un savoir nouveau. Le meilleur choix dépend de votre expérience, de votre disponibilité et de votre projet. Un échange avec un conseiller vous évitera de perdre du temps dans la mauvaise voie."
       }
     ]
+  },
+  {
+    "slug": "top-10-des-erreurs-a-eviter-lors-de-sa-vae",
+    "title": "Top 10 des erreurs à éviter lors de sa VAE",
+    "categories": [
+      "VAE général"
+    ],
+    "excerpt": "Chaque année, des candidats à la validation des acquis de l’expérience (VAE) abandonnent en cours de route ou voient leur dossier refusé pour des raisons évitables. Selon un bilan cité par Via Compétences, environ 30 % des candidats abandonnent entre la recevabilité et la certification. Voici dix erreurs fréquentes, et la manière de les éviter.",
+    "summary": "Chaque année, des candidats à la validation des acquis de l’expérience (VAE) abandonnent en cours de route ou voient leur dossier refusé pour des raisons évitables. Selon un bilan cité par Via Compétences, environ 30 % des candidats abandonnent entre la recevabilité et la certification. Voici dix erreurs fréquentes, et la manière de les éviter.",
+    "updatedAt": "2026-11-03",
+    "author": "La Rédaction de Info-VAE",
+    "image": "/images/article-default.jpg",
+    "imageAlt": "",
+    "provisional": false,
+    "source": {
+      "sheetRow": 24,
+      "docId": "1ng8IAiViD9tjXyKBT0zjE_UaYhm0tpJ8",
+      "sheetStatus": "à intégrer"
+    },
+    "content": [
+      {
+        "type": "p",
+        "text": "Chaque année, des candidats à la validation des acquis de l’expérience (VAE) abandonnent en cours de route ou voient leur dossier refusé pour des raisons évitables. Selon un bilan cité par Via Compétences, environ 30 % des candidats abandonnent entre la recevabilité et la certification. Voici dix erreurs fréquentes, et la manière de les éviter."
+      },
+      {
+        "type": "h2",
+        "text": "Erreur 1 : choisir un diplôme sans lire son référentiel"
+      },
+      {
+        "type": "p",
+        "text": "Le diplôme ou le titre visé doit correspondre à ce que vous faites réellement. Chaque certification inscrite au Répertoire national des certifications professionnelles (RNCP) dispose d’une fiche qui décrit les activités visées et les compétences attendues. Avant de vous lancer, comparez-les avec vos missions. Si l’écart est important, demandez conseil : un autre diplôme sera peut-être plus adapté."
+      },
+      {
+        "type": "h2",
+        "text": "Erreur 2 : ne pas anticiper le financement"
+      },
+      {
+        "type": "p",
+        "text": "Un accompagnement coûte généralement entre 1 500 et 3 000 euros, d’après France VAE, auxquels peuvent s’ajouter des frais de jury ou une formation complémentaire. Le compte personnel de formation (CPF), l’employeur, Transitions Pro ou, pour les demandeurs d’emploi, France Travail et la Région peuvent intervenir. Cherchez le financement avant de signer un devis, pas après."
+      },
+      {
+        "type": "h2",
+        "text": "Erreur 3 : sous-estimer la durée"
+      },
+      {
+        "type": "p",
+        "text": "Un parcours complet peut durer entre six et huit mois pour certains diplômes. La recevabilité peut prendre jusqu’à deux mois, la rédaction du dossier de validation plusieurs mois, et le jury doit se tenir dans les trois mois suivant l’envoi du dossier. Prévoyez un calendrier réaliste plutôt qu’une date butoir."
+      },
+      {
+        "type": "h2",
+        "text": "Erreur 4 : décrire des tâches au lieu de raconter des situations"
+      },
+      {
+        "type": "p",
+        "text": "Une liste de tâches ne prouve pas une compétence. Le jury attend des exemples précis : le contexte, ce que vous avez fait personnellement, les outils et méthodes utilisés, les difficultés rencontrées et le résultat. Écrivez à la première personne du singulier. Un « nous » collectif ne permet pas de savoir ce qui relève de vous."
+      },
+      {
+        "type": "h2",
+        "text": "Erreur 5 : oublier les preuves"
+      },
+      {
+        "type": "p",
+        "text": "Fiches de poste, bulletins, attestations d’employeurs ou de bénévolat, plannings, comptes rendus, photographies de réalisations : ces pièces appuient votre récit. Sans elles, vos déclarations restent des affirmations. Rassemblez-les dès le début, car certains documents sont longs à obtenir."
+      },
+      {
+        "type": "h2",
+        "text": "Erreur 6 : ne pas relier son expérience au référentiel"
+      },
+      {
+        "type": "p",
+        "text": "Votre dossier doit répondre point par point à ce que la certification exige. Reprenez chaque bloc de compétences et vérifiez que vous avez une situation à y associer. Un dossier brillant mais hors sujet sera validé partiellement, voire refusé."
+      },
+      {
+        "type": "h2",
+        "text": "Erreur 7 : attendre le dernier moment"
+      },
+      {
+        "type": "p",
+        "text": "Les dossiers rédigés dans la précipitation sont souvent trop courts ou mal structurés. Avancez par petites étapes, une situation de travail à la fois. Si vous êtes salarié, demandez votre congé de VAE au moins 30 jours avant le début des actions concernées : il peut aller jusqu’à 48 heures par session d’évaluation."
+      },
+      {
+        "type": "h2",
+        "text": "Erreur 8 : négliger la préparation de l’oral"
+      },
+      {
+        "type": "p",
+        "text": "L’entretien avec le jury dure en général 20 à 40 minutes, selon France Travail, et peut être complété par une mise en situation professionnelle. Relisez votre dossier, entraînez-vous à le présenter en quelques minutes et préparez des réponses aux questions sur vos choix et vos difficultés. L’accompagnateur peut organiser un entretien blanc."
+      },
+      {
+        "type": "h2",
+        "text": "Erreur 9 : copier ou embellir"
+      },
+      {
+        "type": "p",
+        "text": "Reprendre le dossier d’un collègue ou exagérer son rôle se repère facilement lors de l’entretien, où le jury vous demande de détailler vos propos. Restez factuel : un jury valorise la lucidité sur ses limites autant que la maîtrise."
+      },
+      {
+        "type": "h2",
+        "text": "Erreur 10 : choisir son accompagnateur à la légère"
+      },
+      {
+        "type": "p",
+        "text": "L’accompagnement est facultatif, mais il aide à structurer le dossier et à préparer l’oral. Sur France VAE, les accompagnateurs sont référencés et les organismes doivent détenir la certification Qualiopi VAE. Demandez un devis détaillé, le nombre d’heures prévues et les modalités du suivi. Vous pouvez changer d’accompagnateur tant que le parcours n’est pas validé."
+      },
+      {
+        "type": "h2",
+        "text": "Conclusion"
+      },
+      {
+        "type": "p",
+        "text": "La plupart de ces erreurs tiennent à un manque de préparation. En vous informant sur le diplôme, le financement et le calendrier, puis en illustrant chaque compétence par des situations prouvées, vous mettez toutes les chances de votre côté. En cas de doute, un conseiller en évolution professionnelle ou un point relais conseil peut vous orienter gratuitement."
+      }
+    ]
   }
 ];
