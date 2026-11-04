@@ -145,6 +145,14 @@ export const generatedImages = {
     "hash": "nvv67",
     "generatedAt": "2026-10-21"
   },
+  "quels-metiers-peut-on-valider-avec-une-vae-la-liste-complete": {
+    "file": "/images/articles/quels-metiers-peut-on-valider-avec-une-vae-la-liste-complete.svg",
+    "motif": "diploma",
+    "secondary": null,
+    "theme": "soleil",
+    "hash": "1gifwr7",
+    "generatedAt": "2026-11-04"
+  },
   "qui-peut-faire-une-vae": {
     "file": "/images/articles/qui-peut-faire-une-vae.svg",
     "motif": "people",

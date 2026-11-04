@@ -9,5 +9,8 @@ export const autoLinkTargets = {
   ],
   "top-10-des-erreurs-a-eviter-lors-de-sa-vae": [
     "Top 10 des erreurs à éviter lors de sa VAE"
+  ],
+  "quels-metiers-peut-on-valider-avec-une-vae-la-liste-complete": [
+    "Quels métiers peut-on valider avec une VAE ? La liste complète"
   ]
 };

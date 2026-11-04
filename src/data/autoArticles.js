@@ -455,5 +455,126 @@ export const autoArticles = [
         "text": "La plupart de ces erreurs tiennent à un manque de préparation. En vous informant sur le diplôme, le financement et le calendrier, puis en illustrant chaque compétence par des situations prouvées, vous mettez toutes les chances de votre côté. En cas de doute, un conseiller en évolution professionnelle ou un point relais conseil peut vous orienter gratuitement."
       }
     ]
+  },
+  {
+    "slug": "quels-metiers-peut-on-valider-avec-une-vae-la-liste-complete",
+    "title": "Quels métiers peut-on valider avec une VAE ? La liste complète",
+    "categories": [
+      "VAE général"
+    ],
+    "excerpt": "Une question revient sans cesse : existe-t-il une liste des métiers accessibles par la validation des acquis de l’expérience (VAE) ? La réponse honnête est qu’une liste figée n’existerait pas longtemps, car la VAE ne s’attache pas à un métier mais à une certification. Voici comment s’y retrouver, avec les grandes familles de diplômes concernés.",
+    "summary": "Une question revient sans cesse : existe-t-il une liste des métiers accessibles par la validation des acquis de l’expérience (VAE) ? La réponse honnête est qu’une liste figée n’existerait pas longtemps, car la VAE ne s’attache pas à un métier mais à une certification. Voici comment s’y retrouver, avec les grandes familles de diplômes concernés.",
+    "updatedAt": "2026-11-04",
+    "author": "La Rédaction de Info-VAE",
+    "image": "/images/article-default.jpg",
+    "imageAlt": "",
+    "provisional": false,
+    "source": {
+      "sheetRow": 25,
+      "docId": "1Natk7QHZkRHLjcZyCy-t8SoayD8BE_mi",
+      "sheetStatus": "à intégrer"
+    },
+    "content": [
+      {
+        "type": "p",
+        "text": "Une question revient sans cesse : existe-t-il une liste des métiers accessibles par la validation des acquis de l’expérience (VAE) ? La réponse honnête est qu’une liste figée n’existerait pas longtemps, car la VAE ne s’attache pas à un métier mais à une certification. Voici comment s’y retrouver, avec les grandes familles de diplômes concernés."
+      },
+      {
+        "type": "h2",
+        "text": "La VAE concerne des certifications, pas des métiers"
+      },
+      {
+        "type": "p",
+        "text": "La VAE permet d’obtenir un diplôme, un titre professionnel ou un certificat de qualification professionnelle (CQP) inscrit au Répertoire national des certifications professionnelles (RNCP), ou encore un ou plusieurs blocs de compétences. Le métier que vous exercez est donc validé à travers la certification qui lui correspond. Le principe, rappelé par Service-Public.gouv.fr, est que votre expérience doit avoir un lien direct avec la certification visée."
+      },
+      {
+        "type": "p",
+        "text": "Ainsi, plusieurs métiers peuvent mener à une même certification, et un même métier peut être couvert par plusieurs niveaux de diplôme."
+      },
+      {
+        "type": "h2",
+        "text": "Où trouver la liste à jour"
+      },
+      {
+        "type": "p",
+        "text": "Deux sources font référence."
+      },
+      {
+        "type": "ul",
+        "items": [
+          "La plateforme France VAE (vae.gouv.fr), qui propose un moteur de recherche des certifications accessibles. En février 2026, elle en référençait près de 1 400, couvrant 98 % des demandes des usagers selon le ministère du Travail, d’après Centre Inffo.",
+          "Le site de France compétences (francecompetences.fr), qui publie les fiches du RNCP. Chaque fiche précise le certificateur, les activités visées et les voies d’accès à la certification."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "Si le diplôme que vous visez ne figure pas sur France VAE, la démarche se fait directement auprès du certificateur, selon la procédure classique."
+      },
+      {
+        "type": "h2",
+        "text": "Les grandes familles de certifications"
+      },
+      {
+        "type": "h3",
+        "text": "Les titres professionnels du ministère du Travail"
+      },
+      {
+        "type": "p",
+        "text": "Il en existe plus de 250, du niveau CAP-BEP au niveau licence, selon la DREETS. Ils couvrent des métiers très variés : bâtiment, transport et logistique, commerce, secrétariat et gestion, services à la personne, hôtellerie-restauration, industrie. Le titre obtenu par la VAE est identique à celui obtenu par la formation."
+      },
+      {
+        "type": "h3",
+        "text": "Les diplômes du sanitaire et du social"
+      },
+      {
+        "type": "p",
+        "text": "Plusieurs diplômes très demandés sont accessibles par la plateforme France VAE : aide-soignant (DEAS), auxiliaire de puériculture (DEAP), accompagnant éducatif et social (DEAES), technicien de l’intervention sociale et familiale (DETISF), assistant de service social (DEASS), éducateur de jeunes enfants (DEEJE) et CAFERUIS, diplôme d’encadrement et de responsable d’unité d’intervention sociale. D’autres, comme infirmier de bloc opératoire ou certains diplômes de l’éducation spécialisée, passent par la plateforme de l’Agence de services et de paiement. Pour le DEAS, le DEAP et le DEAES notamment, l’attestation de formation aux gestes et soins d’urgence de niveau 2 est exigée pour obtenir le diplôme."
+      },
+      {
+        "type": "h3",
+        "text": "Les diplômes de l’Éducation nationale et de l’enseignement supérieur"
+      },
+      {
+        "type": "p",
+        "text": "L’intégration des CAP, baccalauréats professionnels et BTS les plus demandés était annoncée pour la fin 2025, et celle de la plupart des certifications de l’enseignement supérieur pour la fin du printemps 2026. Vérifiez la disponibilité de votre diplôme sur la plateforme, car le calendrier évolue."
+      },
+      {
+        "type": "h3",
+        "text": "Les diplômes de l’agriculture et les CQP"
+      },
+      {
+        "type": "p",
+        "text": "Le ministère de l’Agriculture a annoncé l’ouverture en ligne de l’ensemble de ses diplômes, plus de 150, couvrant environ 200 métiers. Les CQP, créés par les branches professionnelles, peuvent aussi s’obtenir par la VAE lorsqu’ils sont inscrits au RNCP."
+      },
+      {
+        "type": "h2",
+        "text": "Ce qui n’est pas accessible"
+      },
+      {
+        "type": "p",
+        "text": "Certains diplômes ne peuvent pas être obtenus par la VAE. Service-Public.gouv.fr cite le diplôme de médecine. Les certifications qui ne sont pas inscrites au RNCP sont aussi exclues. Par ailleurs, les certifications maritimes et celles des ministères de l’Intérieur et de la Défense ne figuraient pas, début 2026, dans le calendrier d’intégration à France VAE."
+      },
+      {
+        "type": "h2",
+        "text": "Comment vérifier que votre métier est couvert"
+      },
+      {
+        "type": "ol",
+        "items": [
+          "Identifiez le diplôme ou le titre qui correspond à votre poste actuel ou à celui que vous visez.",
+          "Cherchez-le sur France VAE, puis lisez sa fiche sur France compétences.",
+          "Comparez les activités visées avec ce que vous faites au quotidien.",
+          "Contactez un point relais conseil ou un conseiller en évolution professionnelle pour confirmer le choix."
+        ]
+      },
+      {
+        "type": "h2",
+        "text": "Conclusion"
+      },
+      {
+        "type": "p",
+        "text": "Il n’existe pas de liste unique des métiers validables, mais un catalogue de certifications qui s’élargit. Le plus fiable est de partir de votre expérience, de chercher la certification correspondante sur France VAE et de vérifier sa fiche officielle. Cette recherche prend quelques minutes et évite de s’engager sur un diplôme inadapté."
+      }
+    ]
   }
 ];
