@@ -18,12 +18,12 @@ test('les paramètres de suivi sont relevés (UTM + identifiants de clic), les a
 });
 
 test('lien interne : les paramètres sont ajoutés', () => {
-  assert.equal(withTrackingParams('/quiz', T, PAGE), '/quiz?utm_source=facebook&utm_medium=social&utm_campaign=vae&fbclid=ABC');
+  assert.equal(withTrackingParams('/test-eligibilite-vae/', T, PAGE), '/test-eligibilite-vae/?utm_source=facebook&utm_medium=social&utm_campaign=vae&fbclid=ABC');
 });
 
 test('un paramètre déjà présent n’est pas écrasé, et il n’y a aucun doublon', () => {
-  const out = withTrackingParams('/quiz?utm_source=newsletter&x=1', T, PAGE);
-  assert.equal(out, '/quiz?utm_source=newsletter&x=1&utm_medium=social&utm_campaign=vae&fbclid=ABC');
+  const out = withTrackingParams('/test-eligibilite-vae/?utm_source=newsletter&x=1', T, PAGE);
+  assert.equal(out, '/test-eligibilite-vae/?utm_source=newsletter&x=1&utm_medium=social&utm_campaign=vae&fbclid=ABC');
   assert.equal(withTrackingParams(out, T, PAGE), out, 'idempotent');
   assert.equal((out.match(/utm_source=/g) || []).length, 1);
 });
@@ -37,16 +37,16 @@ test('liens non concernés : externes, mailto, tel, ancre seule, fichiers', () =
   for (const href of ['https://exemple.com/page', 'mailto:contact@info-vae.fr', 'tel:0891033018', '#article', '/images/articles/a.svg', '/search-index.json', 'javascript:void(0)', '']) {
     assert.equal(withTrackingParams(href, T, PAGE), href, href);
   }
-  assert.equal(withTrackingParams('https://info-vae.fr/quiz', { utm_source: 'x' }, PAGE), 'https://info-vae.fr/quiz?utm_source=x', 'lien absolu du même site');
+  assert.equal(withTrackingParams('https://info-vae.fr/test-eligibilite-vae/', { utm_source: 'x' }, PAGE), 'https://info-vae.fr/test-eligibilite-vae/?utm_source=x', 'lien absolu du même site');
   assert.equal(withTrackingParams('/page.html', { utm_source: 'x' }, PAGE), '/page.html?utm_source=x');
 });
 
 test('sans paramètre à transmettre, rien ne change', () => {
-  assert.equal(withTrackingParams('/quiz', {}, PAGE), '/quiz');
+  assert.equal(withTrackingParams('/test-eligibilite-vae/', {}, PAGE), '/test-eligibilite-vae/');
 });
 
 test('le bouton « Suis-je éligible ? » mène au questionnaire', () => {
-  assert.match(read('src/components/Hero.astro'), /<a class="btn btn--accent" href="\/quiz">Suis-je éligible \?<\/a>/);
+  assert.match(read('src/components/Hero.astro'), /<a class="btn btn--accent" href="\/test-eligibilite-vae\/">Suis-je éligible \?<\/a>/);
 });
 
 test('le questionnaire intégré est identique à celui fourni (étapes, champs, valeurs, textes)', () => {
@@ -55,13 +55,13 @@ test('le questionnaire intégré est identique à celui fourni (étapes, champs,
   const orig = fs.readFileSync(given, 'utf8');
   const form = orig.slice(orig.indexOf('<form class="vq"'), orig.indexOf('</form>') + 7);
   const norm = (s) => s.replace(/\s+/g, ' ').trim();
-  assert.ok(norm(read('src/pages/quiz.astro')).includes(norm(form)), 'le formulaire est repris à l’identique');
+  assert.ok(norm(read('src/pages/test-eligibilite-vae.astro')).includes(norm(form)), 'le formulaire est repris à l’identique');
   const js = orig.match(/<script>\n([\s\S]*?)<\/script>/)[1];
   assert.ok(read('src/scripts/quiz.js').endsWith(js), 'le script est repris à l’identique');
 });
 
-test('la page /quiz contient bien toutes les étapes du questionnaire', () => {
-  const page = read('src/pages/quiz.astro');
+test('la page /test-eligibilite-vae/ contient bien toutes les étapes du questionnaire', () => {
+  const page = read('src/pages/test-eligibilite-vae.astro');
   for (const step of ['statut', 'activite', 'experience', 'domaine', 'niveau', 'financement', 'delai', 'mode', 'coordonnees']) assert.match(page, new RegExp(`data-step="${step}"`), step);
   assert.match(page, /name="quiz-vae"/);
   assert.match(read('src/layouts/BaseLayout.astro'), /track-links\.js/);
