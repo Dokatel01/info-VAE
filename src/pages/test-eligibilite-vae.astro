@@ -1,0 +1,213 @@
+---
+// Page du questionnaire d'éligibilité : /test-eligibilite-vae/ (bouton « Suis-je éligible ? » de l'accueil).
+// Le formulaire et son script (src/scripts/quiz.js) sont ceux fournis, sans changement de questions, réponses ni conditions.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import '../styles/quiz.css';
+---
+<BaseLayout title="Suis-je éligible à la VAE ? | Info VAE" description="Questionnaire pour savoir si vous pouvez engager une VAE.">
+  <div class="container quiz-page">
+    <h1 class="quiz-page__title">Suis-je éligible ?</h1>
+    <form class="vq" id="vq-form" name="quiz-vae" method="POST" action="/merci"
+          data-netlify="true" netlify-honeypot="bot-field">
+      <input type="hidden" name="form-name" value="quiz-vae">
+      <p hidden><label>Ne pas remplir : <input name="bot-field" autocomplete="off" tabindex="-1"></label></p>
+    
+      <!-- Champs techniques, remplis par le script -->
+      <input type="hidden" name="source" value="quiz-vae">
+      <input type="hidden" name="vendable" value="">
+      <input type="hidden" name="score" value="">
+      <input type="hidden" name="consent_timestamp" value="">
+      <input type="hidden" name="consent_traitement_texte" value="">
+      <input type="hidden" name="consent_contact_texte" value="">
+      <input type="hidden" name="consent_conseils_texte" value="">
+      <input type="hidden" name="eligibilite" value="">
+      <input type="hidden" name="partners_version" value="v1">
+      <input type="hidden" name="page_url" value="">
+      <input type="hidden" name="referrer" value="">
+      <input type="hidden" name="utm_source" value="">
+      <input type="hidden" name="utm_medium" value="">
+      <input type="hidden" name="utm_campaign" value="">
+      <input type="hidden" name="utm_content" value="">
+      <input type="hidden" name="fbclid" value="">
+    
+      <div id="vq-main">
+        <p class="vq-count" id="vq-count" aria-live="polite"></p>
+        <div class="vq-track"><span class="vq-bar" id="vq-bar"></span></div>
+    
+        <!-- 1. Statut -->
+        <fieldset class="vq-step" data-step="statut" data-auto>
+          <legend>Quelle est votre situation actuelle ?</legend>
+          <div class="vq-opts">
+            <label class="vq-opt"><input type="radio" name="statut" value="salarie_prive"><span>Salarié(e) du privé</span></label>
+            <label class="vq-opt"><input type="radio" name="statut" value="agent_public"><span>Agent public</span></label>
+            <label class="vq-opt"><input type="radio" name="statut" value="demandeur_emploi"><span>Demandeur(se) d’emploi</span></label>
+            <label class="vq-opt"><input type="radio" name="statut" value="independant"><span>Indépendant(e) ou chef d’entreprise</span></label>
+            <label class="vq-opt"><input type="radio" name="statut" value="autre"><span>Autre (bénévole, aidant, étudiant, statut mixte)</span></label>
+          </div>
+        </fieldset>
+    
+        <!-- 1 bis. Activité : uniquement pour les indépendants -->
+        <fieldset class="vq-step" data-step="activite" data-only="independant" data-auto hidden>
+          <legend>Quelle est votre activité ?</legend>
+          <div class="vq-opts">
+            <label class="vq-opt"><input type="radio" name="activite" value="commerce_services"><span>Commerçant, indépendant ou micro-entrepreneur</span></label>
+            <label class="vq-opt"><input type="radio" name="activite" value="liberal"><span>Profession libérale</span></label>
+            <label class="vq-opt"><input type="radio" name="activite" value="medical"><span>Profession médicale</span></label>
+            <label class="vq-opt"><input type="radio" name="activite" value="artiste_auteur"><span>Artiste-auteur</span></label>
+            <label class="vq-opt"><input type="radio" name="activite" value="autre"><span>Autre activité ou je ne sais pas</span></label>
+          </div>
+          <p class="vq-note">Votre activité détermine le fonds de formation qui peut financer votre VAE.</p>
+        </fieldset>
+    
+        <!-- 2. Expérience -->
+        <fieldset class="vq-step" data-step="experience" data-auto hidden>
+          <legend>Combien d’expérience avez-vous dans le métier du diplôme visé ?</legend>
+          <div class="vq-opts">
+            <label class="vq-opt"><input type="radio" name="experience" value="moins_1an"><span>Moins d’un an</span></label>
+            <label class="vq-opt"><input type="radio" name="experience" value="1_3ans"><span>1 à 3 ans</span></label>
+            <label class="vq-opt"><input type="radio" name="experience" value="plus_3ans"><span>Plus de 3 ans</span></label>
+          </div>
+          <div class="vq-soft" hidden>
+            <p>Il faut en général justifier d’environ un an d’activité en rapport direct avec le diplôme visé. Cette année peut être continue ou non, et le bénévolat compte. Pas de souci : vous pouvez continuer le quiz, nous vous dirons comment avancer.</p>
+            <div class="vq-row"><span></span><button type="button" class="vq-primary vq-soft-next">Continuer</button></div>
+          </div>
+        </fieldset>
+    
+        <!-- 3. Domaine -->
+        <fieldset class="vq-step" data-step="domaine" hidden>
+          <legend>Dans quel domaine souhaitez-vous valider un diplôme ?</legend>
+          <div class="vq-opts">
+            <label class="vq-opt"><input type="radio" name="domaine" value="sante_social"><span>Santé et social</span></label>
+            <label class="vq-opt"><input type="radio" name="domaine" value="education_petite_enfance"><span>Éducation et petite enfance</span></label>
+            <label class="vq-opt"><input type="radio" name="domaine" value="commerce_vente"><span>Commerce et vente</span></label>
+            <label class="vq-opt"><input type="radio" name="domaine" value="gestion_compta"><span>Gestion, administration, comptabilité</span></label>
+            <label class="vq-opt"><input type="radio" name="domaine" value="numerique"><span>Informatique et numérique</span></label>
+            <label class="vq-opt"><input type="radio" name="domaine" value="batiment_industrie"><span>Bâtiment et industrie</span></label>
+            <label class="vq-opt"><input type="radio" name="domaine" value="hotellerie_tourisme"><span>Hôtellerie, restauration, tourisme</span></label>
+            <label class="vq-opt"><input type="radio" name="domaine" value="transport_logistique"><span>Transport et logistique</span></label>
+            <label class="vq-opt"><input type="radio" name="domaine" value="autre"><span>Autre domaine</span></label>
+            <label class="vq-opt"><input type="radio" name="domaine" value="inconnu"><span>Je ne sais pas encore</span></label>
+          </div>
+          <label class="vq-field" style="margin-top:16px">Diplôme visé (facultatif)
+            <input type="text" name="diplome_vise" autocomplete="off" placeholder="Ex. : DEAS, BTS MCO, titre professionnel…">
+          </label>
+          <p class="vq-err" role="alert" hidden></p>
+          <div class="vq-row"><span></span><button type="button" class="vq-primary vq-next">Continuer</button></div>
+        </fieldset>
+    
+        <!-- 4. Niveau -->
+        <fieldset class="vq-step" data-step="niveau" data-auto hidden>
+          <legend>Quel niveau de diplôme visez-vous ?</legend>
+          <div class="vq-opts">
+            <label class="vq-opt"><input type="radio" name="niveau" value="cap_bep"><span>CAP / BEP</span></label>
+            <label class="vq-opt"><input type="radio" name="niveau" value="bac"><span>Bac / Bac pro</span></label>
+            <label class="vq-opt"><input type="radio" name="niveau" value="bac2"><span>Bac+2 (BTS, DUT)</span></label>
+            <label class="vq-opt"><input type="radio" name="niveau" value="bac3_plus"><span>Bac+3 et plus</span></label>
+            <label class="vq-opt"><input type="radio" name="niveau" value="inconnu"><span>Je ne sais pas encore</span></label>
+          </div>
+        </fieldset>
+    
+        <!-- 5. Financement : options adaptées au statut (un seul groupe visible) -->
+        <fieldset class="vq-step" data-step="financement" data-auto hidden>
+          <legend>Comment envisagez-vous de financer votre VAE ?</legend>
+    
+          <div class="vq-opts" data-for="salarie_prive" hidden>
+            <label class="vq-opt"><input type="radio" name="financement" value="cpf" disabled><span>Avec mon CPF</span></label>
+            <label class="vq-opt"><input type="radio" name="financement" value="employeur_opco" disabled><span>Avec mon employeur ou son OPCO</span></label>
+            <label class="vq-opt"><input type="radio" name="financement" value="personnel" disabled><span>Sur mes fonds personnels</span></label>
+            <label class="vq-opt"><input type="radio" name="financement" value="inconnu" disabled><span>Je ne sais pas encore</span></label>
+          </div>
+    
+          <div class="vq-opts" data-for="agent_public" hidden>
+            <label class="vq-opt"><input type="radio" name="financement" value="cpf" disabled><span>Avec mon CPF</span></label>
+            <label class="vq-opt"><input type="radio" name="financement" value="administration" disabled><span>Avec mon administration</span></label>
+            <label class="vq-opt"><input type="radio" name="financement" value="personnel" disabled><span>Sur mes fonds personnels</span></label>
+            <label class="vq-opt"><input type="radio" name="financement" value="inconnu" disabled><span>Je ne sais pas encore</span></label>
+          </div>
+    
+          <div class="vq-opts" data-for="demandeur_emploi" hidden>
+            <label class="vq-opt"><input type="radio" name="financement" value="cpf" disabled><span>Avec mon CPF</span></label>
+            <label class="vq-opt"><input type="radio" name="financement" value="france_travail_region" disabled><span>Avec France Travail ou ma région</span></label>
+            <label class="vq-opt"><input type="radio" name="financement" value="personnel" disabled><span>Sur mes fonds personnels</span></label>
+            <label class="vq-opt"><input type="radio" name="financement" value="inconnu" disabled><span>Je ne sais pas encore</span></label>
+          </div>
+    
+          <div class="vq-opts" data-for="independant" hidden>
+            <label class="vq-opt"><input type="radio" name="financement" value="cpf" disabled><span>Avec mon CPF</span></label>
+            <label class="vq-opt"><input type="radio" name="financement" value="fonds_formation" disabled><span>Avec mon fonds de formation (Agefice, FIF PL…)</span></label>
+            <label class="vq-opt"><input type="radio" name="financement" value="personnel" disabled><span>Sur mes fonds personnels</span></label>
+            <label class="vq-opt"><input type="radio" name="financement" value="inconnu" disabled><span>Je ne sais pas encore</span></label>
+          </div>
+    
+          <div class="vq-opts" data-for="autre" hidden>
+            <label class="vq-opt"><input type="radio" name="financement" value="cpf" disabled><span>Avec mon CPF</span></label>
+            <label class="vq-opt"><input type="radio" name="financement" value="personnel" disabled><span>Sur mes fonds personnels</span></label>
+            <label class="vq-opt"><input type="radio" name="financement" value="inconnu" disabled><span>Je ne sais pas encore</span></label>
+          </div>
+    
+          <p class="vq-note">Vous pouvez consulter votre solde sur Mon Compte Formation.</p>
+        </fieldset>
+    
+        <!-- 6. Délai -->
+        <fieldset class="vq-step" data-step="delai" data-auto hidden>
+          <legend>Quand souhaitez-vous démarrer ?</legend>
+          <div class="vq-opts">
+            <label class="vq-opt"><input type="radio" name="delai" value="moins_3_mois"><span>Dans les 3 mois</span></label>
+            <label class="vq-opt"><input type="radio" name="delai" value="3_6_mois"><span>Dans 3 à 6 mois</span></label>
+            <label class="vq-opt"><input type="radio" name="delai" value="plus_tard"><span>Plus tard</span></label>
+          </div>
+        </fieldset>
+    
+        <!-- 7. Mode d'accompagnement -->
+        <fieldset class="vq-step" data-step="mode" data-auto hidden>
+          <legend>Quel mode d’accompagnement préférez-vous ?</legend>
+          <div class="vq-opts">
+            <label class="vq-opt"><input type="radio" name="mode" value="visio"><span>À distance (visio)</span></label>
+            <label class="vq-opt"><input type="radio" name="mode" value="presentiel"><span>En présentiel</span></label>
+            <label class="vq-opt"><input type="radio" name="mode" value="indifferent"><span>Peu importe</span></label>
+          </div>
+        </fieldset>
+    
+        <!-- 8. Coordonnées et consentements -->
+        <fieldset class="vq-step" data-step="coordonnees" hidden>
+          <legend>Dernière étape : où envoyer votre résultat ?</legend>
+          <label class="vq-field">Prénom
+            <input type="text" name="prenom" autocomplete="given-name" required>
+          </label>
+          <label class="vq-field">Téléphone
+            <input type="tel" name="telephone" autocomplete="tel" inputmode="tel" required>
+          </label>
+          <label class="vq-field">Email
+            <input type="email" name="email" autocomplete="email" required>
+          </label>
+          <label class="vq-field">Code postal
+            <input type="text" name="code_postal" autocomplete="postal-code" inputmode="numeric" pattern="[0-9]{5}" maxlength="5" required>
+          </label>
+    
+          <label class="vq-check">
+            <input type="checkbox" name="consent_traitement" value="oui" required>
+            <span id="vq-txt-traitement">J’accepte que mes réponses soient traitées par Info VAE pour analyser mon éligibilité à la VAE, conformément à la <a href="/politique-de-confidentialite" target="_blank" rel="noopener">politique de confidentialité</a>.</span>
+          </label>
+          <label class="vq-check" id="vq-box-contact">
+            <input type="checkbox" name="consent_contact" value="oui">
+            <span id="vq-txt-contact">J’accepte d’être contacté(e) par téléphone, SMS et email au sujet de mon projet de VAE par les organismes d’accompagnement partenaires d’Info VAE (<a href="/partenaires" target="_blank" rel="noopener">liste à jour</a>). Je peux retirer mon consentement à tout moment en écrivant à [email de contact].</span>
+          </label>
+          <label class="vq-check" id="vq-box-conseils" hidden>
+            <input type="checkbox" name="consent_conseils" value="oui" disabled>
+            <span id="vq-txt-conseils">Je souhaite recevoir par email des conseils pour préparer ma VAE et être prévenu(e) quand je pourrai déposer ma demande. Je peux me désinscrire à tout moment en écrivant à [email de contact].</span>
+          </label>
+          <p class="vq-err" role="alert" hidden></p>
+          <div class="vq-row"><span></span><button type="submit" class="vq-primary">Voir mon résultat</button></div>
+          <p class="vq-note">Cocher la deuxième case est facultatif : vous recevrez votre résultat dans tous les cas. Info VAE est un site privé, indépendant du service public (portail officiel : vae.gouv.fr).</p>
+        </fieldset>
+    
+        <div class="vq-row" id="vq-backrow"><button type="button" class="vq-back">Retour</button><span></span></div>
+      </div>
+    
+    </form>
+  </div>
+</BaseLayout>
+
+<script>
+  import '../scripts/quiz.js';
+</script>
