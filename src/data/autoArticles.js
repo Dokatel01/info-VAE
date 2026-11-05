@@ -576,5 +576,119 @@ export const autoArticles = [
         "text": "Il n’existe pas de liste unique des métiers validables, mais un catalogue de certifications qui s’élargit. Le plus fiable est de partir de votre expérience, de chercher la certification correspondante sur France VAE et de vérifier sa fiche officielle. Cette recherche prend quelques minutes et évite de s’engager sur un diplôme inadapté."
       }
     ]
+  },
+  {
+    "slug": "comment-reussir-l-oral-avec-le-jury-vae-7-conseils-d-experts",
+    "title": "Comment réussir l'oral avec le jury VAE : 7 conseils d'experts",
+    "categories": [
+      "Etapes VAE"
+    ],
+    "excerpt": "L’entretien devant le jury est l’étape qui impressionne le plus les candidats à la validation des acquis de l’expérience (VAE). Pourtant, il ne s’agit pas d’un examen piège : le jury a déjà lu votre dossier et cherche à vérifier que vous maîtrisez bien ce que vous y décrivez. Voici sept conseils pratiques, fondés sur les règles officielles du parcours, pour aborder l’oral sereinement.",
+    "summary": "L’entretien devant le jury est l’étape qui impressionne le plus les candidats à la validation des acquis de l’expérience (VAE). Pourtant, il ne s’agit pas d’un examen piège : le jury a déjà lu votre dossier et cherche à vérifier que vous maîtrisez bien ce que vous y décrivez. Voici sept conseils pratiques, fondés sur les règles officielles du parcours, pour aborder l’oral sereinement.",
+    "updatedAt": "2026-11-05",
+    "author": "La Rédaction de Info-VAE",
+    "image": "/images/article-default.jpg",
+    "imageAlt": "",
+    "provisional": false,
+    "source": {
+      "sheetRow": 26,
+      "docId": "1GxQCSI3FhE5HtAs5ytGF2BxBolWkKtai",
+      "sheetStatus": "à intégrer"
+    },
+    "content": [
+      {
+        "type": "p",
+        "text": "L’entretien devant le jury est l’étape qui impressionne le plus les candidats à la validation des acquis de l’expérience (VAE). Pourtant, il ne s’agit pas d’un examen piège : le jury a déjà lu votre dossier et cherche à vérifier que vous maîtrisez bien ce que vous y décrivez. Voici sept conseils pratiques, fondés sur les règles officielles du parcours, pour aborder l’oral sereinement."
+      },
+      {
+        "type": "h2",
+        "text": "Comprendre ce qui vous attend"
+      },
+      {
+        "type": "p",
+        "text": "Selon France Travail, le jury est composé de professionnels et d’enseignants. L’entretien dure en général entre 20 et 40 minutes. Selon les certifications, il peut être complété par une mise en situation professionnelle, réelle ou reconstituée. C’est le cas pour certains titres professionnels du ministère du Travail, dont l’examen se déroule dans un centre agréé."
+      },
+      {
+        "type": "p",
+        "text": "Le calendrier est encadré : la présentation devant le jury a lieu dans les trois mois suivant l’envoi du dossier de validation, et la décision est transmise dans les 15 jours, d’après Service-Public.gouv.fr."
+      },
+      {
+        "type": "h2",
+        "text": "Conseil 1 : relire son dossier comme si c’était celui d’un autre"
+      },
+      {
+        "type": "p",
+        "text": "Le jury s’appuie sur votre dossier pour poser ses questions. Relisez-le plusieurs fois, repérez les situations que vous avez détaillées et celles que vous avez traitées plus rapidement. Soyez capable de reprendre chaque exemple sans notes : contexte, rôle, méthode, résultat."
+      },
+      {
+        "type": "h2",
+        "text": "Conseil 2 : préparer une courte présentation d’ouverture"
+      },
+      {
+        "type": "p",
+        "text": "Les jurys commencent souvent par demander au candidat de se présenter et de retracer son parcours. Préparez un propos clair, de quelques minutes, qui relie votre expérience au diplôme visé. Évitez de réciter votre dossier : montrez ce qui fait le lien entre votre pratique et les compétences attendues."
+      },
+      {
+        "type": "h2",
+        "text": "Conseil 3 : illustrer chaque réponse par une situation vécue"
+      },
+      {
+        "type": "p",
+        "text": "Un jury évalue des compétences, pas des intentions. À chaque question, appuyez-vous sur un exemple concret : ce que vous avez fait, comment, avec quels outils et pour quel résultat. Parlez de ce que vous avez fait vous-même plutôt que de décrire l’équipe ou le service."
+      },
+      {
+        "type": "h2",
+        "text": "Conseil 4 : anticiper les questions sur vos points faibles"
+      },
+      {
+        "type": "p",
+        "text": "Les membres du jury peuvent interroger des domaines où votre dossier est moins développé, par exemple une compétence exercée rarement ou une réglementation mal connue. Préparez une réponse honnête : reconnaître une limite et expliquer comment vous la compensez montre du recul professionnel. Mieux vaut cela qu’une réponse approximative."
+      },
+      {
+        "type": "h2",
+        "text": "Conseil 5 : s’entraîner avec un entretien blanc"
+      },
+      {
+        "type": "p",
+        "text": "Le rôle de l’accompagnateur comprend la préparation à l’entretien avec le jury. Profitez-en pour faire une simulation, idéalement avec quelqu’un qui vous pose des questions inattendues. À défaut, entraînez-vous devant un proche ou enregistrez-vous pour vous réécouter."
+      },
+      {
+        "type": "h2",
+        "text": "Conseil 6 : soigner la logistique"
+      },
+      {
+        "type": "ul",
+        "items": [
+          "Vérifiez la date, l’heure, le lieu ou le lien de connexion, ainsi que les pièces à apporter.",
+          "Prévoyez de l’avance sur l’horaire, y compris pour un entretien à distance.",
+          "Apportez une copie de votre dossier et de quoi prendre des notes.",
+          "Si vous avez besoin d’un aménagement lié à un handicap, signalez-le au certificateur en amont."
+        ]
+      },
+      {
+        "type": "h2",
+        "text": "Conseil 7 : gérer le stress et accepter le silence"
+      },
+      {
+        "type": "p",
+        "text": "Quelques respirations avant d’entrer et un verre d’eau suffisent souvent à poser le rythme. Si une question vous déstabilise, demandez qu’on la reformule ou prenez quelques secondes pour réfléchir : ce n’est pas un défaut. À la fin de l’entretien, ne cherchez pas à deviner la décision : le jury délibère ensuite hors de votre présence."
+      },
+      {
+        "type": "h2",
+        "text": "Après l’oral : les trois décisions possibles"
+      },
+      {
+        "type": "p",
+        "text": "Le jury peut prononcer une validation totale, une validation partielle ou un refus. En cas de validation partielle, il précise les compétences à compléter, par une formation ou une expérience supplémentaire. Un refus n’est pas définitif : vous pouvez redéposer une demande, en respectant la limite d’une demande par certification et par année civile."
+      },
+      {
+        "type": "h2",
+        "text": "Conclusion"
+      },
+      {
+        "type": "p",
+        "text": "L’oral est avant tout une conversation professionnelle sur un métier que vous connaissez. En relisant votre dossier, en vous entraînant et en vous appuyant sur des situations réelles, vous mettez le jury en confiance. Appuyez-vous sur votre accompagnateur pour la préparation, et n’hésitez pas à lui demander un entretien blanc."
+      }
+    ]
   }
 ];

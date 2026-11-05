@@ -12,5 +12,8 @@ export const autoLinkTargets = {
   ],
   "quels-metiers-peut-on-valider-avec-une-vae-la-liste-complete": [
     "Quels métiers peut-on valider avec une VAE ? La liste complète"
+  ],
+  "comment-reussir-l-oral-avec-le-jury-vae-7-conseils-d-experts": [
+    "Comment réussir l'oral avec le jury VAE : 7 conseils d'experts"
   ]
 };

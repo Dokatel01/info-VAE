@@ -57,6 +57,14 @@ export const generatedImages = {
     "hash": "6vpsl9",
     "generatedAt": "2026-10-21"
   },
+  "comment-reussir-l-oral-avec-le-jury-vae-7-conseils-d-experts": {
+    "file": "/images/articles/comment-reussir-l-oral-avec-le-jury-vae-7-conseils-d-experts.svg",
+    "motif": "jury",
+    "secondary": "steps",
+    "theme": "lagon",
+    "hash": "4r6753",
+    "generatedAt": "2026-11-05"
+  },
   "est-ce-que-pole-emploi-finance-la-vae-ce-qu-il-faut-savoir": {
     "file": "/images/articles/est-ce-que-pole-emploi-finance-la-vae-ce-qu-il-faut-savoir.svg",
     "motif": "card",
