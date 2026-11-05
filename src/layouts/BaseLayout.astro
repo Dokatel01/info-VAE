@@ -70,5 +70,9 @@ const { title, description } = Astro.props;
       <slot />
     </main>
     <Footer />
+    <!-- Transmet les paramètres de suivi (UTM…) aux liens internes : voir src/lib/trackingParams.js -->
+    <script>
+      import '../scripts/track-links.js';
+    </script>
   </body>
 </html>
