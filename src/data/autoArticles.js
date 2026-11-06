@@ -690,5 +690,119 @@ export const autoArticles = [
         "text": "L’oral est avant tout une conversation professionnelle sur un métier que vous connaissez. En relisant votre dossier, en vous entraînant et en vous appuyant sur des situations réelles, vous mettez le jury en confiance. Appuyez-vous sur votre accompagnateur pour la préparation, et n’hésitez pas à lui demander un entretien blanc."
       }
     ]
+  },
+  {
+    "slug": "peut-on-faire-une-vae-en-etant-auto-entrepreneur-ou-independant",
+    "title": "Peut-on faire une VAE en étant auto-entrepreneur ou indépendant ?",
+    "categories": [
+      "Pour qui"
+    ],
+    "excerpt": "Vous travaillez à votre compte depuis plusieurs années, sans diplôme qui reflète vraiment votre savoir-faire. Vous vous demandez si la validation des acquis de l’expérience (VAE) vous est ouverte, et comment la financer sans employeur. La réponse est oui : les travailleurs indépendants figurent parmi les publics concernés. Voici ce qu’il faut savoir.",
+    "summary": "Vous travaillez à votre compte depuis plusieurs années, sans diplôme qui reflète vraiment votre savoir-faire. Vous vous demandez si la validation des acquis de l’expérience (VAE) vous est ouverte, et comment la financer sans employeur. La réponse est oui : les travailleurs indépendants figurent parmi les publics concernés. Voici ce qu’il faut savoir.",
+    "updatedAt": "2026-11-06",
+    "author": "La Rédaction de Info-VAE",
+    "image": "/images/article-default.jpg",
+    "imageAlt": "",
+    "provisional": false,
+    "source": {
+      "sheetRow": 27,
+      "docId": "1b_kaWAtcx044GP8KVY8IqlEkNIVGqSTq",
+      "sheetStatus": "à intégrer"
+    },
+    "content": [
+      {
+        "type": "p",
+        "text": "Vous travaillez à votre compte depuis plusieurs années, sans diplôme qui reflète vraiment votre savoir-faire. Vous vous demandez si la validation des acquis de l’expérience (VAE) vous est ouverte, et comment la financer sans employeur. La réponse est oui : les travailleurs indépendants figurent parmi les publics concernés. Voici ce qu’il faut savoir."
+      },
+      {
+        "type": "h2",
+        "text": "Un droit ouvert aux non-salariés"
+      },
+      {
+        "type": "p",
+        "text": "Selon France VAE, le parcours est accessible aux salariés du privé, aux demandeurs d’emploi, aux bénévoles, aux aidants familiaux, aux élus et aux travailleurs non salariés. Service-Public.gouv.fr précise qu’aucune condition de statut ou d’âge n’est exigée. Auto-entrepreneur, micro-entrepreneur, artisan, commerçant ou profession libérale : votre activité peut être valorisée dès lors qu’elle présente un lien direct avec la certification visée."
+      },
+      {
+        "type": "p",
+        "text": "Depuis la réforme, il n’est plus exigé de justifier d’une durée minimale d’expérience. L’essentiel est que vos activités correspondent à celles du diplôme ou du titre visé."
+      },
+      {
+        "type": "h2",
+        "text": "Comment prouver une activité indépendante"
+      },
+      {
+        "type": "p",
+        "text": "Un salarié fournit des bulletins de paie et des attestations d’employeur. Un indépendant s’appuie sur d’autres pièces, qui montrent la réalité et le contenu de son activité."
+      },
+      {
+        "type": "ul",
+        "items": [
+          "Factures, devis et contrats, en masquant les données confidentielles de vos clients.",
+          "Attestations de clients ou de partenaires décrivant les missions réalisées.",
+          "Justificatifs d’immatriculation et de déclaration de l’activité.",
+          "Photographies, supports ou livrables produits, présentations, plannings de chantier ou comptes rendus."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "Précisez dans votre dossier ce que vous faites réellement : prospection, réalisation, gestion, relation client. Un indépendant assume souvent plusieurs fonctions, ce qui peut être un avantage pour des diplômes de gestion ou de management."
+      },
+      {
+        "type": "h2",
+        "text": "Comment financer sa VAE sans employeur"
+      },
+      {
+        "type": "h3",
+        "text": "Le fonds d’assurance formation"
+      },
+      {
+        "type": "p",
+        "text": "Les indépendants qui paient la contribution à la formation professionnelle peuvent obtenir un financement auprès du fonds d’assurance formation dont ils dépendent. Ce fonds varie selon l’activité : par exemple le FIF PL pour les professions libérales, Agefice pour les commerçants et dirigeants non salariés, le FAFCEA ou les chambres de métiers et de l’artisanat pour les artisans, et Vivéa pour les agriculteurs, d’après Service-Public.fr. La VAE fait partie des actions de formation éligibles."
+      },
+      {
+        "type": "p",
+        "text": "Quelques règles sont importantes. Il faut déposer la demande au plus tard un mois avant le début de l’action, sauf règle propre au fonds. Il faut aussi disposer de l’attestation de versement de la contribution, téléchargeable sur le compte Urssaf. Un micro-entrepreneur sans chiffre d’affaires pendant douze mois consécutifs ne peut pas obtenir de financement. Les montants dépendent du fonds et de l’activité."
+      },
+      {
+        "type": "h3",
+        "text": "Le compte personnel de formation"
+      },
+      {
+        "type": "p",
+        "text": "Les indépendants disposent aussi d’un compte personnel de formation, alimenté à hauteur de 500 euros par année d’activité dans la limite de 5 000 euros, selon Service-Public.fr. Il peut financer l’accompagnement à la VAE, avec la participation du titulaire de 150 euros, sauf exonération, rappelée par la fiche Service-Public.gouv.fr sur la VAE."
+      },
+      {
+        "type": "h3",
+        "text": "Autres aides"
+      },
+      {
+        "type": "p",
+        "text": "France Travail peut intervenir si vous êtes inscrit comme demandeur d’emploi, par exemple en cas de cessation d’activité. Un conseiller en évolution professionnelle vous aidera gratuitement à faire le point."
+      },
+      {
+        "type": "h2",
+        "text": "Ce qui diffère d’un salarié"
+      },
+      {
+        "type": "p",
+        "text": "Le congé de VAE de 48 heures est prévu pour les salariés. Un indépendant organise son temps comme il l’entend, mais doit penser à l’impact sur son chiffre d’affaires pendant les jours consacrés au dossier et à l’oral. Prévoyez des périodes creuses pour avancer."
+      },
+      {
+        "type": "h2",
+        "text": "Pour quels diplômes ?"
+      },
+      {
+        "type": "p",
+        "text": "Cela dépend de votre activité. Un artisan peut viser un diplôme de son métier, un consultant un titre de niveau supérieur en management ou en commerce, un commerçant un titre de gestion ou de vente. Consultez les fiches du Répertoire national des certifications professionnelles et les certifications accessibles sur France VAE."
+      },
+      {
+        "type": "h2",
+        "text": "Conclusion"
+      },
+      {
+        "type": "p",
+        "text": "Être indépendant n’est pas un obstacle à la VAE : c’est une expérience qui se prouve autrement. Réunissez dès maintenant vos pièces, contactez votre fonds d’assurance formation avant de signer un devis d’accompagnement, et vérifiez la recevabilité de votre projet avec un conseiller."
+      }
+    ]
   }
 ];

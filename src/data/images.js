@@ -145,6 +145,14 @@ export const generatedImages = {
     "hash": "nux5k1",
     "generatedAt": "2026-10-19"
   },
+  "peut-on-faire-une-vae-en-etant-auto-entrepreneur-ou-independant": {
+    "file": "/images/articles/peut-on-faire-une-vae-en-etant-auto-entrepreneur-ou-independant.svg",
+    "motif": "people",
+    "secondary": "diploma",
+    "theme": "ocean",
+    "hash": "b11byt",
+    "generatedAt": "2026-11-06"
+  },
   "quelles-sont-les-etapes-de-la-vae": {
     "file": "/images/articles/quelles-sont-les-etapes-de-la-vae.svg",
     "motif": "steps",

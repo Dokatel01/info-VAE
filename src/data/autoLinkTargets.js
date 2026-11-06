@@ -15,5 +15,8 @@ export const autoLinkTargets = {
   ],
   "comment-reussir-l-oral-avec-le-jury-vae-7-conseils-d-experts": [
     "Comment réussir l'oral avec le jury VAE : 7 conseils d'experts"
+  ],
+  "peut-on-faire-une-vae-en-etant-auto-entrepreneur-ou-independant": [
+    "Peut-on faire une VAE en étant auto-entrepreneur ou indépendant"
   ]
 };
