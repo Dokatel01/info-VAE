@@ -59,8 +59,9 @@
 /* Logo Info VAE (ampoule + nom) : 64 px de haut, la largeur suit les proportions du fichier */
 .brand__logo {
   display: block;
-  height: 64px;
-  width: auto;
+  height: auto;
+  max-width: 150px;
+   width: 100%;
 }
 
 .brand__tagline {
