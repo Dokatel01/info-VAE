@@ -201,6 +201,14 @@ export const generatedImages = {
     "hash": "13y5ieq",
     "generatedAt": "2026-10-29"
   },
+  "vae-dans-le-secteur-medico-social-diplomes-les-plus-demandes": {
+    "file": "/images/articles/vae-dans-le-secteur-medico-social-diplomes-les-plus-demandes.svg",
+    "motif": "care",
+    "secondary": "child",
+    "theme": "lagon",
+    "hash": "bkj9h6",
+    "generatedAt": "2026-11-09"
+  },
   "vae-ou-reprise-d-etudes-que-choisir": {
     "file": "/images/articles/vae-ou-reprise-d-etudes-que-choisir.svg",
     "motif": "diploma",

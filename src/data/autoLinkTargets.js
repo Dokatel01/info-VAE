@@ -18,5 +18,8 @@ export const autoLinkTargets = {
   ],
   "peut-on-faire-une-vae-en-etant-auto-entrepreneur-ou-independant": [
     "Peut-on faire une VAE en étant auto-entrepreneur ou indépendant"
+  ],
+  "vae-dans-le-secteur-medico-social-diplomes-les-plus-demandes": [
+    "VAE dans le secteur médico-social : diplômes les plus demandés"
   ]
 };

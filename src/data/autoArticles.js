@@ -804,5 +804,122 @@ export const autoArticles = [
         "text": "Être indépendant n’est pas un obstacle à la VAE : c’est une expérience qui se prouve autrement. Réunissez dès maintenant vos pièces, contactez votre fonds d’assurance formation avant de signer un devis d’accompagnement, et vérifiez la recevabilité de votre projet avec un conseiller."
       }
     ]
+  },
+  {
+    "slug": "vae-dans-le-secteur-medico-social-diplomes-les-plus-demandes",
+    "title": "VAE dans le secteur médico-social : diplômes les plus demandés",
+    "categories": [
+      "Aide soignant",
+      "Auxiliaire Puériculture",
+      "Educateur spécialisé"
+    ],
+    "excerpt": "Aide-soignant, auxiliaire de puériculture, accompagnant éducatif et social, éducateur : le secteur médico-social repose sur des professionnels expérimentés dont beaucoup n’ont pas le diplôme correspondant. La validation des acquis de l’expérience (VAE) leur permet de le décrocher sans reprendre une formation complète. Voici les diplômes concernés et les particularités de ces parcours.",
+    "summary": "Aide-soignant, auxiliaire de puériculture, accompagnant éducatif et social, éducateur : le secteur médico-social repose sur des professionnels expérimentés dont beaucoup n’ont pas le diplôme correspondant. La validation des acquis de l’expérience (VAE) leur permet de le décrocher sans reprendre une formation complète. Voici les diplômes concernés et les particularités de ces parcours.",
+    "updatedAt": "2026-11-09",
+    "author": "La Rédaction de Info-VAE",
+    "image": "/images/article-default.jpg",
+    "imageAlt": "",
+    "provisional": false,
+    "source": {
+      "sheetRow": 28,
+      "docId": "13pA17Ku6HhjbRmkFpeo9oOqE5zyaLLek",
+      "sheetStatus": "à intégrer"
+    },
+    "content": [
+      {
+        "type": "p",
+        "text": "Aide-soignant, auxiliaire de puériculture, accompagnant éducatif et social, éducateur : le secteur médico-social repose sur des professionnels expérimentés dont beaucoup n’ont pas le diplôme correspondant. La validation des acquis de l’expérience (VAE) leur permet de le décrocher sans reprendre une formation complète. Voici les diplômes concernés et les particularités de ces parcours."
+      },
+      {
+        "type": "h2",
+        "text": "Un secteur qui recourt beaucoup à la VAE"
+      },
+      {
+        "type": "p",
+        "text": "Selon Centre Inffo, qui rapporte un point d’étape du ministère du Travail en février 2026, les certifications du sanitaire et du social sont très demandées sur la plateforme France VAE. Cette forte demande s’accompagne de délais de jury parfois longs. Anticipez donc votre calendrier."
+      },
+      {
+        "type": "h2",
+        "text": "Les principaux diplômes accessibles par VAE"
+      },
+      {
+        "type": "p",
+        "text": "D’après la DREETS Provence-Alpes-Côte d’Azur, plusieurs diplômes se préparent via la plateforme France VAE :"
+      },
+      {
+        "type": "ul",
+        "items": [
+          "le diplôme d’État d’aide-soignant (DEAS) ;",
+          "le diplôme d’État d’auxiliaire de puériculture (DEAP) ;",
+          "le diplôme d’État d’accompagnant éducatif et social (DEAES) ;",
+          "le diplôme de technicien de l’intervention sociale et familiale (DETISF) ;",
+          "le diplôme d’État d’assistant de service social (DEASS) ;",
+          "le diplôme d’État d’éducateur de jeunes enfants (DEEJE) ;",
+          "le certificat d’aptitude aux fonctions d’encadrement et de responsable d’unité d’intervention sociale (CAFERUIS)."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "D’autres diplômes de ce secteur passent par la plateforme de l’Agence de services et de paiement. C’est le cas, par exemple, du diplôme d’infirmier de bloc opératoire. Les diplômes d’éducateur spécialisé et d’autres titres du travail social suivent leurs propres procédures : consultez la page de la DREETS de votre région pour connaître la voie à suivre."
+      },
+      {
+        "type": "h2",
+        "text": "Les spécificités des parcours sanitaires et sociaux"
+      },
+      {
+        "type": "h3",
+        "text": "Une organisation par sessions"
+      },
+      {
+        "type": "p",
+        "text": "Les diplômes d’État du secteur sont délivrés par la DREETS, qui publie chaque année un calendrier des sessions avec des dates limites de dépôt des dossiers. Consultez-le avant de vous lancer, car manquer une date peut décaler votre passage de plusieurs mois."
+      },
+      {
+        "type": "h3",
+        "text": "L’attestation de formation aux gestes et soins d’urgence"
+      },
+      {
+        "type": "p",
+        "text": "Pour le DEAS, le DEAP, le DEAES et certains autres diplômes, l’attestation de formation aux gestes et soins d’urgence de niveau 2 est exigée. Le diplôme ne peut être délivré qu’après sa transmission à la DREETS, même si le jury a validé l’ensemble des compétences. Prévoyez cette formation en parallèle."
+      },
+      {
+        "type": "h3",
+        "text": "Des expériences très variées"
+      },
+      {
+        "type": "p",
+        "text": "L’expérience prise en compte n’est pas uniquement salariée. Selon Service-Public.gouv.fr, elle peut aussi provenir du bénévolat ou d’une aide apportée à un proche. Pour ces métiers, un parcours d’aidant familial, d’assistante maternelle ou d’agent de service hospitalier peut constituer une base solide, à condition que les activités correspondent au référentiel."
+      },
+      {
+        "type": "h2",
+        "text": "Les étapes à suivre"
+      },
+      {
+        "type": "ol",
+        "items": [
+          "Choisissez le diplôme en comparant ses activités visées avec votre pratique.",
+          "Consultez le site de la DREETS de votre région pour connaître le calendrier et les dispenses éventuelles.",
+          "Créez votre compte sur France VAE ou suivez la procédure indiquée pour votre diplôme.",
+          "Déposez le dossier de faisabilité, puis rédigez le dossier de validation.",
+          "Préparez l’entretien avec le jury, puis, si besoin, complétez par une formation."
+        ]
+      },
+      {
+        "type": "h2",
+        "text": "Quel financement ?"
+      },
+      {
+        "type": "p",
+        "text": "Le compte personnel de formation, l’employeur, Transitions Pro, France Travail ou la Région peuvent contribuer. Les établissements sanitaires et sociaux ont souvent des dispositifs de financement propres : interrogez votre service des ressources humaines, ou l’opérateur de compétences de votre branche. Le coût d’un accompagnement est généralement compris entre 1 500 et 3 000 euros, selon France VAE."
+      },
+      {
+        "type": "h2",
+        "text": "Conclusion"
+      },
+      {
+        "type": "p",
+        "text": "La VAE est une voie particulièrement adaptée au secteur médico-social, où l’expérience de terrain est centrale. Les démarches sont plus encadrées que dans d’autres domaines, avec des calendriers de session et des attestations obligatoires. Renseignez-vous tôt auprès de la DREETS et d’un accompagnateur expérimenté sur votre diplôme."
+      }
+    ]
   }
 ];
