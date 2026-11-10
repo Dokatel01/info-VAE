@@ -20,3 +20,6 @@ Thumbs.db
 npm-debug.log*
 photos-source/*
 !photos-source/.gitkeep
+
+client_secret_info_vae.json
+info-vae-compte-service.json

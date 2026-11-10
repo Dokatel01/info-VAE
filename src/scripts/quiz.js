@@ -119,11 +119,12 @@
   });
 
   form.addEventListener('submit', function (e) {
+    e.preventDefault(); // Empêche le POST natif vers /merci
+
     var tel = form.elements['telephone'];
     var digits = tel.value.replace(/[\s.\-]/g, '');
     var okTel = /^(?:\+33|0033|0)[1-9]\d{8}$/.test(digits);
     if (!okTel) {
-      e.preventDefault();
       tel.setCustomValidity('Entrez un numéro français valide, par exemple 06 12 34 56 78.');
       tel.reportValidity();
       tel.addEventListener('input', function () { tel.setCustomValidity(''); }, { once: true });
@@ -159,9 +160,33 @@
       form.elements[k].value = q.get(k) || '';
     });
 
-    // Redirection personnalisée (affichage de la page de résultat et événement pixel uniquement).
-    form.setAttribute('action', '/merci?statut=' + encodeURIComponent(val('statut')) +
-      '&a=' + encodeURIComponent(val('activite')) + '&v=' + vendable + '&e=' + (eligible ? 'oui' : 'non'));
+    // Désactiver le bouton submit pendant l'envoi
+    var submitBtn = form.querySelector('button[type="submit"]');
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Envoi en cours...';
+    }
+
+    // URL de redirection finale avec les paramètres
+    var merciUrl = '/merci?statut=' + encodeURIComponent(val('statut')) +
+      '&a=' + encodeURIComponent(val('activite')) + '&v=' + vendable + '&e=' + (eligible ? 'oui' : 'non');
+
+    // Envoi des données vers le backend Google Sheets
+    var formData = new FormData(form);
+
+    fetch('/api/submit-lead', {
+      method: 'POST',
+      body: formData
+    })
+    .then(function (res) {
+      // Qu'il réussisse ou non, on redirige l'utilisateur vers sa page de confirmation
+      window.location.href = merciUrl;
+    })
+    .catch(function (err) {
+      console.error('Erreur lors de l’envoi :', err);
+      // Fallback redirection
+      window.location.href = merciUrl;
+    });
   });
 
   show(0);
