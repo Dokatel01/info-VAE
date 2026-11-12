@@ -12,6 +12,7 @@
     "images": "node scripts/generate-images.mjs"
   },
   "dependencies": {
+    "@astrojs/vercel": "^11.0.21",
     "astro": "^7.4.1",
     "googleapis": "^189.0.0"
   }
