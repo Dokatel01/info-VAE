@@ -1,4 +1,4 @@
-# Publication quotidienne des articles « à intégrer » du Google Sheets (du lundi au vendredi, 18 h 00 heure de Paris).
+# Publication quotidienne des articles « à intégrer » du Google Sheets (du lundi au vendredi, dès 18 h 00 heure de Paris, jusqu'à 23 h 59 si GitHub retarde le départ).
 # PHASE DE TEST : UN SEUL article est publié par jour ouvré (le premier « à intégrer » dans l'ordre du Sheet).
 # Mode d'emploi et étapes de configuration : docs/automatisation-publication.md
 name: Publication quotidienne des articles
@@ -45,8 +45,11 @@ jobs:
         run: |
           HEURE_PARIS=$(TZ=Europe/Paris date +%H)
           echo "Heure à Paris : $(TZ=Europe/Paris date '+%Y-%m-%d %H:%M')"
-          if [ "${{ github.event_name }}" = "schedule" ] && [ "$HEURE_PARIS" != "18" ]; then
-            echo "Il n'est pas 18 h à Paris : ce déclenchement est ignoré (l'autre horaire UTC s'en charge)."
+          # Un déclenchement programmé passe dès que l'heure de Paris est comprise entre 18 h et 23 h inclus
+          # (GitHub peut démarrer ses exécutions programmées avec plusieurs heures de retard).
+          # « un seul article par jour » est garanti par le robot lui-même (pipeline.mjs), pas par cet horaire.
+          if [ "${{ github.event_name }}" = "schedule" ] && [ "$((10#$HEURE_PARIS))" -lt 18 ]; then
+            echo "Il n'est pas encore 18 h à Paris : ce déclenchement est ignoré (l'autre horaire UTC s'en charge)."
             echo "lancer=non" >> "$GITHUB_OUTPUT"
           else
             echo "lancer=oui" >> "$GITHUB_OUTPUT"

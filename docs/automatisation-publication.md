@@ -19,7 +19,7 @@ Erreurs : une erreur sur un article n'arrête pas les autres. Le passage est mar
 Doublons : chaque article est reconnu par l'identifiant de son Doc. Si un passage s'interrompt après l'envoi vers GitHub, le passage suivant ne recrée rien : il vérifie que la page est en ligne puis marque le Sheet. Un passage ne démarre jamais en même temps qu'un autre.
 
 ## Heure d'été / heure d'hiver
-GitHub raconte l'heure en UTC. Deux déclenchements sont programmés (16 h et 17 h UTC) ; une étape « Garde horaire » ne laisse passer que celui qui tombe à 18 h à Paris (17 h UTC en hiver, 16 h UTC en été). Aucune intervention aux changements d'heure.
+GitHub raconte l'heure en UTC. Deux déclenchements sont programmés (16 h et 17 h UTC) ; une étape « Garde horaire » laisse passer un déclenchement programmé dès que l'heure de Paris est comprise entre 18 h et 23 h inclus (le départ normal est à 18 h : 17 h UTC en hiver, 16 h UTC en été). GitHub peut démarrer ses exécutions programmées avec plusieurs heures de retard (constaté les 10 et 11 novembre 2026 : départs à 22 h 40 et 23 h 04 Paris, ignorés par l'ancienne garde « exactement 18 h »). La règle « un seul article par jour » ne dépend pas de l'horaire : si plusieurs exécutions ont lieu le même jour, les suivantes ne publient rien. Aucune intervention aux changements d'heure. Test de la garde : `node --test tests/garde-horaire.test.mjs`.
 Limite connue : GitHub peut retarder un déclenchement de quelques minutes (parfois davantage aux heures chargées).
 
 ## Fichier de référence officiel (décision du 27/10/2026)
