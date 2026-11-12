@@ -81,6 +81,14 @@ export const generatedImages = {
     "hash": "1gqdaaw",
     "generatedAt": "2026-10-21"
   },
+  "la-vae-pour-les-personnes-migrantes": {
+    "file": "/images/articles/la-vae-pour-les-personnes-migrantes.svg",
+    "motif": "people",
+    "secondary": "diploma",
+    "theme": "ocean",
+    "hash": "1w71ddj",
+    "generatedAt": "2026-11-12"
+  },
   "la-validation-des-acquis-de-l-experience-vae-un-dispositif-cle-pour-l-evolution-professionnelle": {
     "file": "/images/articles/la-validation-des-acquis-de-l-experience-vae-un-dispositif-cle-pour-l-evolution-professionnelle.svg",
     "motif": "diploma",

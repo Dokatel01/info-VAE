@@ -921,5 +921,104 @@ export const autoArticles = [
         "text": "La VAE est une voie particulièrement adaptée au secteur médico-social, où l’expérience de terrain est centrale. Les démarches sont plus encadrées que dans d’autres domaines, avec des calendriers de session et des attestations obligatoires. Renseignez-vous tôt auprès de la DREETS et d’un accompagnateur expérimenté sur votre diplôme."
       }
     ]
+  },
+  {
+    "slug": "la-vae-pour-les-personnes-migrantes",
+    "title": "La VAE pour les personnes migrantes",
+    "categories": [
+      "Pour qui"
+    ],
+    "excerpt": "Vous avez travaillé dans votre pays d’origine ou en France, et votre diplôme n’est pas reconnu ou vous n’en avez pas. Vous vous demandez si la validation des acquis de l’expérience (VAE) peut vous aider à obtenir un diplôme français. La VAE n’impose pas de condition de nationalité, mais certains points méritent votre attention. Voici ce qu’il faut savoir.",
+    "summary": "Vous avez travaillé dans votre pays d’origine ou en France, et votre diplôme n’est pas reconnu ou vous n’en avez pas. Vous vous demandez si la validation des acquis de l’expérience (VAE) peut vous aider à obtenir un diplôme français. La VAE n’impose pas de condition de nationalité, mais certains points méritent votre attention. Voici ce qu’il faut savoir.",
+    "updatedAt": "2026-11-12",
+    "author": "La Rédaction de Info-VAE",
+    "image": "/images/article-default.jpg",
+    "imageAlt": "",
+    "provisional": false,
+    "source": {
+      "sheetRow": 29,
+      "docId": "1PIgWmRA80AqGRzozX6YeH4YP0beihNeI",
+      "sheetStatus": "à intégrer"
+    },
+    "content": [
+      {
+        "type": "p",
+        "text": "Vous avez travaillé dans votre pays d’origine ou en France, et votre diplôme n’est pas reconnu ou vous n’en avez pas. Vous vous demandez si la validation des acquis de l’expérience (VAE) peut vous aider à obtenir un diplôme français. La VAE n’impose pas de condition de nationalité, mais certains points méritent votre attention. Voici ce qu’il faut savoir."
+      },
+      {
+        "type": "h2",
+        "text": "Aucune condition de nationalité"
+      },
+      {
+        "type": "p",
+        "text": "Selon Service-Public.gouv.fr, toute personne peut faire une demande de VAE, quels que soient son statut, son âge, sa nationalité ou son niveau de formation. La plaquette des titres professionnels de la DREETS Occitanie le confirme. Le diplôme obtenu est un diplôme français, inscrit au Répertoire national des certifications professionnelles (RNCP), avec la même valeur que s’il avait été obtenu par la formation."
+      },
+      {
+        "type": "h2",
+        "text": "L’expérience : en France et à l’étranger"
+      },
+      {
+        "type": "p",
+        "text": "La VAE repose sur des activités en lien direct avec le diplôme visé. Une expérience acquise en France se justifie facilement avec des contrats et des bulletins de paie. Pour une expérience à l’étranger, rassemblez ce que vous pouvez : contrats, attestations d’anciens employeurs, certificats, photographies, références. Les documents rédigés dans une autre langue devront en général être accompagnés d’une traduction. La prise en compte d’une expérience hors de France relève de l’appréciation du certificateur : posez la question dès la phase de recevabilité."
+      },
+      {
+        "type": "h2",
+        "text": "Diplôme étranger : une démarche distincte"
+      },
+      {
+        "type": "p",
+        "text": "Si vous possédez un diplôme obtenu hors de France, vous pouvez demander une attestation de comparabilité auprès du centre ENIC-NARIC France, géré par France Éducation international. Ce document situe votre diplôme par rapport au système français, mais il ne le transforme pas en diplôme français. La VAE, elle, délivre une certification française à partir de l’expérience. Les deux démarches peuvent se compléter : l’attestation peut aider à choisir le niveau visé."
+      },
+      {
+        "type": "h2",
+        "text": "Les points d’attention"
+      },
+      {
+        "type": "h3",
+        "text": "La langue"
+      },
+      {
+        "type": "p",
+        "text": "Le dossier de validation est rédigé en français et l’entretien avec le jury se déroule en français. Vous n’avez pas besoin d’un français parfait, mais vous devez pouvoir décrire clairement vos activités. Un accompagnateur peut vous aider à structurer vos phrases. Si nécessaire, suivez une formation en français en parallèle, en vous renseignant auprès d’un conseiller en évolution professionnelle."
+      },
+      {
+        "type": "h3",
+        "text": "La situation administrative et le financement"
+      },
+      {
+        "type": "p",
+        "text": "La VAE ne dépend pas de la nationalité, mais les financements dépendent de votre situation. Le compte personnel de formation est alimenté par l’activité professionnelle exercée en France. Les demandeurs d’emploi inscrits peuvent solliciter France Travail ou la Région, qui peuvent financer une partie du parcours. Interrogez un conseiller sur les aides auxquelles vous avez droit, et sur les démarches associatives gratuites."
+      },
+      {
+        "type": "h3",
+        "text": "Les métiers réglementés"
+      },
+      {
+        "type": "p",
+        "text": "Certains métiers, notamment dans la santé, exigent un diplôme précis pour être exercés. La VAE peut mener à des diplômes comme celui d’aide-soignant ou d’auxiliaire de puériculture, accessibles par France VAE, mais pas à tous les diplômes : par exemple, celui de médecine n’est pas accessible par la VAE."
+      },
+      {
+        "type": "h2",
+        "text": "Les étapes concrètes"
+      },
+      {
+        "type": "ol",
+        "items": [
+          "Faites le point avec un conseiller en évolution professionnelle ou un point relais conseil, gratuitement.",
+          "Identifiez le diplôme français qui correspond à votre métier sur France VAE et dans le RNCP.",
+          "Réunissez vos preuves d’expérience et leurs traductions.",
+          "Déposez le dossier de faisabilité, qui est examiné par le certificateur.",
+          "Faites-vous accompagner pour rédiger le dossier et préparer l’oral."
+        ]
+      },
+      {
+        "type": "h2",
+        "text": "Conclusion"
+      },
+      {
+        "type": "p",
+        "text": "Votre parcours, en France ou ailleurs, a de la valeur. La VAE offre une voie pour la faire reconnaître par un diplôme français, sans condition de nationalité. Le plus important est de bien choisir le diplôme, de rassembler des preuves et de vous faire accompagner. Un conseiller vous aidera à identifier les aides auxquelles vous avez droit."
+      }
+    ]
   }
 ];

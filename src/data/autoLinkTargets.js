@@ -21,5 +21,8 @@ export const autoLinkTargets = {
   ],
   "vae-dans-le-secteur-medico-social-diplomes-les-plus-demandes": [
     "VAE dans le secteur médico-social : diplômes les plus demandés"
+  ],
+  "la-vae-pour-les-personnes-migrantes": [
+    "La VAE pour les personnes migrantes"
   ]
 };
