@@ -106,7 +106,15 @@ test('aucun secret dans le dépôt : pas de clé, URL de script ni mot de passe 
   }
   const front = fs.readFileSync(new URL('../src/components/InfoSession.astro', import.meta.url), 'utf8');
   assert.ok(!/APPS_SCRIPT|SECRET/.test(front), 'le navigateur ne doit connaître aucun secret');
-  assert.ok(/fetch\('\/api\/contact'/.test(front));
+  // Le formulaire d'inscription est actuellement MIS EN COMMENTAIRE dans InfoSession.astro (décision du 13/11/2026).
+  // - formulaire actif  → il doit envoyer vers /api/contact ;
+  // - formulaire commenté → aucune trace active de l'envoi vers /api/contact ne doit rester.
+  const actif = front.replace(/<!--[\s\S]*?-->/g, '');
+  if (/<form\b/.test(actif)) {
+    assert.ok(/fetch\('\/api\/contact'/.test(actif), 'formulaire actif : il doit envoyer vers /api/contact');
+  } else {
+    assert.ok(!/api\/contact/.test(actif), 'formulaire commenté : aucun envoi actif vers /api/contact ne doit subsister');
+  }
 });
 
 test('formulaire : exactement trois champs (prénom, nom, e-mail)', () => {
