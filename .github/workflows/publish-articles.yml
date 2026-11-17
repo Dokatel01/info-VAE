@@ -1,14 +1,18 @@
-# Publication quotidienne des articles « à intégrer » du Google Sheets (du lundi au vendredi, dès 18 h 00 heure de Paris, jusqu'à 23 h 59 si GitHub retarde le départ).
+# Publication quotidienne des articles « à intégrer » du Google Sheets : UN article par jour, du lundi au vendredi (jours de Paris),
+# dès qu'une exécution GitHub Actions démarre (aucune heure imposée). Jamais le samedi ni le dimanche, même si GitHub retarde un passage.
 # PHASE DE TEST : UN SEUL article est publié par jour ouvré (le premier « à intégrer » dans l'ordre du Sheet).
 # Mode d'emploi et étapes de configuration : docs/automatisation-publication.md
 name: Publication quotidienne des articles
 
 on:
   schedule:
-    # GitHub raconte l'heure en UTC. Paris = UTC+1 l'hiver, UTC+2 l'été : on déclenche à 16 h ET 17 h UTC,
-    # et l'étape « Garde horaire » ne laisse passer que celui qui tombe à 18 h à Paris.
-    - cron: '0 16 * * 1-5'
-    - cron: '0 17 * * 1-5'
+    # Plusieurs passages par jour (heures UTC, minutes « peu chargées » côté GitHub). Le premier qui démarre publie
+    # l'article du jour ; les suivants constatent « déjà publié aujourd'hui » et ne font rien. Si un passage échoue,
+    # le suivant réessaie le même jour. GitHub peut retarder un passage de plusieurs heures : sans importance.
+    - cron: '17 6 * * 1-5'
+    - cron: '17 10 * * 1-5'
+    - cron: '17 14 * * 1-5'
+    - cron: '17 18 * * 1-5'
   # Test sans modification des données : modifier .github/test-requests/mode.txt (simulation | test-lecture-docs).
   # La publication réelle n'est jamais possible par ce déclencheur.
   push:
@@ -40,19 +44,23 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 60
     steps:
-      - name: Garde horaire (18 h à Paris, été comme hiver)
+      - name: Garde du week-end (jour de Paris) et date du jour
         id: garde
         run: |
-          HEURE_PARIS=$(TZ=Europe/Paris date +%H)
-          echo "Heure à Paris : $(TZ=Europe/Paris date '+%Y-%m-%d %H:%M')"
-          # Un déclenchement programmé passe dès que l'heure de Paris est comprise entre 18 h et 23 h inclus
-          # (GitHub peut démarrer ses exécutions programmées avec plusieurs heures de retard).
-          # « un seul article par jour » est garanti par le robot lui-même (pipeline.mjs), pas par cet horaire.
-          if [ "${{ github.event_name }}" = "schedule" ] && [ "$((10#$HEURE_PARIS))" -lt 18 ]; then
-            echo "Il n'est pas encore 18 h à Paris : ce déclenchement est ignoré (l'autre horaire UTC s'en charge)."
+          # Date et jour de la semaine à Paris, relevés UNE SEULE FOIS : la même date est transmise au robot
+          # (PUBLISH_TODAY), donc un passage commencé le vendredi reste « du vendredi » même s'il finit après minuit.
+          DATE_PARIS=$(TZ=Europe/Paris date +%F)
+          JOUR_PARIS=$(TZ=Europe/Paris date +%u)   # 1 = lundi ... 7 = dimanche
+          echo "Date à Paris : $DATE_PARIS (jour $JOUR_PARIS de la semaine, 1 = lundi)"
+          # Aucune contrainte d'heure. Un déclenchement programmé n'agit jamais le samedi ni le dimanche (heure de Paris),
+          # même si GitHub l'a retardé depuis le vendredi.
+          # « un seul article par jour » est garanti par le robot lui-même (pipeline.mjs).
+          if [ "${{ github.event_name }}" = "schedule" ] && [ "$JOUR_PARIS" -ge 6 ]; then
+            echo "Week-end à Paris : ce déclenchement est ignoré, aucune publication le samedi ni le dimanche."
             echo "lancer=non" >> "$GITHUB_OUTPUT"
           else
             echo "lancer=oui" >> "$GITHUB_OUTPUT"
+            echo "date=$DATE_PARIS" >> "$GITHUB_OUTPUT"
           fi
 
       - uses: actions/checkout@v4
@@ -84,6 +92,7 @@ jobs:
           GIT_COMMITTER_NAME: Info VAE - publication automatique
           GIT_COMMITTER_EMAIL: actions@users.noreply.github.com
           MODE: ${{ github.event.inputs.mode }}
+          PUBLISH_TODAY: ${{ steps.garde.outputs.date }}
         run: |
           if [ "${{ github.event_name }}" = "push" ]; then
             MODE="$(grep -v '^#' .github/test-requests/mode.txt | tr -d '[:space:]')"

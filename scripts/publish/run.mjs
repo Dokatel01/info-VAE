@@ -37,6 +37,14 @@ const failureLines = (text) => {
 };
 const tail = (text, n = 15) => text.trim().split('\n').slice(-n).join('\n');
 
+/** Date « du jour » (AAAA-MM-JJ, Paris). Le workflow la relève une seule fois (PUBLISH_TODAY) après la garde du week-end ;
+ *  sans variable valide (lancement local, tests), on prend l'horloge de Paris. */
+export function resolveToday(env = process.env, now = new Date()) {
+  const v = String(env.PUBLISH_TODAY || '');
+  if (/^\d{4}-\d{2}-\d{2}$/.test(v) && !Number.isNaN(Date.parse(`${v}T12:00:00Z`)) && new Date(`${v}T12:00:00Z`).toISOString().slice(0, 10) === v) return v;
+  return parisDate(now);
+}
+
 export function realRepo(rootDir = root) {
   return {
     async existing() {
@@ -279,7 +287,7 @@ async function main() {
     repo,
     site: realSite({ siteUrl: config.siteUrl }),
   };
-  const report = await runPublication({ deps, dryRun, today: parisDate() });
+  const report = await runPublication({ deps, dryRun, today: resolveToday() });
   writeSummary(dryRun ? 'Publication automatique — SIMULATION' : 'Publication automatique', [
     `Résultat : ${report.summary}`,
     `Site vérifié : ${config.siteUrl}`,

@@ -1,6 +1,6 @@
 # Publication quotidienne automatique des articles
 
-Du lundi au vendredi à **18 h 00 (heure de Paris)**, GitHub Actions lance `scripts/publish/run.mjs`, même ordinateur éteint.
+Du lundi au vendredi (jours de Paris), **sans heure imposée**, GitHub Actions lance `scripts/publish/run.mjs`, même ordinateur éteint.
 
 ## Ce que fait le robot, dans l'ordre
 1. Lit le Google Sheets (par la passerelle Apps Script, ou par un compte de service si configuré) « Suivi article site info VAE » (onglet « Feuille 1 », colonnes repérées par leur **nom** : Titre, Catégorie, État, Date de publication, Fichier).
@@ -14,12 +14,12 @@ Du lundi au vendredi à **18 h 00 (heure de Paris)**, GitHub Actions lance `scri
 
 Erreurs : une erreur sur un article n'arrête pas les autres. Le passage est marqué « échec » dans GitHub (vous recevez le courriel d'alerte habituel de GitHub) et le détail est dans le résumé du passage.
 
-**Phase de test : un seul article par jour ouvré.** À 18 h (Paris), le robot ne traite que le premier article « à intégrer » dans l'ordre du Sheet ; les suivants attendent les jours d'après. Si un article a déjà été publié aujourd'hui, une relance ne fait rien. Si le premier article échoue, le robot s'arrête là : la ligne reste « à intégrer », le Sheet n'est pas modifié et la cause est écrite dans le compte rendu de l'exécution (onglet Actions de GitHub).
+**Phase de test : un seul article par jour ouvré.** À chaque passage, le robot ne traite que le premier article « à intégrer » dans l'ordre du Sheet ; les suivants attendent les jours d'après. Si un article a déjà été publié aujourd'hui, une relance ne fait rien. Si le premier article échoue, le robot s'arrête là : la ligne reste « à intégrer », le Sheet n'est pas modifié et la cause est écrite dans le compte rendu de l'exécution (onglet Actions de GitHub).
 
 Doublons : chaque article est reconnu par l'identifiant de son Doc. Si un passage s'interrompt après l'envoi vers GitHub, le passage suivant ne recrée rien : il vérifie que la page est en ligne puis marque le Sheet. Un passage ne démarre jamais en même temps qu'un autre.
 
 ## Heure d'été / heure d'hiver
-GitHub raconte l'heure en UTC. Deux déclenchements sont programmés (16 h et 17 h UTC) ; une étape « Garde horaire » laisse passer un déclenchement programmé dès que l'heure de Paris est comprise entre 18 h et 23 h inclus (le départ normal est à 18 h : 17 h UTC en hiver, 16 h UTC en été). GitHub peut démarrer ses exécutions programmées avec plusieurs heures de retard (constaté les 10 et 11 novembre 2026 : départs à 22 h 40 et 23 h 04 Paris, ignorés par l'ancienne garde « exactement 18 h »). La règle « un seul article par jour » ne dépend pas de l'horaire : si plusieurs exécutions ont lieu le même jour, les suivantes ne publient rien. Aucune intervention aux changements d'heure. Test de la garde : `node --test tests/garde-horaire.test.mjs`.
+Quatre passages sont programmés chaque jour ouvré (6 h 17, 10 h 17, 14 h 17 et 18 h 17 UTC). Le premier qui démarre publie l'article du jour ; les suivants constatent « déjà publié aujourd'hui » et ne font rien ; si un passage échoue, le suivant réessaie. GitHub peut retarder un passage de plusieurs heures (jusqu'à 7-8 h constatées en novembre 2026) : sans importance. Aucune heure n'est imposée. Une étape « Garde du week-end » relève une seule fois la date de Paris ; un passage programmé ne publie jamais le samedi ni le dimanche, même retardé depuis le vendredi, et la date relevée est transmise au robot (`PUBLISH_TODAY`), donc un passage commencé le vendredi reste daté du vendredi même s'il finit après minuit. Les passages sont mis en file (un seul à la fois). Tests : `node --test tests/passages-quotidiens.test.mjs`.
 Limite connue : GitHub peut retarder un déclenchement de quelques minutes (parfois davantage aux heures chargées).
 
 ## Fichier de référence officiel (décision du 27/10/2026)
