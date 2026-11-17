@@ -81,6 +81,14 @@ export const generatedImages = {
     "hash": "1gqdaaw",
     "generatedAt": "2026-10-21"
   },
+  "la-vae-pour-les-mamans-solos": {
+    "file": "/images/articles/la-vae-pour-les-mamans-solos.svg",
+    "motif": "people",
+    "secondary": "diploma",
+    "theme": "soleil",
+    "hash": "t8f9un",
+    "generatedAt": "2026-11-17"
+  },
   "la-vae-pour-les-personnes-migrantes": {
     "file": "/images/articles/la-vae-pour-les-personnes-migrantes.svg",
     "motif": "people",

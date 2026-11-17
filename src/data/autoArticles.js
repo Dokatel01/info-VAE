@@ -1020,5 +1020,109 @@ export const autoArticles = [
         "text": "Votre parcours, en France ou ailleurs, a de la valeur. La VAE offre une voie pour la faire reconnaître par un diplôme français, sans condition de nationalité. Le plus important est de bien choisir le diplôme, de rassembler des preuves et de vous faire accompagner. Un conseiller vous aidera à identifier les aides auxquelles vous avez droit."
       }
     ]
+  },
+  {
+    "slug": "la-vae-pour-les-mamans-solos",
+    "title": "La VAE pour les mamans solos",
+    "categories": [
+      "Pour qui"
+    ],
+    "excerpt": "Élever seule ses enfants, travailler, gérer le quotidien : quand on est une maman solo, le temps manque souvent et l’idée de reprendre des études paraît hors de portée. La validation des acquis de l’expérience (VAE) offre une autre voie : faire reconnaître par un diplôme ce que vous savez déjà faire, à votre rythme. Voici comment l’envisager concrètement.",
+    "summary": "Élever seule ses enfants, travailler, gérer le quotidien : quand on est une maman solo, le temps manque souvent et l’idée de reprendre des études paraît hors de portée. La validation des acquis de l’expérience (VAE) offre une autre voie : faire reconnaître par un diplôme ce que vous savez déjà faire, à votre rythme. Voici comment l’envisager concrètement.",
+    "updatedAt": "2026-11-17",
+    "author": "La Rédaction de Info-VAE",
+    "image": "/images/article-default.jpg",
+    "imageAlt": "",
+    "provisional": false,
+    "source": {
+      "sheetRow": 30,
+      "docId": "1qrc6Pl0HsoPnic4Tawao7p34MF7R_tLW",
+      "sheetStatus": "à intégrer"
+    },
+    "content": [
+      {
+        "type": "p",
+        "text": "Élever seule ses enfants, travailler, gérer le quotidien : quand on est une maman solo, le temps manque souvent et l’idée de reprendre des études paraît hors de portée. La validation des acquis de l’expérience (VAE) offre une autre voie : faire reconnaître par un diplôme ce que vous savez déjà faire, à votre rythme. Voici comment l’envisager concrètement."
+      },
+      {
+        "type": "h2",
+        "text": "Pourquoi la VAE convient bien aux emplois du temps contraints"
+      },
+      {
+        "type": "p",
+        "text": "Une VAE ne demande pas de suivre des cours à horaires fixes. Elle repose sur un dossier que vous rédigez à la maison, avec quelques rendez-vous d’accompagnement qui peuvent se faire par téléphone ou en visioconférence. Le seul moment qui impose un déplacement est généralement le passage devant le jury, bien que les modalités dépendent des certificateurs."
+      },
+      {
+        "type": "p",
+        "text": "Cette souplesse permet d’avancer par petites étapes : une situation de travail décrite par semaine, un justificatif retrouvé le week-end. Le parcours dure souvent entre six et huit mois, selon France VAE, ce qui laisse le temps de s’organiser."
+      },
+      {
+        "type": "h2",
+        "text": "Votre expérience compte, y compris en dehors de l’emploi"
+      },
+      {
+        "type": "p",
+        "text": "Selon Service-Public.gouv.fr, l’expérience prise en compte peut être professionnelle ou non : bénévolat, responsabilités syndicales, mandat électif, aide apportée à un proche. Il faut toutefois qu’elle soit en lien direct avec le diplôme visé. Si vous avez travaillé en crèche, en aide à domicile, en vente ou en secrétariat, ces expériences peuvent être valorisées. Si vous avez été bénévole dans une association de parents ou une structure d’accueil, elles peuvent aussi compter si les activités correspondent au référentiel."
+      },
+      {
+        "type": "p",
+        "text": "Les tâches du quotidien familial, à elles seules, ne constituent pas une qualification. Elles peuvent en revanche étayer certaines compétences quand elles ont un lien avec le diplôme, par exemple l’organisation ou la gestion de budget."
+      },
+      {
+        "type": "h2",
+        "text": "Les diplômes souvent choisis"
+      },
+      {
+        "type": "p",
+        "text": "Il n’existe pas de diplôme réservé aux mères seules. Beaucoup choisissent des certifications liées aux métiers de la petite enfance, du soin, de la vente ou de l’administration, mais tout dépend de votre expérience. Comparez vos activités avec celles décrites dans les fiches du Répertoire national des certifications professionnelles."
+      },
+      {
+        "type": "h2",
+        "text": "Comment financer sa VAE"
+      },
+      {
+        "type": "ul",
+        "items": [
+          "Le compte personnel de formation peut financer l’accompagnement et les frais de jury si le parcours est accompagné, avec une participation de 150 euros pour le titulaire, sauf exonération, notamment pour les demandeurs d’emploi.",
+          "L’employeur peut prendre en charge la VAE si vous êtes salariée.",
+          "Transitions Pro peut accorder un forfait de 2 000 euros, sans garantie, selon ses priorités.",
+          "Si vous êtes demandeuse d’emploi, France Travail et la Région peuvent apporter un soutien."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "France Travail a proposé par le passé une aide à la garde d’enfants pour les parents isolés qui reprennent un emploi ou une formation. Demandez à votre conseiller si une aide de ce type s’applique encore à votre situation."
+      },
+      {
+        "type": "h2",
+        "text": "Les conseils pour tenir dans la durée"
+      },
+      {
+        "type": "ol",
+        "items": [
+          "Fixez des créneaux courts et réguliers, par exemple deux soirées par semaine, plutôt que de rêver de grandes plages libres.",
+          "Avancez par blocs de compétences, pas dans l’ordre du dossier.",
+          "Sollicitez un accompagnateur proposant des rendez-vous à distance et en soirée.",
+          "Si vous êtes salariée, demandez le congé de VAE : jusqu’à 48 heures sont prévues par session d’évaluation, avec maintien de la rémunération.",
+          "Faites-vous aider par une personne de confiance pour relire votre dossier."
+        ]
+      },
+      {
+        "type": "h2",
+        "text": "À qui s’adresser"
+      },
+      {
+        "type": "p",
+        "text": "Un conseiller en évolution professionnelle vous reçoit gratuitement pour étudier votre projet. Un point relais conseil peut aussi vous guider si vous rencontrez des difficultés. Beaucoup de structures proposent des permanences ou des rendez-vous à distance."
+      },
+      {
+        "type": "h2",
+        "text": "Conclusion"
+      },
+      {
+        "type": "p",
+        "text": "Être maman solo ne ferme pas la porte de la VAE. Avec un diplôme bien choisi, un financement trouvé en amont et une organisation réaliste, il est possible de faire reconnaître votre expérience sans bouleverser votre quotidien. Faites un premier pas : prenez rendez-vous avec un conseiller."
+      }
+    ]
   }
 ];

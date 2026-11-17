@@ -24,5 +24,8 @@ export const autoLinkTargets = {
   ],
   "la-vae-pour-les-personnes-migrantes": [
     "La VAE pour les personnes migrantes"
+  ],
+  "la-vae-pour-les-mamans-solos": [
+    "La VAE pour les mamans solos"
   ]
 };
