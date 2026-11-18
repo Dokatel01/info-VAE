@@ -27,5 +27,8 @@ export const autoLinkTargets = {
   ],
   "la-vae-pour-les-mamans-solos": [
     "La VAE pour les mamans solos"
+  ],
+  "gerer-le-stress-pendant-une-vae": [
+    "Gérer le stress pendant une VAE"
   ]
 };

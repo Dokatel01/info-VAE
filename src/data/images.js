@@ -81,6 +81,14 @@ export const generatedImages = {
     "hash": "1gqdaaw",
     "generatedAt": "2026-10-21"
   },
+  "gerer-le-stress-pendant-une-vae": {
+    "file": "/images/articles/gerer-le-stress-pendant-une-vae.svg",
+    "motif": "steps",
+    "secondary": "jury",
+    "theme": "soleil",
+    "hash": "1ciitei",
+    "generatedAt": "2026-11-18"
+  },
   "la-vae-pour-les-mamans-solos": {
     "file": "/images/articles/la-vae-pour-les-mamans-solos.svg",
     "motif": "people",

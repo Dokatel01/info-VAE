@@ -1124,5 +1124,121 @@ export const autoArticles = [
         "text": "Être maman solo ne ferme pas la porte de la VAE. Avec un diplôme bien choisi, un financement trouvé en amont et une organisation réaliste, il est possible de faire reconnaître votre expérience sans bouleverser votre quotidien. Faites un premier pas : prenez rendez-vous avec un conseiller."
       }
     ]
+  },
+  {
+    "slug": "gerer-le-stress-pendant-une-vae",
+    "title": "Gérer le stress pendant une VAE",
+    "categories": [
+      "Etapes VAE"
+    ],
+    "excerpt": "Entre le travail, la vie de famille et la rédaction d’un dossier, la validation des acquis de l’expérience (VAE) peut devenir une source de pression. Doute sur ses capacités, peur du jury, impression de ne jamais avancer : ces ressentis sont fréquents et ne signifient pas que vous échouerez. Voici des repères et des méthodes simples pour garder le cap.",
+    "summary": "Entre le travail, la vie de famille et la rédaction d’un dossier, la validation des acquis de l’expérience (VAE) peut devenir une source de pression. Doute sur ses capacités, peur du jury, impression de ne jamais avancer : ces ressentis sont fréquents et ne signifient pas que vous échouerez. Voici des repères et des méthodes simples pour garder le cap.",
+    "updatedAt": "2026-11-18",
+    "author": "La Rédaction de Info-VAE",
+    "image": "/images/article-default.jpg",
+    "imageAlt": "",
+    "provisional": false,
+    "source": {
+      "sheetRow": 31,
+      "docId": "1Y2ZVjFMA9Xk5WCayP3khDYVb_fbp1XKq",
+      "sheetStatus": "à intégrer"
+    },
+    "content": [
+      {
+        "type": "p",
+        "text": "Entre le travail, la vie de famille et la rédaction d’un dossier, la validation des acquis de l’expérience (VAE) peut devenir une source de pression. Doute sur ses capacités, peur du jury, impression de ne jamais avancer : ces ressentis sont fréquents et ne signifient pas que vous échouerez. Voici des repères et des méthodes simples pour garder le cap."
+      },
+      {
+        "type": "h2",
+        "text": "D’où vient le stress en VAE"
+      },
+      {
+        "type": "p",
+        "text": "Plusieurs facteurs se cumulent. Le parcours est long, de six à huit mois pour certains diplômes selon France VAE, et il se mène en plus d’une activité. Écrire sur soi, parfois après des années sans rédaction, est inhabituel. Enfin, l’entretien avec le jury, qui dure généralement entre 20 et 40 minutes selon France Travail, cristallise les craintes."
+      },
+      {
+        "type": "p",
+        "text": "Sachez aussi que l’abandon est un phénomène connu : environ 30 % des candidats abandonnent entre la recevabilité et la certification, selon des chiffres cités par Via Compétences. Ne pas vous sentir seul face à cette difficulté est déjà un soulagement."
+      },
+      {
+        "type": "h2",
+        "text": "Découper pour avancer"
+      },
+      {
+        "type": "p",
+        "text": "Le dossier de validation paraît énorme tant qu’on le regarde dans son ensemble. Divisez-le."
+      },
+      {
+        "type": "ul",
+        "items": [
+          "Commencez par une seule situation de travail, la plus simple à raconter.",
+          "Fixez-vous un objectif par séance, comme une page ou un paragraphe, plutôt que « avancer sur le dossier ».",
+          "Tenez un tableau de suivi avec trois colonnes : à faire, en cours, terminé.",
+          "Planifiez vos créneaux dans l’agenda, comme un rendez-vous."
+        ]
+      },
+      {
+        "type": "h2",
+        "text": "S’appuyer sur son accompagnateur"
+      },
+      {
+        "type": "p",
+        "text": "L’accompagnement est facultatif, mais l’accompagnateur remplit un rôle moral en plus du rôle méthodologique et administratif : France VAE indique qu’il aide le candidat à rester motivé tout au long de la démarche. N’attendez pas d’être bloqué pour lui écrire. Dites-lui quand le rythme est trop lourd : il peut ajuster le calendrier ou vous aider à prioriser."
+      },
+      {
+        "type": "h2",
+        "text": "Préparer l’oral pour réduire l’inconnu"
+      },
+      {
+        "type": "p",
+        "text": "L’inconnu nourrit l’angoisse. Plus vous savez ce qui vous attend, moins elle pèse."
+      },
+      {
+        "type": "ol",
+        "items": [
+          "Renseignez-vous sur la composition du jury, composé de professionnels et d’enseignants selon France Travail.",
+          "Relisez votre dossier jusqu’à pouvoir en parler librement.",
+          "Faites un entretien blanc avec votre accompagnateur ou un proche.",
+          "Visitez le lieu à l’avance, ou testez la connexion si l’entretien est à distance."
+        ]
+      },
+      {
+        "type": "h2",
+        "text": "Gérer le jour J"
+      },
+      {
+        "type": "p",
+        "text": "Quelques gestes simples aident. Arrivez en avance, respirez calmement avant d’entrer et prenez le temps de réfléchir avant de répondre. Si une question vous échappe, demandez qu’on la reformule. Le jury est là pour vérifier vos compétences, pas pour vous piéger."
+      },
+      {
+        "type": "h2",
+        "text": "Protéger son équilibre"
+      },
+      {
+        "type": "ul",
+        "items": [
+          "Gardez des plages de repos et d’activités sans lien avec la VAE.",
+          "Dormez suffisamment, surtout la veille de l’oral.",
+          "Parlez de votre projet à un proche : l’expliquer clarifie aussi vos idées.",
+          "Si le stress devient envahissant, parlez-en à votre médecin ou à un professionnel de santé. La VAE peut attendre, votre santé non."
+        ]
+      },
+      {
+        "type": "h2",
+        "text": "Et si le résultat n’est pas celui espéré ?"
+      },
+      {
+        "type": "p",
+        "text": "Le jury peut prononcer une validation partielle ou un refus, mais cela ne signifie pas que votre expérience n’a pas de valeur. Une validation partielle indique les compétences à compléter. Vous pouvez aussi présenter une nouvelle demande, dans la limite d’une demande par certification et par année civile."
+      },
+      {
+        "type": "h2",
+        "text": "Conclusion"
+      },
+      {
+        "type": "p",
+        "text": "Le stress de la VAE est normal et se gère. En découpant le travail, en vous appuyant sur votre accompagnateur et en préparant l’oral, vous retrouvez de la maîtrise. N’hésitez pas à ralentir si nécessaire : un parcours mené sereinement a plus de chances d’aboutir."
+      }
+    ]
   }
 ];

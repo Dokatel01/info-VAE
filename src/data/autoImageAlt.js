@@ -10,5 +10,6 @@ export const autoPhotoAlt = {
   "peut-on-faire-une-vae-en-etant-auto-entrepreneur-ou-independant": "Sur le thème : Peut-on faire une VAE en étant auto-entrepreneur ou indépendant",
   "vae-dans-le-secteur-medico-social-diplomes-les-plus-demandes": "Sur le thème : VAE dans le secteur médico-social : diplômes les plus demandés",
   "la-vae-pour-les-personnes-migrantes": "Sur le thème : La VAE pour les personnes migrantes",
-  "la-vae-pour-les-mamans-solos": "Sur le thème : La VAE pour les mamans solos"
+  "la-vae-pour-les-mamans-solos": "Sur le thème : La VAE pour les mamans solos",
+  "gerer-le-stress-pendant-une-vae": "Sur le thème : Gérer le stress pendant une VAE"
 };
