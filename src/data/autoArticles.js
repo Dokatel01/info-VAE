@@ -1240,5 +1240,128 @@ export const autoArticles = [
         "text": "Le stress de la VAE est normal et se gère. En découpant le travail, en vous appuyant sur votre accompagnateur et en préparant l’oral, vous retrouvez de la maîtrise. N’hésitez pas à ralentir si nécessaire : un parcours mené sereinement a plus de chances d’aboutir."
       }
     ]
+  },
+  {
+    "slug": "le-livret-1-de-la-vae-petit-mais-costaud",
+    "title": "Le livret 1 de la VAE : petit mais costaud",
+    "categories": [
+      "Etapes VAE"
+    ],
+    "excerpt": "Dans la validation des acquis de l’expérience (VAE), le livret 1 a longtemps été l’étape que l’on expédie pour passer au « vrai » dossier. C’est une erreur : ce document décide de la suite du parcours. Aujourd’hui, on parle plutôt de dossier de faisabilité ou de dossier de recevabilité, mais la logique reste la même. Voici à quoi il sert et comment le réussir.",
+    "summary": "Dans la validation des acquis de l’expérience (VAE), le livret 1 a longtemps été l’étape que l’on expédie pour passer au « vrai » dossier. C’est une erreur : ce document décide de la suite du parcours. Aujourd’hui, on parle plutôt de dossier de faisabilité ou de dossier de recevabilité, mais la logique reste la même. Voici à quoi il sert et comment le réussir.",
+    "updatedAt": "2026-11-19",
+    "author": "La Rédaction de Info-VAE",
+    "image": "/images/article-default.jpg",
+    "imageAlt": "",
+    "provisional": false,
+    "source": {
+      "sheetRow": 32,
+      "docId": "1rZdxhUKYnAC3j7AZxPXqSj6MMQeAK6xH",
+      "sheetStatus": "à intégrer"
+    },
+    "content": [
+      {
+        "type": "p",
+        "text": "Dans la validation des acquis de l’expérience (VAE), le livret 1 a longtemps été l’étape que l’on expédie pour passer au « vrai » dossier. C’est une erreur : ce document décide de la suite du parcours. Aujourd’hui, on parle plutôt de dossier de faisabilité ou de dossier de recevabilité, mais la logique reste la même. Voici à quoi il sert et comment le réussir."
+      },
+      {
+        "type": "h2",
+        "text": "Livret 1, dossier de recevabilité, dossier de faisabilité : de quoi parle-t-on ?"
+      },
+      {
+        "type": "p",
+        "text": "Selon France Travail, le dossier de recevabilité est obligatoire. Il est remis à l’organisme certificateur, qui vérifie les conditions d’éligibilité et évalue la proximité entre vos compétences et la certification visée. Service-Public.gouv.fr le désigne sous le nom de dossier de faisabilité : il retrace votre parcours et le relie à la certification. Les termes diffèrent, mais il s’agit de la même étape, celle qu’on appelait autrefois le livret 1."
+      },
+      {
+        "type": "h2",
+        "text": "Son rôle : ouvrir ou fermer la porte"
+      },
+      {
+        "type": "p",
+        "text": "Le certificateur rend un avis de recevabilité ou d’irrecevabilité. Sans avis favorable, vous ne pouvez pas passer à l’étape suivante, le dossier de validation. Selon France VAE, le délai légal de réponse est de deux mois. Pour les titres professionnels, la plaquette de la DREETS Occitanie précise que l’absence de réponse dans ce délai vaut acceptation, sauf dérogation prévue par décret."
+      },
+      {
+        "type": "h2",
+        "text": "Ce qu’on y trouve"
+      },
+      {
+        "type": "p",
+        "text": "Le contenu précis dépend du certificateur, mais on retrouve généralement les mêmes grandes rubriques."
+      },
+      {
+        "type": "ul",
+        "items": [
+          "Votre identité et votre situation.",
+          "Le diplôme ou le titre visé.",
+          "Le récit de votre parcours : emplois, activités indépendantes, bénévolat.",
+          "La description des activités exercées en lien avec la certification.",
+          "Les justificatifs : contrats, bulletins de paie, attestations."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "Un arrêté publié au Journal officiel le 9 juillet 2025 a normalisé le dossier de faisabilité avec deux modèles, selon que le candidat est accompagné ou non, d’après Via Compétences."
+      },
+      {
+        "type": "h2",
+        "text": "Les erreurs à éviter"
+      },
+      {
+        "type": "h3",
+        "text": "Rester vague"
+      },
+      {
+        "type": "p",
+        "text": "Un parcours résumé à une liste d’employeurs ne permet pas d’apprécier la proximité avec le diplôme. Précisez ce que vous faisiez, avec quelle autonomie et quelle responsabilité."
+      },
+      {
+        "type": "h3",
+        "text": "Oublier le lien avec le référentiel"
+      },
+      {
+        "type": "p",
+        "text": "Reprenez les activités visées de la fiche de la certification et indiquez, pour chacune, où vous l’avez exercée. Plus le lien est visible, plus l’avis est favorable."
+      },
+      {
+        "type": "h3",
+        "text": "Négliger les justificatifs"
+      },
+      {
+        "type": "p",
+        "text": "Des pièces manquantes ou illisibles retardent l’instruction. Rassemblez-les à l’avance."
+      },
+      {
+        "type": "h3",
+        "text": "Déposer plusieurs demandes sans réfléchir"
+      },
+      {
+        "type": "p",
+        "text": "Selon Service-Public.gouv.fr, vous ne pouvez déposer qu’une seule demande par certification complète et par année civile, et trois demandes au maximum pour des certifications différentes la même année. Choisissez avec soin."
+      },
+      {
+        "type": "h2",
+        "text": "Se faire aider"
+      },
+      {
+        "type": "p",
+        "text": "L’accompagnateur peut transmettre le dossier de faisabilité au certificateur et vous aider à le rédiger. Cette aide est particulièrement utile si vous hésitez entre plusieurs diplômes. Vous pouvez aussi demander conseil à un point relais conseil ou à un conseiller en évolution professionnelle, gratuitement."
+      },
+      {
+        "type": "h2",
+        "text": "Après l’avis favorable"
+      },
+      {
+        "type": "p",
+        "text": "Une fois la recevabilité acquise, vous rédigez le dossier de validation, où vous décrivez de façon détaillée vos activités, situations et compétences. Puis vient le passage devant le jury, dans les trois mois suivant l’envoi du dossier."
+      },
+      {
+        "type": "h2",
+        "text": "Conclusion"
+      },
+      {
+        "type": "p",
+        "text": "Petit par sa taille, le dossier de faisabilité est costaud par ses conséquences : il conditionne tout le parcours. Prenez le temps de bien choisir votre diplôme, de relier votre expérience au référentiel et de réunir vos justificatifs. Ce travail sera réutilisé pour la suite."
+      }
+    ]
   }
 ];

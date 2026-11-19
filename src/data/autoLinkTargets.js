@@ -30,5 +30,8 @@ export const autoLinkTargets = {
   ],
   "gerer-le-stress-pendant-une-vae": [
     "Gérer le stress pendant une VAE"
+  ],
+  "le-livret-1-de-la-vae-petit-mais-costaud": [
+    "Le livret 1 de la VAE : petit mais costaud"
   ]
 };

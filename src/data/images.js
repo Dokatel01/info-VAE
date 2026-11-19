@@ -121,6 +121,14 @@ export const generatedImages = {
     "hash": "1ijjoff",
     "generatedAt": "2026-10-19"
   },
+  "le-livret-1-de-la-vae-petit-mais-costaud": {
+    "file": "/images/articles/le-livret-1-de-la-vae-petit-mais-costaud.svg",
+    "motif": "steps",
+    "secondary": "diploma",
+    "theme": "lagon",
+    "hash": "9ubeyq",
+    "generatedAt": "2026-11-19"
+  },
   "le-passage-devant-le-jury-pour-une-vae-deroulement-et-conseils-pratiques": {
     "file": "/images/articles/le-passage-devant-le-jury-pour-une-vae-deroulement-et-conseils-pratiques.svg",
     "motif": "jury",
