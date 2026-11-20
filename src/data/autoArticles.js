@@ -1363,5 +1363,108 @@ export const autoArticles = [
         "text": "Petit par sa taille, le dossier de faisabilité est costaud par ses conséquences : il conditionne tout le parcours. Prenez le temps de bien choisir votre diplôme, de relier votre expérience au référentiel et de réunir vos justificatifs. Ce travail sera réutilisé pour la suite."
       }
     ]
+  },
+  {
+    "slug": "faire-une-vae-sans-le-dire-a-ses-collegues-mission-discretion-activee",
+    "title": "Faire une VAE sans le dire à ses collègues : mission discrétion activée",
+    "categories": [
+      "VAE général"
+    ],
+    "excerpt": "Certains préfèrent avancer en silence : pas question que la rumeur circule avant d’avoir le diplôme en poche. Est-ce possible de mener une validation des acquis de l’expérience (VAE) en toute discrétion ? Oui, dans une large mesure, à condition de connaître les situations où l’employeur doit être informé. Voici les repères utiles.",
+    "summary": "Certains préfèrent avancer en silence : pas question que la rumeur circule avant d’avoir le diplôme en poche. Est-ce possible de mener une validation des acquis de l’expérience (VAE) en toute discrétion ? Oui, dans une large mesure, à condition de connaître les situations où l’employeur doit être informé. Voici les repères utiles.",
+    "updatedAt": "2026-11-20",
+    "author": "La Rédaction de Info-VAE",
+    "image": "/images/article-default.jpg",
+    "imageAlt": "",
+    "provisional": false,
+    "source": {
+      "sheetRow": 33,
+      "docId": "1m-qaO2k6p8tFbcfvZUbnyDGwidVAwOK3",
+      "sheetStatus": "à intégrer"
+    },
+    "content": [
+      {
+        "type": "p",
+        "text": "Certains préfèrent avancer en silence : pas question que la rumeur circule avant d’avoir le diplôme en poche. Est-ce possible de mener une validation des acquis de l’expérience (VAE) en toute discrétion ? Oui, dans une large mesure, à condition de connaître les situations où l’employeur doit être informé. Voici les repères utiles."
+      },
+      {
+        "type": "h2",
+        "text": "Aucune obligation générale d’en parler"
+      },
+      {
+        "type": "p",
+        "text": "La VAE est une démarche personnelle. Si vous la menez sur votre temps libre, rien dans les règles de la fiche Service-Public.gouv.fr ne vous oblige à en informer votre employeur ou vos collègues. Votre dossier est transmis au certificateur, pas à votre entreprise."
+      },
+      {
+        "type": "h2",
+        "text": "Les situations où l’employeur est concerné"
+      },
+      {
+        "type": "h3",
+        "text": "Le congé de VAE"
+      },
+      {
+        "type": "p",
+        "text": "Tout salarié peut demander un congé de VAE pour réaliser ses actions sur son temps de travail. Il dure jusqu’à 48 heures par session d’évaluation, extensibles par convention ou accord collectif. La demande est écrite, adressée à l’employeur au plus tard 30 jours avant le début des actions, et mentionne la certification visée, les dates, la nature et la durée des actions. Le document attestant de la recevabilité doit être joint. L’employeur répond par écrit dans les 15 jours calendaires ; son silence vaut accord. Il peut reporter le congé de un mois au maximum pour des raisons de service. La rémunération est maintenue."
+      },
+      {
+        "type": "p",
+        "text": "Si vous souhaitez rester discret, vous pouvez vous passer de ce congé et poser des jours de repos ou de congés ordinaires."
+      },
+      {
+        "type": "h3",
+        "text": "Le financement"
+      },
+      {
+        "type": "p",
+        "text": "Le compte personnel de formation peut être mobilisé à votre initiative, avec une participation de 150 euros pour le titulaire, sauf exonération. Si vous choisissez une prise en charge par l’employeur ou par l’opérateur de compétences, l’entreprise sera forcément informée. Le plus discret reste de financer par le compte personnel de formation en dehors du temps de travail."
+      },
+      {
+        "type": "h3",
+        "text": "Les justificatifs d’expérience"
+      },
+      {
+        "type": "p",
+        "text": "Une attestation d’employeur est parfois utile. Vous pouvez cependant vous appuyer sur d’autres pièces : bulletins de paie, contrats, fiches de poste, courriels professionnels dont vous avez le droit de conserver une copie. Respectez toujours les règles de confidentialité de votre entreprise : n’emportez pas de documents internes sans autorisation."
+      },
+      {
+        "type": "h2",
+        "text": "Comment garder la discrétion au quotidien"
+      },
+      {
+        "type": "ul",
+        "items": [
+          "Travaillez sur le dossier à votre domicile et sur du matériel personnel.",
+          "Choisissez un accompagnateur qui propose des rendez-vous à distance, en soirée.",
+          "Donnez un numéro de téléphone et une adresse électronique personnels pour les échanges avec le certificateur.",
+          "Prévoyez le jour du jury sur un congé ordinaire.",
+          "Prévenez une personne de confiance pour relire le dossier et vous soutenir."
+        ]
+      },
+      {
+        "type": "h2",
+        "text": "Les raisons d’en parler quand même"
+      },
+      {
+        "type": "p",
+        "text": "Parler de sa VAE à son employeur présente parfois un intérêt : financement par l’entreprise, congé payé de VAE, perspectives d’évolution. Certains employeurs encouragent la démarche. Mesurez votre situation : si votre hiérarchie est ouverte, un échange peut vous faire gagner du temps et de l’argent."
+      },
+      {
+        "type": "h2",
+        "text": "Après le diplôme"
+      },
+      {
+        "type": "p",
+        "text": "Rien ne vous oblige à annoncer le diplôme. Certaines conventions collectives prévoient toutefois des classifications ou des primes liées aux diplômes : renseignez-vous auprès de vos représentants du personnel ou du service des ressources humaines le moment venu."
+      },
+      {
+        "type": "h2",
+        "text": "Conclusion"
+      },
+      {
+        "type": "p",
+        "text": "Faire une VAE discrètement est possible tant que vous évitez le congé de VAE et les financements par l’entreprise. Chacun doit peser le pour et le contre. Dans tous les cas, restez prudent avec les documents internes et gardez des preuves de votre expérience qui ne compromettent pas votre employeur."
+      }
+    ]
   }
 ];

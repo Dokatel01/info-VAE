@@ -33,5 +33,8 @@ export const autoLinkTargets = {
   ],
   "le-livret-1-de-la-vae-petit-mais-costaud": [
     "Le livret 1 de la VAE : petit mais costaud"
+  ],
+  "faire-une-vae-sans-le-dire-a-ses-collegues-mission-discretion-activee": [
+    "Faire une VAE sans le dire à ses collègues : mission discrétion activée"
   ]
 };

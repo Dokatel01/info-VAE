@@ -73,6 +73,14 @@ export const generatedImages = {
     "hash": "1n679tw",
     "generatedAt": "2026-10-19"
   },
+  "faire-une-vae-sans-le-dire-a-ses-collegues-mission-discretion-activee": {
+    "file": "/images/articles/faire-une-vae-sans-le-dire-a-ses-collegues-mission-discretion-activee.svg",
+    "motif": "diploma",
+    "secondary": "checklist",
+    "theme": "lagon",
+    "hash": "1ke15i6",
+    "generatedAt": "2026-11-20"
+  },
   "faut-il-se-faire-accompagner-pour-sa-vae": {
     "file": "/images/articles/faut-il-se-faire-accompagner-pour-sa-vae.svg",
     "motif": "advisor",
