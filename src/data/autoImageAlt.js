@@ -13,5 +13,6 @@ export const autoPhotoAlt = {
   "la-vae-pour-les-mamans-solos": "Sur le thème : La VAE pour les mamans solos",
   "gerer-le-stress-pendant-une-vae": "Sur le thème : Gérer le stress pendant une VAE",
   "le-livret-1-de-la-vae-petit-mais-costaud": "Sur le thème : Le livret 1 de la VAE : petit mais costaud",
-  "faire-une-vae-sans-le-dire-a-ses-collegues-mission-discretion-activee": "Sur le thème : Faire une VAE sans le dire à ses collègues : mission discrétion activée"
+  "faire-une-vae-sans-le-dire-a-ses-collegues-mission-discretion-activee": "Sur le thème : Faire une VAE sans le dire à ses collègues : mission discrétion activée",
+  "la-vae-en-situation-de-handicap-se-faire-une-place-a-sa-facon": "Sur le thème : La VAE en situation de handicap : se faire une place, à sa façon"
 };

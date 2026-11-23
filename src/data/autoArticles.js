@@ -1466,5 +1466,116 @@ export const autoArticles = [
         "text": "Faire une VAE discrètement est possible tant que vous évitez le congé de VAE et les financements par l’entreprise. Chacun doit peser le pour et le contre. Dans tous les cas, restez prudent avec les documents internes et gardez des preuves de votre expérience qui ne compromettent pas votre employeur."
       }
     ]
+  },
+  {
+    "slug": "la-vae-en-situation-de-handicap-se-faire-une-place-a-sa-facon",
+    "title": "La VAE en situation de handicap : se faire une place, à sa façon",
+    "categories": [
+      "Pour qui"
+    ],
+    "excerpt": "Une situation de handicap n’empêche pas de faire reconnaître son expérience. La validation des acquis de l’expérience (VAE) est ouverte à toute personne justifiant d’une expérience en lien avec la certification visée, et des aménagements existent pour que le parcours reste accessible. Cet article fait le point sur les droits, les aides et les réflexes utiles.",
+    "summary": "Une situation de handicap n’empêche pas de faire reconnaître son expérience. La validation des acquis de l’expérience (VAE) est ouverte à toute personne justifiant d’une expérience en lien avec la certification visée, et des aménagements existent pour que le parcours reste accessible. Cet article fait le point sur les droits, les aides et les réflexes utiles.",
+    "updatedAt": "2026-11-23",
+    "author": "La Rédaction de Info-VAE",
+    "image": "/images/article-default.jpg",
+    "imageAlt": "",
+    "provisional": false,
+    "source": {
+      "sheetRow": 34,
+      "docId": "1Ss9xj4evjF55Tq7xk6lwfLSApCRhjNBR",
+      "sheetStatus": "à intégrer"
+    },
+    "content": [
+      {
+        "type": "p",
+        "text": "Une situation de handicap n’empêche pas de faire reconnaître son expérience. La validation des acquis de l’expérience (VAE) est ouverte à toute personne justifiant d’une expérience en lien avec la certification visée, et des aménagements existent pour que le parcours reste accessible. Cet article fait le point sur les droits, les aides et les réflexes utiles."
+      },
+      {
+        "type": "h2",
+        "text": "Un droit ouvert à tous"
+      },
+      {
+        "type": "p",
+        "text": "La VAE ne fixe pas de condition liée à la santé ou au handicap. Selon Service-Public.gouv.fr, toute personne peut y prétendre, quels que soient son âge, sa nationalité, son statut et son niveau de formation, dès lors qu’elle a acquis une expérience en rapport direct avec la certification visée. Depuis la loi du 21 décembre 2022, aucune durée minimale d’expérience n’est exigée au dépôt de la demande."
+      },
+      {
+        "type": "h2",
+        "text": "Les aménagements possibles"
+      },
+      {
+        "type": "p",
+        "text": "Les certificateurs doivent permettre l’accès des personnes en situation de handicap à leurs évaluations. Concrètement, les aménagements se discutent au cas par cas et peuvent porter sur :"
+      },
+      {
+        "type": "ul",
+        "items": [
+          "le temps supplémentaire pour rédiger le dossier ou répondre au jury ;",
+          "le recours à un interprète en langue des signes ou à un dispositif de transcription ;",
+          "l’accessibilité des locaux ou la tenue de l’entretien à distance ;",
+          "l’adaptation des supports, par exemple des documents en gros caractères."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "Signalez votre situation le plus tôt possible au certificateur et à votre accompagnateur, afin que les adaptations soient prévues bien avant l’entretien. Une pièce justificative, comme la reconnaissance de la qualité de travailleur handicapé, peut vous être demandée."
+      },
+      {
+        "type": "h2",
+        "text": "Des interlocuteurs spécialisés"
+      },
+      {
+        "type": "ul",
+        "items": [
+          "Les structures du réseau Cap emploi accompagnent les personnes handicapées dans leur projet professionnel.",
+          "Les Maisons départementales des personnes handicapées (MDPH) renseignent sur les droits et les aides.",
+          "L’Agefiph, pour le secteur privé, et le Fonds pour l’insertion des personnes handicapées dans la fonction publique (FIPHFP) peuvent apporter des financements ou des aides techniques selon la situation.",
+          "Les points relais conseil et les conseillers en évolution professionnelle, gratuits, peuvent vous orienter."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "Vérifiez auprès de ces organismes les aides actuellement disponibles, car elles évoluent."
+      },
+      {
+        "type": "h2",
+        "text": "Le financement"
+      },
+      {
+        "type": "p",
+        "text": "Les règles générales s’appliquent : compte personnel de formation, financement par l’employeur ou l’opérateur de compétences, soutien de France Travail ou de la Région pour les demandeurs d’emploi. Des financements complémentaires peuvent exister selon votre statut ; informez-vous auprès de Cap emploi ou de votre conseiller."
+      },
+      {
+        "type": "h2",
+        "text": "Bien choisir son accompagnement"
+      },
+      {
+        "type": "p",
+        "text": "Un accompagnateur habitué aux publics en situation de handicap peut faire la différence. Posez-lui des questions concrètes :"
+      },
+      {
+        "type": "ol",
+        "items": [
+          "Propose-t-il des rendez-vous à distance ou à domicile ?",
+          "Peut-il adapter le rythme du parcours ?",
+          "A-t-il déjà accompagné des candidats ayant des besoins similaires ?"
+        ]
+      },
+      {
+        "type": "h2",
+        "text": "Valoriser son parcours à sa façon"
+      },
+      {
+        "type": "p",
+        "text": "Votre expérience a pu se construire autrement : postes aménagés, temps partiel, missions adaptées, bénévolat. Tout cela compte tant que les activités correspondent au référentiel de la certification. Décrivez des situations concrètes, avec vos méthodes de travail, y compris les solutions que vous avez trouvées pour surmonter des obstacles : ce sont aussi des preuves de compétence."
+      },
+      {
+        "type": "h2",
+        "text": "Conclusion"
+      },
+      {
+        "type": "p",
+        "text": "Le handicap n’est pas un frein à la VAE, mais il demande d’anticiper. Parlez-en tôt, demandez les aménagements dont vous avez besoin, entourez-vous de structures spécialisées et avancez à votre rythme. Votre expérience mérite d’être reconnue."
+      }
+    ]
   }
 ];

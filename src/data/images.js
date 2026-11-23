@@ -97,6 +97,14 @@ export const generatedImages = {
     "hash": "1ciitei",
     "generatedAt": "2026-11-18"
   },
+  "la-vae-en-situation-de-handicap-se-faire-une-place-a-sa-facon": {
+    "file": "/images/articles/la-vae-en-situation-de-handicap-se-faire-une-place-a-sa-facon.svg",
+    "motif": "people",
+    "secondary": "diploma",
+    "theme": "ocean",
+    "hash": "tknei5",
+    "generatedAt": "2026-11-23"
+  },
   "la-vae-pour-les-mamans-solos": {
     "file": "/images/articles/la-vae-pour-les-mamans-solos.svg",
     "motif": "people",

@@ -36,5 +36,8 @@ export const autoLinkTargets = {
   ],
   "faire-une-vae-sans-le-dire-a-ses-collegues-mission-discretion-activee": [
     "Faire une VAE sans le dire à ses collègues : mission discrétion activée"
+  ],
+  "la-vae-en-situation-de-handicap-se-faire-une-place-a-sa-facon": [
+    "La VAE en situation de handicap : se faire une place, à sa façon"
   ]
 };
