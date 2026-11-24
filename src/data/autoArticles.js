@@ -1663,5 +1663,92 @@ export const autoArticles = [
         "text": "La VAE n’est pas interdite aux mineurs, mais elle suppose une expérience réelle et reconnue en lien avec le diplôme. Avant de vous lancer, contactez le certificateur et un conseiller : ils pourront confirmer les conditions applicables à votre situation, qui peuvent varier."
       }
     ]
+  },
+  {
+    "slug": "faire-une-vae-en-voyageant-le-combo-liberte-reconnaissance",
+    "title": "Faire une VAE en voyageant : le combo liberté + reconnaissance",
+    "categories": [
+      "VAE général"
+    ],
+    "excerpt": "Vivre à l’étranger, enchaîner les déplacements ou travailler en nomade n’empêche pas de faire reconnaître ses compétences. La validation des acquis de l’expérience (VAE) se prête bien à la mobilité, car l’essentiel du parcours se déroule par écrit et à distance. Voici comment concilier voyages et diplôme.",
+    "summary": "Vivre à l’étranger, enchaîner les déplacements ou travailler en nomade n’empêche pas de faire reconnaître ses compétences. La validation des acquis de l’expérience (VAE) se prête bien à la mobilité, car l’essentiel du parcours se déroule par écrit et à distance. Voici comment concilier voyages et diplôme.",
+    "updatedAt": "2026-11-25",
+    "author": "La Rédaction de Info-VAE",
+    "image": "/images/article-default.jpg",
+    "imageAlt": "",
+    "provisional": false,
+    "source": {
+      "sheetRow": 37,
+      "docId": "1DtzR4avb6B4YG6FSnNAbdD3jQH5ImglL",
+      "sheetStatus": "à intégrer"
+    },
+    "content": [
+      {
+        "type": "p",
+        "text": "Vivre à l’étranger, enchaîner les déplacements ou travailler en nomade n’empêche pas de faire reconnaître ses compétences. La validation des acquis de l’expérience (VAE) se prête bien à la mobilité, car l’essentiel du parcours se déroule par écrit et à distance. Voici comment concilier voyages et diplôme."
+      },
+      {
+        "type": "h2",
+        "text": "Ce qui peut se faire à distance"
+      },
+      {
+        "type": "p",
+        "text": "Le dossier de faisabilité, le dossier de validation et les échanges avec l’accompagnateur peuvent généralement se faire en ligne. Les démarches sont aujourd’hui centralisées sur la plateforme France VAE, qui permet de déposer sa demande et de suivre son parcours. Vous pouvez donc avancer depuis n’importe quel pays où vous avez une connexion stable."
+      },
+      {
+        "type": "p",
+        "text": "Le passage devant le jury est le point à vérifier. Certains certificateurs organisent l’entretien en présentiel, d’autres l’admettent en visioconférence. La réponse dépend de chacun : demandez-la avant de vous engager."
+      },
+      {
+        "type": "h2",
+        "text": "Quelle expérience peut être prise en compte ?"
+      },
+      {
+        "type": "p",
+        "text": "Une expérience acquise à l’étranger peut être valorisée si elle correspond aux activités de la certification visée. Il faut pouvoir la prouver : contrats, attestations d’employeurs, bulletins de paie. Les documents rédigés dans une langue étrangère peuvent nécessiter une traduction, selon les exigences du certificateur. Le travail indépendant, le bénévolat et les missions ponctuelles comptent aussi s’ils sont documentés."
+      },
+      {
+        "type": "h2",
+        "text": "Les points de vigilance"
+      },
+      {
+        "type": "ul",
+        "items": [
+          "Les décalages horaires compliquent les rendez-vous d’accompagnement : prévoyez des créneaux fixes et une flexibilité de part et d’autre.",
+          "Les délais légaux restent les mêmes : deux mois pour la réponse sur la recevabilité, et un jury qui doit se tenir dans les trois mois suivant l’envoi du dossier de validation.",
+          "Une même personne ne peut déposer qu’une demande par certification et par année civile, et trois au maximum pour des certifications différentes.",
+          "Conservez vos justificatifs en version numérique pour pouvoir les envoyer facilement."
+        ]
+      },
+      {
+        "type": "h2",
+        "text": "Comment s’organiser"
+      },
+      {
+        "type": "ol",
+        "items": [
+          "Choisissez avec le certificateur le mode d’entretien possible avant de commencer.",
+          "Sélectionnez un accompagnateur proposant des rendez-vous en visioconférence.",
+          "Planifiez le travail par petites étapes, adaptées à vos déplacements.",
+          "Gardez une marge de temps avant les échéances pour absorber les imprévus de voyage."
+        ]
+      },
+      {
+        "type": "h2",
+        "text": "Et le financement ?"
+      },
+      {
+        "type": "p",
+        "text": "Le compte personnel de formation reste utilisable depuis l’étranger pour financer l’accompagnement et les frais de jury, avec une participation de 150 euros pour le titulaire, sauf exonération. Vérifiez les conditions auprès de votre organisme de financement."
+      },
+      {
+        "type": "h2",
+        "text": "Conclusion"
+      },
+      {
+        "type": "p",
+        "text": "Voyager et faire une VAE sont compatibles, à condition d’anticiper les contraintes pratiques, surtout celles de l’entretien final. Avec une bonne organisation numérique et un accompagnement à distance, la reconnaissance de vos compétences peut accompagner vos déplacements."
+      }
+    ]
   }
 ];

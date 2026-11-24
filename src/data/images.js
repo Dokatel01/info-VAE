@@ -73,6 +73,14 @@ export const generatedImages = {
     "hash": "1n679tw",
     "generatedAt": "2026-10-19"
   },
+  "faire-une-vae-en-voyageant-le-combo-liberte-reconnaissance": {
+    "file": "/images/articles/faire-une-vae-en-voyageant-le-combo-liberte-reconnaissance.svg",
+    "motif": "diploma",
+    "secondary": "laptop",
+    "theme": "ocean",
+    "hash": "1p2gwmt",
+    "generatedAt": "2026-11-24"
+  },
   "faire-une-vae-sans-le-dire-a-ses-collegues-mission-discretion-activee": {
     "file": "/images/articles/faire-une-vae-sans-le-dire-a-ses-collegues-mission-discretion-activee.svg",
     "motif": "diploma",

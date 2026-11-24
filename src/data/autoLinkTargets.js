@@ -42,5 +42,8 @@ export const autoLinkTargets = {
   ],
   "la-vae-pour-les-mineurs-c-est-possible": [
     "La VAE pour les mineurs: c’est possible"
+  ],
+  "faire-une-vae-en-voyageant-le-combo-liberte-reconnaissance": [
+    "Faire une VAE en voyageant : le combo liberté + reconnaissance"
   ]
 };
