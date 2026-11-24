@@ -39,5 +39,8 @@ export const autoLinkTargets = {
   ],
   "la-vae-en-situation-de-handicap-se-faire-une-place-a-sa-facon": [
     "La VAE en situation de handicap : se faire une place, à sa façon"
+  ],
+  "la-vae-pour-les-mineurs-c-est-possible": [
+    "La VAE pour les mineurs: c’est possible"
   ]
 };

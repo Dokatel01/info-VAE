@@ -1577,5 +1577,91 @@ export const autoArticles = [
         "text": "Le handicap n’est pas un frein à la VAE, mais il demande d’anticiper. Parlez-en tôt, demandez les aménagements dont vous avez besoin, entourez-vous de structures spécialisées et avancez à votre rythme. Votre expérience mérite d’être reconnue."
       }
     ]
+  },
+  {
+    "slug": "la-vae-pour-les-mineurs-c-est-possible",
+    "title": "La VAE pour les mineurs: c’est possible",
+    "categories": [
+      "Pour qui"
+    ],
+    "excerpt": "La validation des acquis de l’expérience (VAE) est souvent associée aux adultes en reconversion. Qu’en est-il pour un jeune de moins de 18 ans ? Les textes officiels consultés ne fixent pas d’âge minimum pour la VAE, mais la réalité du terrain est plus nuancée. Voici ce qu’il faut savoir avant de se lancer.",
+    "summary": "La validation des acquis de l’expérience (VAE) est souvent associée aux adultes en reconversion. Qu’en est-il pour un jeune de moins de 18 ans ? Les textes officiels consultés ne fixent pas d’âge minimum pour la VAE, mais la réalité du terrain est plus nuancée. Voici ce qu’il faut savoir avant de se lancer.",
+    "updatedAt": "2026-11-24",
+    "author": "La Rédaction de Info-VAE",
+    "image": "/images/article-default.jpg",
+    "imageAlt": "",
+    "provisional": false,
+    "source": {
+      "sheetRow": 35,
+      "docId": "1zbJTHzKbUVmzRy1tr0L0hE2IilTCBJk3",
+      "sheetStatus": "à intégrer"
+    },
+    "content": [
+      {
+        "type": "p",
+        "text": "La validation des acquis de l’expérience (VAE) est souvent associée aux adultes en reconversion. Qu’en est-il pour un jeune de moins de 18 ans ? Les textes officiels consultés ne fixent pas d’âge minimum pour la VAE, mais la réalité du terrain est plus nuancée. Voici ce qu’il faut savoir avant de se lancer."
+      },
+      {
+        "type": "h2",
+        "text": "Ce que disent les règles"
+      },
+      {
+        "type": "p",
+        "text": "Selon Service-Public.gouv.fr, la VAE est ouverte à toute personne, quels que soient son âge, sa nationalité, son statut et son niveau de formation, à condition d’avoir acquis une expérience en lien direct avec la certification visée. Il n’existe donc pas, dans cette fiche, de limite d’âge inférieure. Depuis la loi du 21 décembre 2022, la durée minimale d’expérience n’est plus exigée."
+      },
+      {
+        "type": "p",
+        "text": "La question n’est donc pas tant celle de l’âge que celle de la nature de l’expérience : un mineur doit pouvoir justifier d’activités réelles, exercées dans un cadre légal, qui correspondent aux compétences de la certification."
+      },
+      {
+        "type": "h2",
+        "text": "Quelles expériences un mineur peut-il faire valoir ?"
+      },
+      {
+        "type": "p",
+        "text": "Le droit du travail encadre fortement l’emploi des jeunes. Un apprenti peut être embauché dès 15 ans sous conditions, et certains contrats ou stages sont possibles avant 18 ans. Peuvent aussi être prises en compte des activités bénévoles ou associatives, dans la mesure où elles correspondent au référentiel visé. Un mineur qui a exercé une activité encadrée, par exemple en apprentissage, en stage long ou dans une association, peut donc en théorie présenter son parcours."
+      },
+      {
+        "type": "p",
+        "text": "En pratique, l’expérience d’un mineur est souvent courte, et le certificateur évalue si elle est suffisante pour viser le diplôme demandé. C’est lui qui juge la recevabilité du dossier."
+      },
+      {
+        "type": "h2",
+        "text": "Les démarches à anticiper"
+      },
+      {
+        "type": "ol",
+        "items": [
+          "Choisissez une certification dont les activités correspondent à ce que vous avez réellement fait, en consultant les fiches du Répertoire national des certifications professionnelles.",
+          "Contactez le certificateur pour vérifier qu’il accepte une demande émanant d’un mineur et connaître les pièces à fournir.",
+          "Rapprochez-vous de votre représentant légal : certaines démarches, notamment la signature d’un contrat avec un accompagnateur, peuvent nécessiter son accord.",
+          "Réunissez vos justificatifs : contrat d’apprentissage, attestation de stage, attestation de bénévolat."
+        ]
+      },
+      {
+        "type": "h2",
+        "text": "Une VAE ou une autre voie ?"
+      },
+      {
+        "type": "p",
+        "text": "Pour un jeune encore en parcours scolaire, d’autres solutions existent : poursuivre sa formation initiale, passer par l’apprentissage ou préparer le diplôme en formation continue. La VAE vaut surtout lorsque l’expérience est déjà significative. Un conseiller d’orientation, par exemple au sein d’un centre d’information et d’orientation ou d’une mission locale, peut vous aider à choisir."
+      },
+      {
+        "type": "h2",
+        "text": "Le financement"
+      },
+      {
+        "type": "p",
+        "text": "Les modalités de financement dépendent de la situation du jeune. Renseignez-vous auprès du certificateur, de la mission locale ou de l’employeur pour savoir si un dispositif peut s’appliquer."
+      },
+      {
+        "type": "h2",
+        "text": "Conclusion"
+      },
+      {
+        "type": "p",
+        "text": "La VAE n’est pas interdite aux mineurs, mais elle suppose une expérience réelle et reconnue en lien avec le diplôme. Avant de vous lancer, contactez le certificateur et un conseiller : ils pourront confirmer les conditions applicables à votre situation, qui peuvent varier."
+      }
+    ]
   }
 ];

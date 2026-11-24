@@ -113,6 +113,14 @@ export const generatedImages = {
     "hash": "t8f9un",
     "generatedAt": "2026-11-17"
   },
+  "la-vae-pour-les-mineurs-c-est-possible": {
+    "file": "/images/articles/la-vae-pour-les-mineurs-c-est-possible.svg",
+    "motif": "people",
+    "secondary": "diploma",
+    "theme": "lagon",
+    "hash": "1dc7nep",
+    "generatedAt": "2026-11-24"
+  },
   "la-vae-pour-les-personnes-migrantes": {
     "file": "/images/articles/la-vae-pour-les-personnes-migrantes.svg",
     "motif": "people",
