@@ -16,5 +16,6 @@ export const autoPhotoAlt = {
   "faire-une-vae-sans-le-dire-a-ses-collegues-mission-discretion-activee": "Sur le thème : Faire une VAE sans le dire à ses collègues : mission discrétion activée",
   "la-vae-en-situation-de-handicap-se-faire-une-place-a-sa-facon": "Sur le thème : La VAE en situation de handicap : se faire une place, à sa façon",
   "la-vae-pour-les-mineurs-c-est-possible": "Sur le thème : La VAE pour les mineurs: c’est possible",
-  "faire-une-vae-en-voyageant-le-combo-liberte-reconnaissance": "Sur le thème : Faire une VAE en voyageant : le combo liberté + reconnaissance"
+  "faire-une-vae-en-voyageant-le-combo-liberte-reconnaissance": "Sur le thème : Faire une VAE en voyageant : le combo liberté + reconnaissance",
+  "vae-et-superstition-ca-peut-marcher": "Sur le thème : VAE et superstition : ça peut marcher"
 };

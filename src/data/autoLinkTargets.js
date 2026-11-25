@@ -45,5 +45,8 @@ export const autoLinkTargets = {
   ],
   "faire-une-vae-en-voyageant-le-combo-liberte-reconnaissance": [
     "Faire une VAE en voyageant : le combo liberté + reconnaissance"
+  ],
+  "vae-et-superstition-ca-peut-marcher": [
+    "VAE et superstition : ça peut marcher"
   ]
 };

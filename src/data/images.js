@@ -273,6 +273,14 @@ export const generatedImages = {
     "hash": "bkj9h6",
     "generatedAt": "2026-11-09"
   },
+  "vae-et-superstition-ca-peut-marcher": {
+    "file": "/images/articles/vae-et-superstition-ca-peut-marcher.svg",
+    "motif": "people",
+    "secondary": "jury",
+    "theme": "lagon",
+    "hash": "3rbdjg",
+    "generatedAt": "2026-11-25"
+  },
   "vae-ou-reprise-d-etudes-que-choisir": {
     "file": "/images/articles/vae-ou-reprise-d-etudes-que-choisir.svg",
     "motif": "diploma",

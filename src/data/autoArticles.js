@@ -1750,5 +1750,89 @@ export const autoArticles = [
         "text": "Voyager et faire une VAE sont compatibles, à condition d’anticiper les contraintes pratiques, surtout celles de l’entretien final. Avec une bonne organisation numérique et un accompagnement à distance, la reconnaissance de vos compétences peut accompagner vos déplacements."
       }
     ]
+  },
+  {
+    "slug": "vae-et-superstition-ca-peut-marcher",
+    "title": "VAE et superstition : ça peut marcher",
+    "categories": [
+      "VAE général"
+    ],
+    "excerpt": "Un porte-bonheur dans la poche, un vêtement fétiche pour le jour de l’oral, un petit rituel avant d’ouvrir le dossier : beaucoup de candidats à la validation des acquis de l’expérience (VAE) ont leurs habitudes. Ces rituels ont-ils un effet ? Ils ne remplacent pas la préparation, mais ils peuvent aider à gérer le stress. Éclairage.",
+    "summary": "Un porte-bonheur dans la poche, un vêtement fétiche pour le jour de l’oral, un petit rituel avant d’ouvrir le dossier : beaucoup de candidats à la validation des acquis de l’expérience (VAE) ont leurs habitudes. Ces rituels ont-ils un effet ? Ils ne remplacent pas la préparation, mais ils peuvent aider à gérer le stress. Éclairage.",
+    "updatedAt": "2026-11-26",
+    "author": "La Rédaction de Info-VAE",
+    "image": "/images/article-default.jpg",
+    "imageAlt": "",
+    "provisional": false,
+    "source": {
+      "sheetRow": 38,
+      "docId": "1jwjcrzAUK8lAB_c060_6JkVBFwfCaPEB",
+      "sheetStatus": "à intégrer"
+    },
+    "content": [
+      {
+        "type": "p",
+        "text": "Un porte-bonheur dans la poche, un vêtement fétiche pour le jour de l’oral, un petit rituel avant d’ouvrir le dossier : beaucoup de candidats à la validation des acquis de l’expérience (VAE) ont leurs habitudes. Ces rituels ont-ils un effet ? Ils ne remplacent pas la préparation, mais ils peuvent aider à gérer le stress. Éclairage."
+      },
+      {
+        "type": "h2",
+        "text": "Ce qui décide d’une validation"
+      },
+      {
+        "type": "p",
+        "text": "Un jury évalue des compétences, pas la chance du candidat. Selon France Travail, l’entretien dure généralement entre 20 et 40 minutes et s’appuie sur le dossier du candidat. Le jury, composé de professionnels et d’enseignants, vérifie que l’expérience décrite correspond bien à la certification visée. Ni un talisman ni une date favorable ne modifient cette évaluation."
+      },
+      {
+        "type": "h2",
+        "text": "Pourquoi les rituels aident quand même"
+      },
+      {
+        "type": "p",
+        "text": "Si l’on ne peut pas affirmer que la superstition influe sur le résultat, il est raisonnable de penser qu’un rituel rassurant peut apaiser l’anxiété avant un moment important. Se sentir en confiance aide à parler plus clairement et à mieux réfléchir. Ce raisonnement relève du bon sens, non d’une preuve établie dans les sources officielles consultées."
+      },
+      {
+        "type": "p",
+        "text": "Parmi les habitudes courantes :"
+      },
+      {
+        "type": "ul",
+        "items": [
+          "porter un vêtement dans lequel on se sent à l’aise ;",
+          "emporter un petit objet personnel ;",
+          "écouter un morceau qui met de bonne humeur avant l’entretien ;",
+          "prendre le même chemin ou le même petit-déjeuner que les jours où tout s’est bien passé."
+        ]
+      },
+      {
+        "type": "h2",
+        "text": "Les limites à ne pas dépasser"
+      },
+      {
+        "type": "p",
+        "text": "Un rituel devient un problème quand il remplace le travail ou quand il génère de l’angoisse en cas d’oubli. Si l’objet fétiche n’est pas là le jour J, cela ne doit pas changer votre prestation. Pour l’éviter, ayez toujours un rituel simple, que vous pouvez refaire n’importe où, comme respirer calmement avant d’entrer."
+      },
+      {
+        "type": "h2",
+        "text": "Ce qui compte vraiment"
+      },
+      {
+        "type": "ol",
+        "items": [
+          "Relire son dossier jusqu’à pouvoir en parler sans notes.",
+          "Préparer des exemples concrets pour chaque activité décrite.",
+          "S’entraîner avec son accompagnateur lors d’un entretien blanc.",
+          "Soigner l’organisation du jour J : trajet, horaires, connexion pour une visioconférence.",
+          "Dormir suffisamment la veille."
+        ]
+      },
+      {
+        "type": "h2",
+        "text": "Conclusion"
+      },
+      {
+        "type": "p",
+        "text": "La superstition n’a pas d’effet démontré sur la décision d’un jury, mais un rituel rassurant peut vous aider à aborder l’épreuve sereinement. Gardez-le comme un soutien, jamais comme une stratégie, et consacrez l’essentiel de votre énergie à la préparation de votre dossier et de votre oral."
+      }
+    ]
   }
 ];
