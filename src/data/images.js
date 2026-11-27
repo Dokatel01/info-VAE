@@ -81,6 +81,14 @@ export const generatedImages = {
     "hash": "1p2gwmt",
     "generatedAt": "2026-11-24"
   },
+  "faire-une-vae-quand-on-a-la-phobie-de-l-ecran": {
+    "file": "/images/articles/faire-une-vae-quand-on-a-la-phobie-de-l-ecran.svg",
+    "motif": "laptop",
+    "secondary": "diploma",
+    "theme": "ocean",
+    "hash": "122eds5",
+    "generatedAt": "2026-11-27"
+  },
   "faire-une-vae-sans-le-dire-a-ses-collegues-mission-discretion-activee": {
     "file": "/images/articles/faire-une-vae-sans-le-dire-a-ses-collegues-mission-discretion-activee.svg",
     "motif": "diploma",

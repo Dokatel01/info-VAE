@@ -1834,5 +1834,93 @@ export const autoArticles = [
         "text": "La superstition n’a pas d’effet démontré sur la décision d’un jury, mais un rituel rassurant peut vous aider à aborder l’épreuve sereinement. Gardez-le comme un soutien, jamais comme une stratégie, et consacrez l’essentiel de votre énergie à la préparation de votre dossier et de votre oral."
       }
     ]
+  },
+  {
+    "slug": "faire-une-vae-quand-on-a-la-phobie-de-l-ecran",
+    "title": "Faire une VAE quand on a la phobie de l’écran",
+    "categories": [
+      "VAE général"
+    ],
+    "excerpt": "Dossier numérique, plateforme en ligne, rendez-vous en visioconférence : la validation des acquis de l’expérience (VAE) s’est beaucoup numérisée. Pour une personne mal à l’aise avec les écrans, cette évolution peut inquiéter. Rassurez-vous : des solutions existent pour avancer sans subir la technique.",
+    "summary": "Dossier numérique, plateforme en ligne, rendez-vous en visioconférence : la validation des acquis de l’expérience (VAE) s’est beaucoup numérisée. Pour une personne mal à l’aise avec les écrans, cette évolution peut inquiéter. Rassurez-vous : des solutions existent pour avancer sans subir la technique.",
+    "updatedAt": "2026-11-27",
+    "author": "La Rédaction de Info-VAE",
+    "image": "/images/article-default.jpg",
+    "imageAlt": "",
+    "provisional": false,
+    "source": {
+      "sheetRow": 38,
+      "docId": "1FRMZH16_9vtFPBp_GVQH20BxH98HMq5w",
+      "sheetStatus": "à intégrer"
+    },
+    "content": [
+      {
+        "type": "p",
+        "text": "Dossier numérique, plateforme en ligne, rendez-vous en visioconférence : la validation des acquis de l’expérience (VAE) s’est beaucoup numérisée. Pour une personne mal à l’aise avec les écrans, cette évolution peut inquiéter. Rassurez-vous : des solutions existent pour avancer sans subir la technique."
+      },
+      {
+        "type": "h2",
+        "text": "Ce qui passe par le numérique"
+      },
+      {
+        "type": "p",
+        "text": "Les démarches sont aujourd’hui centralisées sur la plateforme France VAE, qui permet de trouver sa certification, de déposer sa demande et de suivre son parcours. Le dossier de faisabilité, le dossier de validation et les échanges avec l’accompagnateur se font souvent en ligne. Certains jurys se tiennent aussi à distance. En revanche, la VAE n’est pas une épreuve informatique : ce qui est évalué, c’est votre expérience, pas votre aisance avec les outils."
+      },
+      {
+        "type": "h2",
+        "text": "Se faire aider pour les démarches en ligne"
+      },
+      {
+        "type": "ul",
+        "items": [
+          "Les points relais conseil et les conseillers en évolution professionnelle, gratuits, peuvent vous accompagner dans l’utilisation de la plateforme.",
+          "Les structures d’accueil de proximité, comme les espaces France Services, aident à réaliser des démarches administratives en ligne.",
+          "Un proche de confiance peut vous épauler pour la création du compte et la première connexion.",
+          "Votre accompagnateur peut vous aider à organiser les échanges de documents."
+        ]
+      },
+      {
+        "type": "h2",
+        "text": "Réduire la place de l’écran dans le travail d’écriture"
+      },
+      {
+        "type": "p",
+        "text": "Le dossier peut se préparer en grande partie sur papier. Notez d’abord vos situations de travail dans un cahier, puis ne passez à l’ordinateur que pour la saisie finale. Vous pouvez aussi dicter vos idées à un proche ou à l’aide d’un enregistrement, avant de les mettre en forme. Demandez à votre accompagnateur si le certificateur accepte des documents transmis sous une autre forme."
+      },
+      {
+        "type": "h2",
+        "text": "Préparer un entretien en visioconférence"
+      },
+      {
+        "type": "p",
+        "text": "Si le jury a lieu à distance, un entraînement réduit beaucoup l’appréhension."
+      },
+      {
+        "type": "ol",
+        "items": [
+          "Testez la connexion, la caméra et le micro la veille.",
+          "Faites un entretien blanc en visioconférence avec votre accompagnateur.",
+          "Placez-vous dans une pièce calme, avec une lumière devant vous.",
+          "Ayez à portée de main votre dossier imprimé et un verre d’eau.",
+          "Demandez au certificateur si un entretien en présentiel est possible, si l’écran vous bloque vraiment."
+        ]
+      },
+      {
+        "type": "h2",
+        "text": "Si l’appréhension est forte"
+      },
+      {
+        "type": "p",
+        "text": "Une gêne importante face aux outils numériques ou à l’image de soi n’est pas rare. N’hésitez pas à en parler à votre accompagnateur et, si nécessaire, à un professionnel de santé. Vous avez le droit de demander un aménagement raisonnable."
+      },
+      {
+        "type": "h2",
+        "text": "Conclusion"
+      },
+      {
+        "type": "p",
+        "text": "La VAE valorise ce que vous savez faire, pas ce que vous savez cliquer. En vous faisant aider pour les démarches en ligne, en travaillant sur papier quand c’est plus confortable et en vous entraînant à l’entretien, vous pouvez mener votre parcours sans que l’écran devienne un obstacle."
+      }
+    ]
   }
 ];

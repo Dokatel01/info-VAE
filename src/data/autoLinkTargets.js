@@ -48,5 +48,8 @@ export const autoLinkTargets = {
   ],
   "vae-et-superstition-ca-peut-marcher": [
     "VAE et superstition : ça peut marcher"
+  ],
+  "faire-une-vae-quand-on-a-la-phobie-de-l-ecran": [
+    "Faire une VAE quand on a la phobie de l’écran"
   ]
 };
